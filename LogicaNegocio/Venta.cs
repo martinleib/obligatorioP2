@@ -19,7 +19,6 @@ namespace LogicaNegocio
         public Venta(string nombre, string estado, DateTime fechaFinalizacion, Cliente comprador, Cliente finalizador, bool relampago):base(nombre, estado, fechaFinalizacion, comprador, finalizador)
         {
             this._relampago = relampago;
-            this._finalizador = finalizador;
             this._id = $"VEN{s_ultimoID + 1}";
         }
 
