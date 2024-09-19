@@ -286,6 +286,43 @@ namespace LogicaNegocio
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null,);
         }
 
-        
+        /* Esto tiene que ir en Program.cs
+        Lo anoto aca para no olvidarme porque ya se que sino me voy a olvidar
+
+        public void CrearVenta()
+        {
+            string nombre;
+            string estado;
+            string relampagoString;
+            bool relampago;
+
+            Console.WriteLine("Ingrese nombre de la publicacion");
+            nombre = Console.ReadLine();
+            Console.WriteLine("Ingrese estado de la publicacion");
+            estado = Console.ReadLine();
+            Console.WriteLine("Es una venta relampago, ingrese 'si' o 'no'");
+            relampagoString = Console.ReadLine();
+
+            if (relampagoString.ToLower() == "si")
+            {
+                relampago = true;
+            } else
+            {
+                relampago = false;
+            }
+
+            DateTime fechaFinalizacion = DateTime.MinValue;
+            Cliente comprador = null;
+            Cliente finalizador = null;
+
+            Venta venta = new Venta(
+                nombre,
+                estado,
+                fechaFinalizacion,
+                comprador,
+                finalizador,
+                relampago);
+        }
+        */
     }
 }
