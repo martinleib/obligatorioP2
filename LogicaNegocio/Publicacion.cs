@@ -39,13 +39,20 @@ namespace LogicaNegocio
             this._articulos = articulos;
         }
 
-        public List<Articulo> AgregarArticulo(Articulo articulo)
+        public void AgregarArticulo(Articulo articulo)
         {
             if(articulo != null && !_articulos.Contains(articulo))
             {
                 _articulos.Add(articulo);
             }
-            return _articulos;
+        }
+
+        public List<Articulo> Articulo
+        {
+            get
+            {
+                return this._articulos;
+            }
         }
 
         public string Estado
