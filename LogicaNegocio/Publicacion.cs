@@ -32,7 +32,7 @@ namespace LogicaNegocio
         {
             this._nombre = nombre;
             this._estado = estado;
-            this._fechaPublicacion = DateTime.Now;
+            this._fechaPublicacion = fechaPublicacion;
             this._fechaFinalizacion = fechaFinalizacion;
             this._comprador = comprador;
             this._finalizador = finalizador;
