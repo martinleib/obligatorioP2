@@ -9,9 +9,6 @@ namespace LogicaNegocio
 {
     public class Venta:Publicacion
     {
-        private string _id;
-        private static int s_ultimoID = 1;
-
         // En una venta el usuario comprador y el que la finaliza es la misma persona.
         // Una subasta es adjudicada a una persona, pero solo un administrador la puede cerrar.
         private Cliente _finalizador;
@@ -21,7 +18,6 @@ namespace LogicaNegocio
 
         {
             this._relampago = relampago;
-            this._id = $"VEN{s_ultimoID + 1}";
         }
 
         public bool Relampago
