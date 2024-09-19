@@ -235,32 +235,32 @@ namespace LogicaNegocio
             AgregarArticulo(160, "Mueble de TV", "Muebles");
         }
 
-        public List<Articulo> AgregarArticulo(Articulo articulo)
+        /*public List<Articulo> MostrarArticulos(Articulo articulo)
         {
 
         }
 
         private void PrecargarPublicacionVenta()
         {
-            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(2024, 11, 20), null, null, AgregarArticulo(), true);
+            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(2024, 11, 20), null, null, MostrarArticulos(), true);
 
-            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), new DateTime(2024, 9, 15), null, null, AgregarArticulo(), false);
+            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), new DateTime(2024, 9, 15), null, null, MostrarArticulos(), false);
 
-            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), new DateTime(2024, 12, 5), null, null, AgregarArticulo(), true);
+            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), new DateTime(2024, 12, 5), null, null, MostrarArticulos(), true);
 
-            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), new DateTime(2024, 10, 1), null, null, AgregarArticulo(), false);
+            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), new DateTime(2024, 10, 1), null, null, MostrarArticulos(), false);
 
-            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), new DateTime(2024, 11, 30), null, null, AgregarArticulo(), true);
+            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), new DateTime(2024, 11, 30), null, null, MostrarArticulos(), true);
 
-            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 8, 18), null, null, AgregarArticulo(), false);
+            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 8, 18), null, null, MostrarArticulos(), false);
 
-            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), new DateTime(2024, 9, 25), null, null, AgregarArticulo(), true);
+            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), new DateTime(2024, 9, 25), null, null, MostrarArticulos(), true);
 
-            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 12, 12), null, null, AgregarArticulo(), true);
+            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 12, 12), null, null, MostrarArticulos(), true);
 
-            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), new DateTime(2024, 10, 30), null, null, AgregarArticulo(), false);
+            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), new DateTime(2024, 10, 30), null, null, MostrarArticulos(), false);
 
-            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, AgregarArticulo(), true);
+            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, MostrarArticulos(), true);
         }
 
         private void PrecargaPublicacionSubasta()
@@ -284,7 +284,7 @@ namespace LogicaNegocio
             AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), new DateTime(2024, 10, 25), null, null,);
 
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null,);
-        }
+        }*/
 
         /* Esto tiene que ir en Program.cs
         Lo anoto aca para no olvidarme porque ya se que sino me voy a olvidar
