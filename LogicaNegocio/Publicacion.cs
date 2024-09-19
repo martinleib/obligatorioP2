@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio
 {
-    internal abstract class Publicacion
+    public abstract class Publicacion
     {
         private string _nombre;
 

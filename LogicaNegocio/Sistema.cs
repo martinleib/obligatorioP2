@@ -7,5 +7,10 @@
         
         // Subastas y ofertas heredan de Publiaciones
         private List<Publicacion>_publicaciones = new List<Publicacion>();
+
+        // public void CrearVenta()
+        // {
+
+        // }
     }
 }

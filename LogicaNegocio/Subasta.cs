@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LogicaNegocio
 {
     // Subasta hereda de Publicacion
-    internal class Subasta:Publicacion
+    public class Subasta:Publicacion
     {
         private string _id;
         private static int s_ultimoID = 1;
