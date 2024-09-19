@@ -8,6 +8,9 @@ namespace LogicaNegocio
 {
     public abstract class Publicacion
     {
+        private string _id;
+        private static int s_ultimoID = 1;
+
         private string _nombre;
 
         // Estado puede ser: ABIERTA, CANCELADA, CERRADA
@@ -30,6 +33,7 @@ namespace LogicaNegocio
 
         public Publicacion(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
         {
+            this._id = $"PUB{s_ultimoID + 1}";
             this._nombre = nombre;
             this._estado = estado;
             this._fechaPublicacion = DateTime.Now;
