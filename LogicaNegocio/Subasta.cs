@@ -12,10 +12,10 @@ namespace LogicaNegocio
         private string _id;
         private static int s_ultimoID = 1;
         private List<Oferta>_ofertas = new List<Oferta>();
-        public Subasta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Oferta> _ofertas) : base(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador)
+        public Subasta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Administrador finalizador, List<Oferta> ofertas) : base(nombre, estado, fechaFinalizacion, comprador, finalizador)
         {
             this._id = $"SUB{s_ultimoID + 1}";
-            this._ofertas = _ofertas;
+            this._ofertas = ofertas;
         }
     }
 }
