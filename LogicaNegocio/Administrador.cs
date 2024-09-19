@@ -10,7 +10,6 @@ namespace LogicaNegocio
     {
         private string _id;
         private static int s_ultimoID = 1;
-
         public Administrador(string nombre, string apellido, string email, string password):base(nombre, apellido, email, password)
         {
             // El ID se veria: ADMIN01, ADMIN02, etc...

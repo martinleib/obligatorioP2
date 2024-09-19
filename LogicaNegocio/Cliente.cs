@@ -14,6 +14,12 @@ namespace LogicaNegocio
         // Saldo disponible
         private double _saldo;
 
+        public double Saldo
+        {
+            get { return _saldo; }
+        }
+
+
         public Cliente(string nombre, string apellido, string email, string password, double saldo):base(nombre, apellido, email, password)
         {
             this._saldo = saldo;
