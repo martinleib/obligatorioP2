@@ -12,9 +12,9 @@ namespace LogicaNegocio
         private string _apellido;
         private string _email;
         private string _password;
-        public string Contraseña
+        public string Email
         {
-            get { return _password; }
+            get { return _email; }
         }
 
 
