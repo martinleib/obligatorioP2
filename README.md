@@ -9,7 +9,7 @@
 - Precarga de datos
   
 ### Semana del 23/9 al 29/9
-- Implementación de las funcionalidades de:
+Implementación de las funcionalidades de:
 - Listado de todos los clientes.
 - Dado un nombre de categoría listar todos los artículos de esa categoría.
 - Alta de artículo. (esta funcionalidad puede ya tener algo de implementación realizada en
