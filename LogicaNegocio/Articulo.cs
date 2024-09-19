@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio
 {
-    internal class Articulo
+    public class Articulo
     {
         private string _id;
         private static int s_ultimoID = 1;

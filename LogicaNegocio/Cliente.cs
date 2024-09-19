@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio
 {
-    internal class Cliente:Usuario
+    public class Cliente:Usuario
     {
         private string _id;
         private static int s_ultimoID = 1;
 
         // Saldo disponible
         private double _saldo;
+
+        public double Saldo
+        {
+            get { return _saldo; }
+        }
+
 
         public Cliente(string nombre, string apellido, string email, string password, double saldo):base(nombre, apellido, email, password)
         {

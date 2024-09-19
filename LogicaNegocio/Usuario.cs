@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio
 {
-    internal abstract class Usuario
+    public abstract class Usuario
     {
         private string _nombre;
         private string _apellido;
         private string _email;
         private string _password;
+        public string Contraseña
+        {
+            get { return _password; }
+        }
+
 
         public Usuario(string nombre, string apellido, string email, string password)
         {
