@@ -288,6 +288,10 @@ namespace LogicaNegocio
             AgregarArticulo(130, "Cortinas", "Textiles");
 
             AgregarArticulo(160, "Mueble de TV", "Muebles");
+        }
+
+        // Esto tiene que ir en Program.cs
+        // Lo anoto aca para no olvidarme porque ya se que sino me voy a olvidar
 
         public void CrearVenta()
         {
