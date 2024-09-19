@@ -1,8 +1,11 @@
-﻿namespace LogicaNegocio
+﻿using System.Collections.Generic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace LogicaNegocio
 {
     public class Sistema
     {
-        /// Cliente hereda de Usuario
+        /// Cliente y administrador heredan de Usuario
         private List<Usuario>_usuarios = new List<Usuario>();
         
         // Subastas y ofertas heredan de Publiaciones
@@ -289,6 +292,7 @@
 
         // Esto tiene que ir en Program.cs
         // Lo anoto aca para no olvidarme porque ya se que sino me voy a olvidar
+
         public void CrearVenta()
         {
             string nombre;
