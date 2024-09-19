@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio
 {
-    public abstract class Usuario
+    public abstract class Usuario:IEquatable<Usuario>
     {
         private string _nombre;
         private string _apellido;
@@ -19,6 +19,10 @@ namespace LogicaNegocio
             this._apellido = apellido;
             this._email = email;
             this._password = password;
+        }
+        public bool Equals(Usuario? other)
+        {
+            return _email.Equals(other._email);
         }
     }
 }
