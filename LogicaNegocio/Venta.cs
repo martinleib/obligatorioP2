@@ -17,7 +17,8 @@ namespace LogicaNegocio
         private Cliente _finalizador;
         private bool _relampago;
 
-        public Venta(string nombre, string estado, DateTime fechaFinalizacion, Cliente comprador, Cliente finalizador, bool relampago):base(nombre, estado, fechaFinalizacion, comprador, finalizador)
+        public Venta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador,List<Articulo> articulos, bool relampago):base(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, articulos)
+
         {
             this._relampago = relampago;
             this._id = $"VEN{s_ultimoID + 1}";

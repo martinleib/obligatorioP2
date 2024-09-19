@@ -22,13 +22,13 @@ namespace LogicaNegocio
             }
         }
 
-        /*public Usuario BuscarUsuarioAdministrador(string password)
+        /*public Administrador BuscarUsuarioAdministrador(string email)
         {
             int i = 0;
-            Usuario usuarioAdmin = null;
+            Administrador usuarioAdmin = null;
             while (i < _usuarios.Count && usuarioAdmin == null)
             {
-                if (_usuarios[i].Contraseña == password && _usuarios[i] is Administrador)
+                if (_usuarios[i].Email == email && _usuarios[i] is Administrador)
                 {
                     usuarioAdmin = _usuarios[i];
                 }
@@ -37,13 +37,13 @@ namespace LogicaNegocio
             return usuarioAdmin;
         }*/
 
-        /*public Usuario BuscarUsuarioCliente(string password)
+        /*public Cliente BuscarUsuarioCliente(string emial)
         {
             int i = 0;
-            Usuario usuarioCliente = null;
+            Cliente usuarioCliente = null;
             while (i < _usuarios.Count && usuarioCliente == null)
             {
-                if (_usuarios[i].Contraseña == password && _usuarios[i] is Cliente)
+                if (_usuarios[i].Email == email && _usuarios[i] is Cliente)
                 {
                     usuarioCliente = _usuarios[i];
                 }
@@ -62,13 +62,13 @@ namespace LogicaNegocio
             }
         }
 
-        public Usuario BuscarUsuario(string password)
+        public Usuario BuscarUsuario(string email)
         {
             int i = 0;
             Usuario usuario = null;
             while (i < _usuarios.Count && usuario == null)
             {
-                if (_usuarios[i].Contraseña == password)
+                if (_usuarios[i].Email == email)
                 {
                     usuario = _usuarios[i];
                 }
@@ -76,18 +76,18 @@ namespace LogicaNegocio
             }
             return usuario;
         }
-        public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, bool relampago)
+        public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, bool relampago)
         {
-            Venta venta = new Venta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, relampago);
+            Venta venta = new Venta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador,articulos, relampago);
             if (!_publicaciones.Contains(venta))
             {
                 _publicaciones.Add(venta);
             }
         }
 
-        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Oferta> ofertas)
+        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, List<Oferta> ofertas)
         {
-            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, ofertas);
+            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador,articulos, ofertas);
             if (!_publicaciones.Contains(subasta))
             {
                 _publicaciones.Add(subasta);
@@ -100,15 +100,6 @@ namespace LogicaNegocio
             if (!_articulos.Contains(articulo))
             {
                 _articulos.Add(articulo);
-            }
-        }
-
-        public void AgregarLaOfertaALaPrecarga(string password)
-        {
-            Usuario usuarioBuscado = BuscarUsuario(password);
-            if(usuarioBuscado != null)
-            {
-
             }
         }
 
@@ -139,52 +130,6 @@ namespace LogicaNegocio
             AltaUsuarioCliente("Lucía", "Vasquez", "LuciaV1989@gmail.com", "LuciaV707", 2300);
 
             AltaUsuarioCliente("Andrés", "Pérez", "AndresP2005@gmail.com", "AndresP808", 2900);
-        }
-
-        private void PrecargarPublicacionVenta()
-        {
-            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(2024, 11, 20), null, null, true);
-
-            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), new DateTime(2024, 9, 15), null, null, false);
-
-            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), new DateTime(2024, 12, 5), null, null, true);
-
-            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), new DateTime(2024, 10, 1), null, null, false);
-
-            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), new DateTime(2024, 11, 30), null, null, true);
-
-            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 8, 18), null, null, false);
-
-            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), new DateTime(2024, 9, 25), null, null, true);
-
-            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 12, 12), null, null, true);
-
-            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), new DateTime(2024, 10, 30), null, null, false);
-
-            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, true);
-        }
-
-        private void PrecargaPublicacionSubasta()
-        {
-            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(2024, 12, 10), null, null,);
-
-            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), new DateTime(2024, 11, 20), null, null,);
-
-            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 9, 30), null, null,);
-
-            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 10, 15), null, null,);
-
-            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), new DateTime(2024, 8, 25), null, null,);
-
-            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), new DateTime(2024, 11, 5), null, null,);
-
-            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), new DateTime(2024, 9, 5), null, null,);
-
-            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), new DateTime(2024, 12, 1), null, null,);
-
-            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), new DateTime(2024, 10, 25), null, null,);
-
-            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null,);
         }
 
         private void PrecargaArticulo()
@@ -290,8 +235,59 @@ namespace LogicaNegocio
             AgregarArticulo(160, "Mueble de TV", "Muebles");
         }
 
-        // Esto tiene que ir en Program.cs
-        // Lo anoto aca para no olvidarme porque ya se que sino me voy a olvidar
+        public List<Articulo> AgregarArticulo(Articulo articulo)
+        {
+
+        }
+
+        private void PrecargarPublicacionVenta()
+        {
+            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(2024, 11, 20), null, null, AgregarArticulo(), true);
+
+            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), new DateTime(2024, 9, 15), null, null, AgregarArticulo(), false);
+
+            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), new DateTime(2024, 12, 5), null, null, AgregarArticulo(), true);
+
+            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), new DateTime(2024, 10, 1), null, null, AgregarArticulo(), false);
+
+            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), new DateTime(2024, 11, 30), null, null, AgregarArticulo(), true);
+
+            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 8, 18), null, null, AgregarArticulo(), false);
+
+            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), new DateTime(2024, 9, 25), null, null, AgregarArticulo(), true);
+
+            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 12, 12), null, null, AgregarArticulo(), true);
+
+            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), new DateTime(2024, 10, 30), null, null, AgregarArticulo(), false);
+
+            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, AgregarArticulo(), true);
+        }
+
+        private void PrecargaPublicacionSubasta()
+        {
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(2024, 12, 10), null, null,);
+
+            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), new DateTime(2024, 11, 20), null, null,);
+
+            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 9, 30), null, null,);
+
+            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 10, 15), null, null,);
+
+            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), new DateTime(2024, 8, 25), null, null,);
+
+            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), new DateTime(2024, 11, 5), null, null,);
+
+            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), new DateTime(2024, 9, 5), null, null,);
+
+            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), new DateTime(2024, 12, 1), null, null,);
+
+            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), new DateTime(2024, 10, 25), null, null,);
+
+            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null,);
+        }
+
+        /* Esto tiene que ir en Program.cs
+        Lo anoto aca para no olvidarme porque ya se que sino me voy a olvidar
 
         public void CrearVenta()
         {
@@ -327,5 +323,6 @@ namespace LogicaNegocio
                 finalizador,
                 relampago);
         }
+        */
     }
 }

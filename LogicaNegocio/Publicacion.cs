@@ -28,9 +28,7 @@ namespace LogicaNegocio
         // guarda dentro de cada publicacion
         private Usuario _finalizador = null;
 
-        // la fecha de publicacion no se envia al constructor, se define automaticamente como
-        // la fecha en que se crea el objeto
-        public Publicacion(string nombre, string estado, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador)
+        public Publicacion(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
         {
             this._nombre = nombre;
             this._estado = estado;
@@ -38,6 +36,16 @@ namespace LogicaNegocio
             this._fechaFinalizacion = fechaFinalizacion;
             this._comprador = comprador;
             this._finalizador = finalizador;
+            this._articulos = articulos;
+        }
+
+        public List<Articulo> AgregarArticulo(Articulo articulo)
+        {
+            if(articulo != null && !_articulos.Contains(articulo))
+            {
+                _articulos.Add(articulo);
+            }
+            return _articulos;
         }
 
         public string Estado
