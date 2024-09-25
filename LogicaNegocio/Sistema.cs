@@ -359,7 +359,7 @@ namespace LogicaNegocio
 
             Venta venta = new Venta(nombre,estado,fechaFinalizacion,comprador,finalizador,relampago);
         }*/
-      
+
         /*Sistema miSistema = new Sistema();
         static void AltaArticulo()
         {
@@ -381,6 +381,22 @@ namespace LogicaNegocio
         static void ListadoDeClientes()
         {
         Console.WriteLine(miSistema.ListadoDeClientes());
+        }
+
+        static void ListadoDePublicaciones()
+        {
+        Console.WriteLine("Ingrese la primera fecha);
+        string primeraFechaString = Console.ReadLine();
+        DateTime primeraFecha;
+        DateTime.TryParse(primeraFechaString, out primeraFecha);
+        Console.WriteLine("Ingrese la segunda fecha  (debe ser posterior a la primera fecha));
+        string segundaFechaString = Console.ReadLine();
+        DateTime segundaFecha;
+        DateTime.TryParse(segundaFechaString, out segundaFecha);
+
+            if(primeraFecha < segundaFecha){
+                Console.WriteLine(miSistema.ListadoDePublicaciones(primeraFecha,segundaFecha));
+            }
         }
 
         }*/

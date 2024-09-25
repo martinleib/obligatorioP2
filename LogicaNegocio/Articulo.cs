@@ -27,5 +27,10 @@ namespace LogicaNegocio
         {
             get { return _id; }
         }
+
+        public override string ToString()
+        {
+            return "El nombre del articulo es: " + _nombre + " y el precio del articulo es: " + _precio;
+        }
     }
 }

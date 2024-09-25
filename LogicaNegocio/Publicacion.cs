@@ -56,6 +56,11 @@ namespace LogicaNegocio
             get { return _id; }
         }
 
+        public DateTime FechaPublicacion
+        {
+            get { return _fechaPublicacion; }
+        }
+
         public string Estado
         {
             get
@@ -100,6 +105,11 @@ namespace LogicaNegocio
               noEstaEnLaLista = true;
             }
             return noEstaEnLaLista;
+        }
+
+        public override string ToString()
+        {
+            return _nombre + " " + _estado + " " + _fechaPublicacion + " " + _id;
         }
     }
 }
