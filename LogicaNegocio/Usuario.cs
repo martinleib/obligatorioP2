@@ -31,5 +31,10 @@ namespace LogicaNegocio
         {
             return _email.Equals(other._email);
         }
+
+        public override string ToString()
+        {
+            return "Nombre completo: " + _nombre + " " + _apellido + ", " + "informacion de contacto:" + " " + _email + ", " + "contraseña:" + " " + _password;
+        }
     }
 }

@@ -6,17 +6,17 @@ namespace LogicaNegocio
     public class Sistema
     {
         /// Cliente y administrador heredan de Usuario
-        private List<Usuario>_usuarios = new List<Usuario>();
-        
+        private List<Usuario> _usuarios = new List<Usuario>();
+
         // Subastas y ofertas heredan de Publiaciones
-        private List<Publicacion>_publicaciones = new List<Publicacion>();
+        private List<Publicacion> _publicaciones = new List<Publicacion>();
 
         private List<Articulo> _articulos = new List<Articulo>();
 
         public void AltaUsuarioAdministrador(string nombre, string apellido, string email, string password)
         {
-            Administrador administrador = new Administrador(nombre,apellido,email,password);
-            if(!_usuarios.Contains(administrador))
+            Administrador administrador = new Administrador(nombre, apellido, email, password);
+            if (!_usuarios.Contains(administrador))
             {
                 _usuarios.Add(administrador);
             }
@@ -52,7 +52,7 @@ namespace LogicaNegocio
             return usuarioCliente;
         }*/
 
-        
+
         public void AltaUsuarioCliente(string nombre, string apellido, string email, string password, double saldo)
         {
             Cliente cliente = new Cliente(nombre, apellido, email, password, saldo);
@@ -78,7 +78,7 @@ namespace LogicaNegocio
         }
         public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, bool relampago)
         {
-            Venta venta = new Venta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador,articulos, relampago);
+            Venta venta = new Venta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, articulos, relampago);
             if (!_publicaciones.Contains(venta))
             {
                 _publicaciones.Add(venta);
@@ -87,14 +87,14 @@ namespace LogicaNegocio
 
         public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, List<Oferta> ofertas)
         {
-            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador,articulos, ofertas);
+            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, articulos, ofertas);
             if (!_publicaciones.Contains(subasta))
             {
                 _publicaciones.Add(subasta);
             }
         }
 
-        public void AgregarArticulo(int precio, string nombre, string categoria)
+        public void AltaArticulo(int precio, string nombre, string categoria)
         {
             Articulo articulo = new Articulo(precio, nombre, categoria);
             if (!_articulos.Contains(articulo))
@@ -134,136 +134,162 @@ namespace LogicaNegocio
 
         private void PrecargaArticulo()
         {
-            AgregarArticulo(100, "Silla de oficina", "Muebles");
+            AltaArticulo(100, "Silla de oficina", "Muebles");
 
-            AgregarArticulo(250, "Mesa de café", "Muebles");
+            AltaArticulo(250, "Mesa de café", "Muebles");
 
-            AgregarArticulo(50, "Lámpara de mesa", "Iluminación");
+            AltaArticulo(50, "Lámpara de mesa", "Iluminación");
 
-            AgregarArticulo(75, "Escritorio", "Muebles");
+            AltaArticulo(75, "Escritorio", "Muebles");
 
-            AgregarArticulo(200, "Cama individual", "Muebles");
+            AltaArticulo(200, "Cama individual", "Muebles");
 
-            AgregarArticulo(150, "Estantería", "Muebles");
+            AltaArticulo(150, "Estantería", "Muebles");
 
-            AgregarArticulo(300, "Televisor", "Electrónica");
+            AltaArticulo(300, "Televisor", "Electrónica");
 
-            AgregarArticulo(400, "Sofá", "Muebles");
+            AltaArticulo(400, "Sofá", "Muebles");
 
-            AgregarArticulo(60, "Reloj de pared", "Decoración");
+            AltaArticulo(60, "Reloj de pared", "Decoración");
 
-            AgregarArticulo(80, "Cuadro decorativo", "Decoración");
+            AltaArticulo(80, "Cuadro decorativo", "Decoración");
 
-            AgregarArticulo(20, "Maceta", "Jardinería");
+            AltaArticulo(20, "Maceta", "Jardinería");
 
-            AgregarArticulo(45, "Planta artificial", "Jardinería");
+            AltaArticulo(45, "Planta artificial", "Jardinería");
 
-            AgregarArticulo(30, "Candelabro", "Iluminación");
+            AltaArticulo(30, "Candelabro", "Iluminación");
 
-            AgregarArticulo(90, "Almohada", "Textiles");
+            AltaArticulo(90, "Almohada", "Textiles");
 
-            AgregarArticulo(150, "Manta", "Textiles");
+            AltaArticulo(150, "Manta", "Textiles");
 
-            AgregarArticulo(500, "Cocina a gas", "Electrodomésticos");
+            AltaArticulo(500, "Cocina a gas", "Electrodomésticos");
 
-            AgregarArticulo(350, "Refrigerador", "Electrodomésticos");
+            AltaArticulo(350, "Refrigerador", "Electrodomésticos");
 
-            AgregarArticulo(80, "Tostadora", "Electrodomésticos");
+            AltaArticulo(80, "Tostadora", "Electrodomésticos");
 
-            AgregarArticulo(120, "Batidora", "Electrodomésticos");
+            AltaArticulo(120, "Batidora", "Electrodomésticos");
 
-            AgregarArticulo(100, "Horno eléctrico", "Electrodomésticos");
+            AltaArticulo(100, "Horno eléctrico", "Electrodomésticos");
 
-            AgregarArticulo(25, "Cuchillo de cocina", "Utensilios");
+            AltaArticulo(25, "Cuchillo de cocina", "Utensilios");
 
-            AgregarArticulo(35, "Tabla de cortar", "Utensilios");
+            AltaArticulo(35, "Tabla de cortar", "Utensilios");
 
-            AgregarArticulo(15, "Vaso", "Utensilios");
+            AltaArticulo(15, "Vaso", "Utensilios");
 
-            AgregarArticulo(40, "Plato hondo", "Utensilios");
+            AltaArticulo(40, "Plato hondo", "Utensilios");
 
-            AgregarArticulo(60, "Juego de cubiertos", "Utensilios");
+            AltaArticulo(60, "Juego de cubiertos", "Utensilios");
 
-            AgregarArticulo(110, "Cafetera", "Electrodomésticos");
+            AltaArticulo(110, "Cafetera", "Electrodomésticos");
 
-            AgregarArticulo(130, "Microondas", "Electrodomésticos");
+            AltaArticulo(130, "Microondas", "Electrodomésticos");
 
-            AgregarArticulo(300, "Console de videojuegos", "Electrónica");
+            AltaArticulo(300, "Console de videojuegos", "Electrónica");
 
-            AgregarArticulo(600, "Laptop", "Electrónica");
+            AltaArticulo(600, "Laptop", "Electrónica");
 
-            AgregarArticulo(20, "Auriculares", "Electrónica");
+            AltaArticulo(20, "Auriculares", "Electrónica");
 
-            AgregarArticulo(75, "Cámara instantánea", "Electrónica");
+            AltaArticulo(75, "Cámara instantánea", "Electrónica");
 
-            AgregarArticulo(250, "Proyector", "Electrónica");
+            AltaArticulo(250, "Proyector", "Electrónica");
 
-            AgregarArticulo(150, "Bicicleta", "Deportes");
+            AltaArticulo(150, "Bicicleta", "Deportes");
 
-            AgregarArticulo(200, "Patinete", "Deportes");
+            AltaArticulo(200, "Patinete", "Deportes");
 
-            AgregarArticulo(50, "Pelota de fútbol", "Deportes");
+            AltaArticulo(50, "Pelota de fútbol", "Deportes");
 
-            AgregarArticulo(80, "Raqueta de tenis", "Deportes");
+            AltaArticulo(80, "Raqueta de tenis", "Deportes");
 
-            AgregarArticulo(90, "Zapatillas deportivas", "Ropa");
+            AltaArticulo(90, "Zapatillas deportivas", "Ropa");
 
-            AgregarArticulo(120, "Chaqueta", "Ropa");
+            AltaArticulo(120, "Chaqueta", "Ropa");
 
-            AgregarArticulo(100, "Pantalones", "Ropa");
+            AltaArticulo(100, "Pantalones", "Ropa");
 
-            AgregarArticulo(200, "Camisa", "Ropa");
+            AltaArticulo(200, "Camisa", "Ropa");
 
-            AgregarArticulo(250, "Vestido", "Ropa");
+            AltaArticulo(250, "Vestido", "Ropa");
 
-            AgregarArticulo(180, "Bolso de mano", "Accesorios");
+            AltaArticulo(180, "Bolso de mano", "Accesorios");
 
-            AgregarArticulo(300, "Mochila", "Accesorios");
+            AltaArticulo(300, "Mochila", "Accesorios");
 
-            AgregarArticulo(90, "Gafas de sol", "Accesorios");
+            AltaArticulo(90, "Gafas de sol", "Accesorios");
 
-            AgregarArticulo(75, "Cinturón", "Accesorios");
+            AltaArticulo(75, "Cinturón", "Accesorios");
 
-            AgregarArticulo(100, "Sombrero", "Accesorios");
+            AltaArticulo(100, "Sombrero", "Accesorios");
 
-            AgregarArticulo(200, "Joyería", "Accesorios");
+            AltaArticulo(200, "Joyería", "Accesorios");
 
-            AgregarArticulo(250, "Espejo decorativo", "Decoración");
+            AltaArticulo(250, "Espejo decorativo", "Decoración");
 
-            AgregarArticulo(130, "Cortinas", "Textiles");
+            AltaArticulo(130, "Cortinas", "Textiles");
 
-            AgregarArticulo(160, "Mueble de TV", "Muebles");
+            AltaArticulo(160, "Mueble de TV", "Muebles");
         }
 
-        /*public List<Articulo> MostrarArticulos(Articulo articulo)
+        public Articulo BuscarArticulo(string id)
         {
+            int i = 0;
+            Articulo articulo = null;
+            while (i < _articulos.Count && articulo == null)
+            {
+                if (_articulos[i].Id == id.ToUpper())
+                {
+                    articulo = _articulos[i];
+                }
+                i++;
+            }
+            return articulo;
+        }
 
+        public List<Articulo> ListaDeArticulos(string idArticulo, string idPublicacion)
+        {
+            int i = 0;
+            bool aux = false;
+            Articulo articulo = BuscarArticulo(idArticulo);
+            while (i < _publicaciones.Count && aux == false && articulo != null)
+            {
+                if (_publicaciones[i].Id == idPublicacion.ToUpper() && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo) == true)
+                {
+                    _publicaciones[i].Articulo.Add(articulo);
+                }
+                i++;
+            }
+            return _publicaciones[i].Articulo;
         }
 
         private void PrecargarPublicacionVenta()
         {
-            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(2024, 11, 20), null, null, MostrarArticulos(), true);
+            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(2024, 11, 20), null, null, ListaDeArticulos("ART11", "PUB2"), true);
 
-            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), new DateTime(2024, 9, 15), null, null, MostrarArticulos(), false);
+            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), new DateTime(2024, 9, 15), null, null, ListaDeArticulos("ART10", "PUB3"), false);
 
-            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), new DateTime(2024, 12, 5), null, null, MostrarArticulos(), true);
+            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), new DateTime(2024, 12, 5), null, null, ListaDeArticulos("ART9", "PUB4"), true);
 
-            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), new DateTime(2024, 10, 1), null, null, MostrarArticulos(), false);
+            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), new DateTime(2024, 10, 1), null, null, ListaDeArticulos("ART8", "PUB5"), false);
 
-            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), new DateTime(2024, 11, 30), null, null, MostrarArticulos(), true);
+            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), new DateTime(2024, 11, 30), null, null, ListaDeArticulos("ART7", "PUB6"), true);
 
-            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 8, 18), null, null, MostrarArticulos(), false);
+            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 8, 18), null, null, ListaDeArticulos("ART6", "PUB7"), false);
 
-            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), new DateTime(2024, 9, 25), null, null, MostrarArticulos(), true);
+            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), new DateTime(2024, 9, 25), null, null, ListaDeArticulos("ART5", "PUB8"), true);
 
-            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 12, 12), null, null, MostrarArticulos(), true);
+            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 12, 12), null, null, ListaDeArticulos("ART4", "PUB9"), true);
 
-            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), new DateTime(2024, 10, 30), null, null, MostrarArticulos(), false);
+            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), new DateTime(2024, 10, 30), null, null, ListaDeArticulos("ART3", "PUB10"), false);
 
-            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, MostrarArticulos(), true);
+            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, ListaDeArticulos("ART2", "PUB11"), true);
         }
 
-        private void PrecargaPublicacionSubasta()
+        /*private void PrecargaPublicacionSubasta()
         {
             AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(2024, 12, 10), null, null,);
 
@@ -286,10 +312,26 @@ namespace LogicaNegocio
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null,);
         }*/
 
+        public List<Cliente> ListadoDeClientes() 
+        { 
+            List<Cliente> _listaDeClientes = new List<Cliente>();
+            Cliente cliente = null;
+
+            for(int i = 0; i< _usuarios.Count; i++)
+            {
+                if( _usuarios[i] is Cliente)
+                {
+                    cliente = (Cliente) _usuarios[i];
+                    _listaDeClientes.Add(cliente);
+                }
+            }
+            return _listaDeClientes;
+        }
+
         /* Esto tiene que ir en Program.cs
         Lo anoto aca para no olvidarme porque ya se que sino me voy a olvidar
 
-        public void CrearVenta()
+        static void CrearVenta()
         {
             string nombre;
             string estado;
@@ -315,14 +357,32 @@ namespace LogicaNegocio
             Cliente comprador = null;
             Cliente finalizador = null;
 
-            Venta venta = new Venta(
-                nombre,
-                estado,
-                fechaFinalizacion,
-                comprador,
-                finalizador,
-                relampago);
+            Venta venta = new Venta(nombre,estado,fechaFinalizacion,comprador,finalizador,relampago);
+        }*/
+      
+        /*Sistema miSistema = new Sistema();
+        static void AltaArticulo()
+        {
+        Console.WriteLine("Ingrese un precio);
+        string precioString = Console.ReadLine();
+        int precio;
+        int.TryParse(precioString, out precio);
+        Console.WriteLine("Ingrese un nombre);
+        string nombre = Console.ReadLine();
+        Console.WriteLine("Ingrese una categoria);
+        string categoria = Console.ReadLine();
+
+        if(!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(categoria) && precio > 0)
+        {
+        miSistema.AltaArticulo(precio, nombre, categoria);
         }
-        */
+        }
+
+        static void ListadoDeClientes()
+        {
+        Console.WriteLine(miSistema.ListadoDeClientes());
+        }
+
+        }*/
     }
 }

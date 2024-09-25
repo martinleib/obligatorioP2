@@ -43,20 +43,17 @@ namespace LogicaNegocio
             this._articulos = articulos;
         }
 
-        public void AgregarArticulo(Articulo articulo)
-        {
-            if(articulo != null && !_articulos.Contains(articulo))
-            {
-                _articulos.Add(articulo);
-            }
-        }
-
         public List<Articulo> Articulo
         {
             get
             {
-                return this._articulos;
+                return _articulos;
             }
+        }
+
+        public string Id
+        {
+            get { return _id; }
         }
 
         public string Estado
@@ -93,6 +90,16 @@ namespace LogicaNegocio
             {
                 this._finalizador = value;
             }
+        }
+        
+        public bool NoEstaEnLaListaElArticulo(Articulo articulo)
+        {
+            bool noEstaEnLaLista = false;
+            if (!_articulos.Contains(articulo) && articulo != null)
+            {
+              noEstaEnLaLista = true;
+            }
+            return noEstaEnLaLista;
         }
     }
 }

@@ -22,5 +22,10 @@ namespace LogicaNegocio
             this._nombre = nombre;
             this._categoria = categoria;
         }
+
+        public string Id
+        {
+            get { return _id; }
+        }
     }
 }
