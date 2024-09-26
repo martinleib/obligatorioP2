@@ -34,7 +34,7 @@ namespace LogicaNegocio
 
         public override string ToString()
         {
-            return "Nombre completo: " + _nombre + " " + _apellido + ", " + "informacion de contacto:" + " " + _email + ", " + "contraseña:" + " " + _password;
+            return $"Nombre completo: {_nombre} {_apellido}, informacion de contacto: {_email}, contraseña: {_password}";
         }
     }
 }

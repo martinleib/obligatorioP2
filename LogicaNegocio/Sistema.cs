@@ -1,16 +1,11 @@
 ﻿using System.Collections.Generic;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio
 {
     public class Sistema
     {
-        /// Cliente y administrador heredan de Usuario
         private List<Usuario> _usuarios = new List<Usuario>();
-
-        // Subastas y ofertas heredan de Publiaciones
         private List<Publicacion> _publicaciones = new List<Publicacion>();
-
         private List<Articulo> _articulos = new List<Articulo>();
 
         public void AltaUsuarioAdministrador(string nombre, string apellido, string email, string password)
@@ -21,37 +16,6 @@ namespace LogicaNegocio
                 _usuarios.Add(administrador);
             }
         }
-
-        /*public Administrador BuscarUsuarioAdministrador(string email)
-        {
-            int i = 0;
-            Administrador usuarioAdmin = null;
-            while (i < _usuarios.Count && usuarioAdmin == null)
-            {
-                if (_usuarios[i].Email == email && _usuarios[i] is Administrador)
-                {
-                    usuarioAdmin = _usuarios[i];
-                }
-                i++;
-            }
-            return usuarioAdmin;
-        }*/
-
-        /*public Cliente BuscarUsuarioCliente(string emial)
-        {
-            int i = 0;
-            Cliente usuarioCliente = null;
-            while (i < _usuarios.Count && usuarioCliente == null)
-            {
-                if (_usuarios[i].Email == email && _usuarios[i] is Cliente)
-                {
-                    usuarioCliente = _usuarios[i];
-                }
-                i++;
-            }
-            return usuarioCliente;
-        }*/
-
 
         public void AltaUsuarioCliente(string nombre, string apellido, string email, string password, double saldo)
         {
@@ -103,7 +67,23 @@ namespace LogicaNegocio
             }
         }
 
-        private void PrecargarAdministrador()
+        public List<Articulo> ListaDeArticulos(string idArticulo, string idPublicacion)
+        {
+            int i = 0;
+            bool aux = false;
+            Articulo articulo = BuscarArticulo(idArticulo);
+            while (i < _publicaciones.Count && aux == false && articulo != null)
+            {
+                if (_publicaciones[i].Id == idPublicacion.ToUpper() && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo) == true)
+                {
+                    _publicaciones[i].Articulo.Add(articulo);
+                }
+                i++;
+            }
+            return _publicaciones[i].Articulo;
+        }
+
+        private void PrecargaAdministrador()
         {
             AltaUsuarioAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
             AltaUsuarioAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
@@ -234,39 +214,7 @@ namespace LogicaNegocio
 
             AltaArticulo(160, "Mueble de TV", "Muebles");
         }
-
-        public Articulo BuscarArticulo(string id)
-        {
-            int i = 0;
-            Articulo articulo = null;
-            while (i < _articulos.Count && articulo == null)
-            {
-                if (_articulos[i].Id == id.ToUpper())
-                {
-                    articulo = _articulos[i];
-                }
-                i++;
-            }
-            return articulo;
-        }
-
-        public List<Articulo> ListaDeArticulos(string idArticulo, string idPublicacion)
-        {
-            int i = 0;
-            bool aux = false;
-            Articulo articulo = BuscarArticulo(idArticulo);
-            while (i < _publicaciones.Count && aux == false && articulo != null)
-            {
-                if (_publicaciones[i].Id == idPublicacion.ToUpper() && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo) == true)
-                {
-                    _publicaciones[i].Articulo.Add(articulo);
-                }
-                i++;
-            }
-            return _publicaciones[i].Articulo;
-        }
-
-        private void PrecargarPublicacionVenta()
+        private void PrecargaVenta()
         {
             AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(2024, 11, 20), null, null, ListaDeArticulos("ART11", "PUB2"), true);
 
@@ -289,28 +237,43 @@ namespace LogicaNegocio
             AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, ListaDeArticulos("ART2", "PUB11"), true);
         }
 
-        /*private void PrecargaPublicacionSubasta()
+        private void PrecargaSubasta()
         {
-            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(2024, 12, 10), null, null,);
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(2024, 12, 10), null, null, ListaDeArticulos("ART7", "PUB12"), null);
 
-            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), new DateTime(2024, 11, 20), null, null,);
+            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), new DateTime(2024, 11, 20), null, null, ListaDeArticulos("ART4", "PUB13"), null);
 
-            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 9, 30), null, null,);
+            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 9, 30), null, null, ListaDeArticulos("ART3", "PUB14"), null);
 
-            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 10, 15), null, null,);
+            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(2024, 10, 15), null, null, ListaDeArticulos("ART5", "PUB15"), null);
 
-            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), new DateTime(2024, 8, 25), null, null,);
+            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), new DateTime(2024, 8, 25), null, null, ListaDeArticulos("ART12", "PUB16"), null);
 
-            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), new DateTime(2024, 11, 5), null, null,);
+            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), new DateTime(2024, 11, 5), null, null, ListaDeArticulos("ART11", "PUB17"), null);
 
-            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), new DateTime(2024, 9, 5), null, null,);
+            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), new DateTime(2024, 9, 5), null, null, ListaDeArticulos("ART43", "PUB18"), null);
 
-            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), new DateTime(2024, 12, 1), null, null,);
+            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), new DateTime(2024, 12, 1), null, null, ListaDeArticulos("ART29", "PUB19"), null);
 
-            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), new DateTime(2024, 10, 25), null, null,);
+            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), new DateTime(2024, 10, 25), null, null, ListaDeArticulos("ART18", "PUB20"), null);
 
-            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null,);
-        }*/
+            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null, ListaDeArticulos("ART17", "PUB21"), null);
+        }
+        public Articulo BuscarArticulo(string id)
+        {
+            int i = 0;
+            Articulo articulo = null;
+            while (i < _articulos.Count && articulo == null)
+            {
+                if (_articulos[i].Id == id.ToUpper())
+                {
+                    articulo = _articulos[i];
+                }
+                i++;
+            }
+            return articulo;
+        }
+
 
         public List<Cliente> ListadoDeClientes() 
         { 
@@ -328,77 +291,34 @@ namespace LogicaNegocio
             return _listaDeClientes;
         }
 
-        /* Esto tiene que ir en Program.cs
-        Lo anoto aca para no olvidarme porque ya se que sino me voy a olvidar
-
-        static void CrearVenta()
+        public List<Publicacion> ListadoDePublicaciones(DateTime fechaUno, DateTime fechaDos)
         {
-            string nombre;
-            string estado;
-            string relampagoString;
-            bool relampago;
+            List<Publicacion> _listaDePublicaciones = new List<Publicacion>();
 
-            Console.WriteLine("Ingrese nombre de la publicacion");
-            nombre = Console.ReadLine();
-            Console.WriteLine("Ingrese estado de la publicacion");
-            estado = Console.ReadLine();
-            Console.WriteLine("Es una venta relampago, ingrese 'si' o 'no'");
-            relampagoString = Console.ReadLine();
-
-            if (relampagoString.ToLower() == "si")
+            foreach (Publicacion publicacion in _publicaciones)
             {
-                relampago = true;
-            } else
-            {
-                relampago = false;
+                if (publicacion.FechaPublicacion >= fechaUno && publicacion.FechaPublicacion <= fechaDos)
+                {
+                    _listaDePublicaciones.Add(publicacion);
+                }
             }
 
-            DateTime fechaFinalizacion = DateTime.MinValue;
-            Cliente comprador = null;
-            Cliente finalizador = null;
-
-            Venta venta = new Venta(nombre,estado,fechaFinalizacion,comprador,finalizador,relampago);
-        }*/
-
-        /*Sistema miSistema = new Sistema();
-        static void AltaArticulo()
-        {
-        Console.WriteLine("Ingrese un precio);
-        string precioString = Console.ReadLine();
-        int precio;
-        int.TryParse(precioString, out precio);
-        Console.WriteLine("Ingrese un nombre);
-        string nombre = Console.ReadLine();
-        Console.WriteLine("Ingrese una categoria);
-        string categoria = Console.ReadLine();
-
-        if(!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(categoria) && precio > 0)
-        {
-        miSistema.AltaArticulo(precio, nombre, categoria);
-        }
+            return _listaDePublicaciones;
         }
 
-        static void ListadoDeClientes()
+        public List<Articulo> ListadoDeArticulos(string categoria)
         {
-        Console.WriteLine(miSistema.ListadoDeClientes());
-        }
+            List<Articulo> _listaDeArticulos = new List<Articulo>();
 
-        static void ListadoDePublicaciones()
-        {
-        Console.WriteLine("Ingrese la primera fecha);
-        string primeraFechaString = Console.ReadLine();
-        DateTime primeraFecha;
-        DateTime.TryParse(primeraFechaString, out primeraFecha);
-        Console.WriteLine("Ingrese la segunda fecha  (debe ser posterior a la primera fecha));
-        string segundaFechaString = Console.ReadLine();
-        DateTime segundaFecha;
-        DateTime.TryParse(segundaFechaString, out segundaFecha);
-
-            if(primeraFecha < segundaFecha){
-                Console.WriteLine(miSistema.ListadoDePublicaciones(primeraFecha,segundaFecha));
+            foreach (Articulo articulo in _articulos)
+            {
+                if (articulo.Categoria.Trim().ToLower() == categoria.Trim().ToLower())
+                {
+                    _listaDeArticulos.Add(articulo);
+                }
             }
-        }
 
-        }*/
+            return _listaDeArticulos;
+        }
     }
 }

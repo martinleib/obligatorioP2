@@ -56,11 +56,6 @@ namespace LogicaNegocio
             get { return _id; }
         }
 
-        public DateTime FechaPublicacion
-        {
-            get { return _fechaPublicacion; }
-        }
-
         public string Estado
         {
             get
@@ -73,6 +68,12 @@ namespace LogicaNegocio
                 this._estado = value;
             }
         }
+
+        public DateTime FechaPublicacion
+        {
+            get { return _fechaPublicacion; }
+        }
+
         public DateTime FechaFinalizacion
         {
             set
@@ -89,7 +90,7 @@ namespace LogicaNegocio
             }
         }
 
-        public Administrador Finalizador
+        public Usuario Finalizador
         {
             set
             {
@@ -109,7 +110,7 @@ namespace LogicaNegocio
 
         public override string ToString()
         {
-            return _nombre + " " + _estado + " " + _fechaPublicacion + " " + _id;
+            return $"{_nombre} {_estado} {_fechaPublicacion} {_id}";
         }
     }
 }
