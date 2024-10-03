@@ -58,6 +58,7 @@ namespace InterfazUsuario
             if (!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(categoria) && precio > 0)
             {
                 sistema.AltaArticulo(precio, nombre, categoria);
+                Console.WriteLine("Articulo dado de alta con exito.");
             }
             else
             {
