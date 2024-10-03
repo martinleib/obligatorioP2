@@ -15,6 +15,7 @@ namespace LogicaNegocio
             // El ID se veria: ADMIN01, ADMIN02, etc...
             // Separo IDs por Admin y Cliente para diferenciar usuarios Admin y Cliente
             this._id = $"ADMIN{s_ultimoID + 1}";
+            s_ultimoID++;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace LogicaNegocio
         {
             // El ID se veria: OF01, OF02, etc...
             this._id = $"OF{s_ultimoID + 1}";
+            s_ultimoID++;
             this._monto = monto;
             this._usuario = usuario;
             this._fecha = fecha;
