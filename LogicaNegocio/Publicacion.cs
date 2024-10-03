@@ -82,7 +82,7 @@ namespace LogicaNegocio
             }
         }
 
-        public Cliente Comprador
+        public Cliente Comprador    
         {
             set
             {
