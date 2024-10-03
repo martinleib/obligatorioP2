@@ -6,9 +6,43 @@ namespace InterfazUsuario
     {
         private static Sistema sistema = new Sistema();
         static void Main(string[] args)
-        { }
+        {
+            bool ingresoCero = false;
+            while (!ingresoCero)
+            {
+                Console.WriteLine("Ingrese 1 para dar de alta un articulo");
+                Console.WriteLine("Ingrese 2 para mostrar los clientes");
+                Console.WriteLine("Ingrese 3 para mostrar los articulos");
+                Console.WriteLine("Ingrese 4 para mostrar las publicaciones");
+                Console.WriteLine("Ingrese 0 para salir");
 
-        // ALTA ARTICULO
+                string opcionString = Console.ReadLine();
+                int.TryParse(opcionString, out int opcionParsed);
+
+                switch (opcionParsed)
+                {
+                    case 1:
+                        AltaArticulo();
+                        break;
+                    case 2:
+                        MostrarClientes();
+                        break;
+                    case 3:
+                        MostrarArticulos();
+                        break;
+                    case 4:
+                        MostrarPublicaciones();
+                        break;
+                    case 0:
+                        ingresoCero = true;
+                        break;
+                    default:
+                        Console.WriteLine("Opcion invalida");
+                        break;
+                }
+            }
+        }
+
         static void AltaArticulo()
         {
             Console.WriteLine("Ingrese un precio");
@@ -31,13 +65,11 @@ namespace InterfazUsuario
             }
         }
 
-        // MOSTRAR CLIENTES
         static void MostrarClientes()
         {
             Console.WriteLine(sistema.ListadoDeClientes());
         }
 
-        // MOSTRAR ARTICULOS
         static void MostrarArticulos()
         {
             Console.WriteLine("Ingrese la categoria de los articulos que desea ver");
@@ -46,7 +78,6 @@ namespace InterfazUsuario
             Console.WriteLine(sistema.ListadoDeArticulos(categoria));
         }
 
-        // MOSTRAR PUBLICACIONES
         static void MostrarPublicaciones()
         {
             Console.WriteLine("Ingrese la primer fecha del rango");
