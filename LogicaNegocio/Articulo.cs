@@ -18,9 +18,20 @@ namespace LogicaNegocio
         public Articulo(int precio, string nombre, string categoria)
         {
             this._id = $"ART { s_ultimoID + 1}";
+            s_ultimoID++;
             this._precio = precio;
             this._nombre = nombre;
             this._categoria = categoria;
+        }
+
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
+
+        public int Precio
+        {
+            get { return _precio; }
         }
 
         public string Id
@@ -35,7 +46,7 @@ namespace LogicaNegocio
 
         public override string ToString()
         {
-            return $"Nombre: {_nombre} \n Precio: {_precio}";
+            return $"Nombre: {_nombre}. Precio: {_precio}. Categoria: {_categoria}. ID: {_id}";
         }
     }
 }

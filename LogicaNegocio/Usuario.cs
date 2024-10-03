@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio
 {
@@ -41,11 +40,6 @@ namespace LogicaNegocio
         public bool Equals(Usuario? other)
         {
             return _email.Equals(other._email);
-        }
-
-        public override string ToString()
-        {
-            return $"Nombre completo: {_nombre} {_apellido}, informacion de contacto: {_email}, contraseña: {_password}";
         }
     }
 }

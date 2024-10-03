@@ -9,6 +9,10 @@ namespace InterfazUsuario
         {
             sistema.PrecargaAdministrador();
             sistema.PrecargaCliente();
+            sistema.PrecargaArticulo();
+            sistema.PrecargaVenta();
+            sistema.PrecargaSubasta();
+            sistema.PrecargaOferta();
 
             bool ingresoCero = false;
             while (!ingresoCero)

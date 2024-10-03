@@ -73,16 +73,28 @@ namespace LogicaNegocio
             int i = 0;
             bool aux = false;
             Articulo articulo = BuscarArticulo(idArticulo);
-            while (i < _publicaciones.Count && aux == false && articulo != null)
+
+            while (i < _publicaciones.Count && !aux && articulo != null)
             {
-                if (_publicaciones[i].Id == idPublicacion.ToUpper() && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo) == true)
+                if (_publicaciones[i].Id == idPublicacion.ToUpper() && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo))
                 {
                     _publicaciones[i].Articulo.Add(articulo);
+                    aux = true; // aux true para salir del bucle
                 }
                 i++;
             }
-            return _publicaciones[i].Articulo;
+
+            if (i > 0 && i <= _publicaciones.Count)
+            {
+                return _publicaciones[i - 1].Articulo; // i - 1 para acceder a la última publicación
+            }
+            else
+            {
+                return new List<Articulo>(); // devolver una lista vacía cuando no hay publicaciones
+            }
         }
+
+
 
         public void PrecargaAdministrador()
         {
@@ -264,8 +276,8 @@ namespace LogicaNegocio
         public void PrecargaOferta()
         {
             List<Oferta> _ofertas = new List<Oferta>();
-
         }
+
         public Articulo BuscarArticulo(string id)
         {
             int i = 0;
@@ -285,14 +297,12 @@ namespace LogicaNegocio
         public string ListadoDeClientes() 
         {
             string retornoClientes = "";
-            Cliente cliente = null;
 
-            for(int i = 0; i< _usuarios.Count; i++)
+            foreach (Usuario usuario in _usuarios)
             {
-                if( _usuarios[i] is Cliente)
+                if (usuario is Cliente)
                 {
-                    cliente = (Cliente) _usuarios[i];
-                    retornoClientes += $"Nombre completo: {cliente.Nombre}, {cliente.Apellido}. ID: {cliente.ID}. Email: {cliente.Email}. Saldo: {cliente.Saldo} \n";
+                    retornoClientes += $"{usuario.ToString()} \n";
                 }
             }
 
@@ -304,34 +314,44 @@ namespace LogicaNegocio
             return retornoClientes;
         }
 
-        public List<Publicacion> ListadoDePublicaciones(DateTime fechaUno, DateTime fechaDos)
+        public string ListadoDePublicaciones(DateTime fechaUno, DateTime fechaDos)
         {
-            List<Publicacion> _listaDePublicaciones = new List<Publicacion>();
+            string retornoPublicaciones = "";
 
             foreach (Publicacion publicacion in _publicaciones)
             {
                 if (publicacion.FechaPublicacion >= fechaUno && publicacion.FechaPublicacion <= fechaDos)
                 {
-                    _listaDePublicaciones.Add(publicacion);
+                    retornoPublicaciones += $"{publicacion.ToString()} \n";
                 }
             }
 
-            return _listaDePublicaciones;
+            if (_publicaciones.Count == 0)
+            {
+                retornoPublicaciones = "No hay ninguna publicacion registrada en el sistema.";
+            }
+
+            return retornoPublicaciones;
         }
 
-        public List<Articulo> ListadoDeArticulos(string categoria)
+        public string ListadoDeArticulos(string categoria)
         {
-            List<Articulo> _listaDeArticulos = new List<Articulo>();
+            string listaDeArticulos = "";
 
             foreach (Articulo articulo in _articulos)
             {
                 if (articulo.Categoria.Trim().ToLower() == categoria.Trim().ToLower())
                 {
-                    _listaDeArticulos.Add(articulo);
+                    listaDeArticulos += $"{articulo.ToString()} \n";
                 }
             }
 
-            return _listaDeArticulos;
+            if (_articulos.Count == 0)
+            {
+                listaDeArticulos = "No hay articulos en el sistema";
+            }
+
+            return listaDeArticulos;
         }
     }
 }

@@ -34,6 +34,7 @@ namespace LogicaNegocio
         public Publicacion(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
         {
             this._id = $"PUB{s_ultimoID + 1}";
+            s_ultimoID++;
             this._nombre = nombre;
             this._estado = estado;
             this._fechaPublicacion = fechaPublicacion;
@@ -110,7 +111,7 @@ namespace LogicaNegocio
 
         public override string ToString()
         {
-            return $"{_nombre} {_estado} {_fechaPublicacion} {_id}";
+            return $"Nombre: {_nombre}. Estado: {_estado}. Fecha de publicacion: {_fechaPublicacion}. Fecha de finalizacion: {_fechaFinalizacion}. ID: {_id}";
         }
     }
 }
