@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio
 {
@@ -14,11 +15,6 @@ namespace LogicaNegocio
         private string _apellido;
         private string _email;
         private string _password;
-        public string Email
-        {
-            get { return _email; }
-        }
-
 
         public Usuario(string nombre, string apellido, string email, string password)
         {
@@ -27,6 +23,21 @@ namespace LogicaNegocio
             this._email = email;
             this._password = password;
         }
+
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
+
+        public string Apellido
+        {
+            get { return _apellido; }
+        }
+        public string Email
+        {
+            get { return _email; }
+        }
+
         public bool Equals(Usuario? other)
         {
             return _email.Equals(other._email);

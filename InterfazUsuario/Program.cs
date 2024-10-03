@@ -7,6 +7,9 @@ namespace InterfazUsuario
         private static Sistema sistema = new Sistema();
         static void Main(string[] args)
         {
+            sistema.PrecargaAdministrador();
+            sistema.PrecargaCliente();
+
             bool ingresoCero = false;
             while (!ingresoCero)
             {

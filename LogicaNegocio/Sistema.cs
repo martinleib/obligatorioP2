@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace LogicaNegocio
 {
@@ -83,13 +84,13 @@ namespace LogicaNegocio
             return _publicaciones[i].Articulo;
         }
 
-        private void PrecargaAdministrador()
+        public void PrecargaAdministrador()
         {
             AltaUsuarioAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
             AltaUsuarioAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
         }
 
-        private void PrecargaCliente()
+        public void PrecargaCliente()
         {
             AltaUsuarioCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 1500);
 
@@ -112,7 +113,7 @@ namespace LogicaNegocio
             AltaUsuarioCliente("Andrés", "Pérez", "AndresP2005@gmail.com", "AndresP808", 2900);
         }
 
-        private void PrecargaArticulo()
+        public void PrecargaArticulo()
         {
             AltaArticulo(100, "Silla de oficina", "Muebles");
 
@@ -214,7 +215,7 @@ namespace LogicaNegocio
 
             AltaArticulo(160, "Mueble de TV", "Muebles");
         }
-        private void PrecargaVenta()
+        public void PrecargaVenta()
         {
             AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(2024, 11, 20), null, null, ListaDeArticulos("ART11", "PUB2"), true);
 
@@ -237,7 +238,7 @@ namespace LogicaNegocio
             AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, ListaDeArticulos("ART2", "PUB11"), true);
         }
 
-        private void PrecargaSubasta()
+        public void PrecargaSubasta()
         {
             AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(2024, 12, 10), null, null, ListaDeArticulos("ART7", "PUB12"), null);
 
@@ -259,6 +260,12 @@ namespace LogicaNegocio
 
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null, ListaDeArticulos("ART17", "PUB21"), null);
         }
+
+        public void PrecargaOferta()
+        {
+            List<Oferta> _ofertas = new List<Oferta>();
+
+        }
         public Articulo BuscarArticulo(string id)
         {
             int i = 0;
@@ -275,9 +282,9 @@ namespace LogicaNegocio
         }
 
 
-        public List<Cliente> ListadoDeClientes() 
-        { 
-            List<Cliente> _listaDeClientes = new List<Cliente>();
+        public string ListadoDeClientes() 
+        {
+            string retornoClientes = "";
             Cliente cliente = null;
 
             for(int i = 0; i< _usuarios.Count; i++)
@@ -285,10 +292,16 @@ namespace LogicaNegocio
                 if( _usuarios[i] is Cliente)
                 {
                     cliente = (Cliente) _usuarios[i];
-                    _listaDeClientes.Add(cliente);
+                    retornoClientes += $"Nombre completo: {cliente.Nombre}, {cliente.Apellido}. ID: {cliente.ID}. Email: {cliente.Email}. Saldo: {cliente.Saldo} \n";
                 }
             }
-            return _listaDeClientes;
+
+            if (_usuarios.Count == 0)
+            {
+                retornoClientes = "No hay ningun cliente registrado en el sistema.";
+            }
+
+            return retornoClientes;
         }
 
         public List<Publicacion> ListadoDePublicaciones(DateTime fechaUno, DateTime fechaDos)
