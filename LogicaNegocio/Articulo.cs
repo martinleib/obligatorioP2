@@ -24,16 +24,6 @@ namespace LogicaNegocio
             this._categoria = categoria;
         }
 
-        public string Nombre
-        {
-            get { return _nombre; }
-        }
-
-        public int Precio
-        {
-            get { return _precio; }
-        }
-
         public string Id
         {
             get { return _id; }

@@ -11,20 +11,24 @@ namespace LogicaNegocio
     {
         private List<Oferta>_ofertas = new List<Oferta>();
 
+        public List<Oferta> Ofertas
+        {
+            get { return _ofertas; }
+        }
+
         public Subasta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, List<Oferta> ofertas) : base(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, articulos)
         {
             this._ofertas = ofertas;
         }
 
-        public List<Oferta> AgregarOferta(Oferta oferta)
+        public bool NoEstaOferta(Oferta oferta)
         {
-
-            if (!_ofertas.Contains(oferta) && oferta != null)
+            bool noEsta = false;
+            if (!_ofertas.Contains(oferta))
             {
-                _ofertas.Add(oferta);
+                noEsta = true;
             }
-            return _ofertas;
-
+            return noEsta;
         }
     }
 }

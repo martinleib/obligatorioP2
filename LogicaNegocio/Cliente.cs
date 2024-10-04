@@ -8,9 +8,6 @@ namespace LogicaNegocio
 {
     public class Cliente:Usuario
     {
-        private string _id;
-        private static int s_ultimoID = 1;
-
         // Saldo disponible
         private double _saldo;
 
@@ -27,8 +24,6 @@ namespace LogicaNegocio
         public Cliente(string nombre, string apellido, string email, string password, double saldo) : base(nombre, apellido, email, password)
         {
             this._saldo = saldo;
-            this._id = $"CLI{s_ultimoID + 1}";
-            s_ultimoID++;
         }
 
         public override string ToString()

@@ -8,6 +8,7 @@ namespace LogicaNegocio
         private List<Usuario> _usuarios = new List<Usuario>();
         private List<Publicacion> _publicaciones = new List<Publicacion>();
         private List<Articulo> _articulos = new List<Articulo>();
+        private List<Oferta> _ofertas = new List<Oferta>();
 
         public void AltaUsuarioAdministrador(string nombre, string apellido, string email, string password)
         {
@@ -27,19 +28,19 @@ namespace LogicaNegocio
             }
         }
 
-        public Usuario BuscarUsuario(string email)
+        public Usuario ObtenerUsuarioCliente(string id)
         {
             int i = 0;
-            Usuario usuario = null;
-            while (i < _usuarios.Count && usuario == null)
+            Usuario usuarioCliente = null;
+            while (i < _usuarios.Count && usuarioCliente == null)
             {
-                if (_usuarios[i].Email == email)
+                if (_usuarios[i].Id == id.Trim().ToUpper)
                 {
-                    usuario = _usuarios[i];
+                    usuarioCliente = (Cliente) _usuarios[i];
                 }
                 i++;
             }
-            return usuario;
+            return usuarioCliente;
         }
         public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, bool relampago)
         {
@@ -68,29 +69,44 @@ namespace LogicaNegocio
             }
         }
 
+        public Articulo BuscarArticulo(string id)
+        {
+            int i = 0;
+            Articulo articulo = null;
+            while (i < _articulos.Count && articulo == null)
+            {
+                if (_articulos[i].Id == id.Trim().ToUpper())
+                {
+                    articulo = _articulos[i];
+                }
+                i++;
+            }
+            return articulo;
+        }
+
         public List<Articulo> ListaDeArticulos(string idArticulo, string idPublicacion)
         {
             int i = 0;
-            bool aux = false;
             Articulo articulo = BuscarArticulo(idArticulo);
+            Publicacion publicacion = null;
 
-            while (i < _publicaciones.Count && !aux && articulo != null)
+            while (i < _publicaciones.Count && publicacion == null && articulo != null)
             {
                 if (_publicaciones[i].Id == idPublicacion.ToUpper() && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo))
                 {
                     _publicaciones[i].Articulo.Add(articulo);
-                    aux = true; // aux true para salir del bucle
+                    publicacion = _publicaciones[i];
                 }
                 i++;
             }
 
-            if (i > 0 && i <= _publicaciones.Count)
+            if (publicacion != null)
             {
-                return _publicaciones[i - 1].Articulo; // i - 1 para acceder a la última publicación
+                return publicacion.Articulo;
             }
             else
             {
-                return new List<Articulo>(); // devolver una lista vacía cuando no hay publicaciones
+                return null;
             }
         }
 
@@ -250,11 +266,69 @@ namespace LogicaNegocio
             AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(2024, 11, 15), null, null, ListaDeArticulos("ART2", "PUB11"), true);
         }
 
+        public void AltaOferta(int monto, Usuario usuario, DateTime fecha)
+        {
+            Oferta oferta = new Oferta(monto,usuario, fecha);
+            if (!_ofertas.Contains(oferta))
+            {
+                _ofertas.Add(oferta);
+            }
+        }
+
+        public void PrecargaOferta()
+        {
+            AltaOferta(510, ObtenerUsuarioCliente("USU4"), new DateTime(2023, 10, 4))
+            AltaOferta(450, ObtenerUsuarioCliente("USU5"), new DateTime(2023, 11, 2))
+        }
+
+        public Oferta BuscarOferta(string id)
+        {
+            int i = 0;
+            Oferta oferta = null;
+            while (i < _ofertas.Count && oferta == null)
+            {
+                if (_ofertas[i].Id == id.Trim().ToUpper())
+                {
+                    oferta = _ofertas[i];
+                }
+                i++;
+            }
+            return oferta;
+        }
+
+        public List<Oferta> ListaDeOfertas(string idOferta, string idPublicacion)
+        {
+            int i = 0;
+            Oferta oferta = BuscarOferta(idOferta);
+            Publicacion publicacion = null;
+
+            while (i < _publicaciones.Count && publicacion == null && oferta != null)
+            {
+                if (_publicaciones[i] is Subasta &&
+                    _publicaciones[i].Id == idPublicacion.Trim().ToUpper() &&
+                    _publicaciones[i].NoEstaOferta(oferta))
+                {
+                    _publicaciones[i].Oferta.Add(oferta);
+                    publicacion = _publicaciones[i];
+                }
+                i++;
+            }
+
+            if (publicacion != null)
+            {
+                return publicacion.Oferta;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public void PrecargaSubasta()
         {
-            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(2024, 12, 10), null, null, ListaDeArticulos("ART7", "PUB12"), null);
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(2024, 12, 10), null, null, ListaDeArticulos("ART7", "PUB12"), ListaDeOfertas("OF2","PUB12"));
 
-            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), new DateTime(2024, 11, 20), null, null, ListaDeArticulos("ART4", "PUB13"), null);
+            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), new DateTime(2024, 11, 20), null, null, ListaDeArticulos("ART4", "PUB13"), ListaDeOfertas("OF3", "PUB13"));
 
             AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(2024, 9, 30), null, null, ListaDeArticulos("ART3", "PUB14"), null);
 
@@ -273,25 +347,6 @@ namespace LogicaNegocio
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(2024, 10, 5), null, null, ListaDeArticulos("ART17", "PUB21"), null);
         }
 
-        public void PrecargaOferta()
-        {
-            List<Oferta> _ofertas = new List<Oferta>();
-        }
-
-        public Articulo BuscarArticulo(string id)
-        {
-            int i = 0;
-            Articulo articulo = null;
-            while (i < _articulos.Count && articulo == null)
-            {
-                if (_articulos[i].Id == id.ToUpper())
-                {
-                    articulo = _articulos[i];
-                }
-                i++;
-            }
-            return articulo;
-        }
 
 
         public string ListadoDeClientes() 

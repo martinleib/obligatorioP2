@@ -57,52 +57,15 @@ namespace LogicaNegocio
             get { return _id; }
         }
 
-        public string Estado
-        {
-            get
-            {
-                return this._estado;
-            }
-
-            set
-            {
-                this._estado = value;
-            }
-        }
-
         public DateTime FechaPublicacion
         {
             get { return _fechaPublicacion; }
-        }
-
-        public DateTime FechaFinalizacion
-        {
-            set
-            {
-                this._fechaFinalizacion = value;
-            }
-        }
-
-        public Cliente Comprador    
-        {
-            set
-            {
-                this._comprador = value;
-            }
-        }
-
-        public Usuario Finalizador
-        {
-            set
-            {
-                this._finalizador = value;
-            }
         }
         
         public bool NoEstaEnLaListaElArticulo(Articulo articulo)
         {
             bool noEstaEnLaLista = false;
-            if (!_articulos.Contains(articulo) && articulo != null)
+            if (!_articulos.Contains(articulo))
             {
               noEstaEnLaLista = true;
             }
@@ -111,7 +74,7 @@ namespace LogicaNegocio
 
         public override string ToString()
         {
-            return $"Nombre: {_nombre}. Estado: {_estado}. Fecha de publicacion: {_fechaPublicacion}. Fecha de finalizacion: {_fechaFinalizacion}. ID: {_id}";
+            return $"Nombre: {_nombre}. Estado: {_estado}. Fecha de publicacion: {_fechaPublicacion}. ID: {_id}";
         }
     }
 }

@@ -14,6 +14,8 @@ namespace LogicaNegocio
         private string _apellido;
         private string _email;
         private string _password;
+        private string _id;
+        private static int s_ultimoID = 1;
 
         public Usuario(string nombre, string apellido, string email, string password)
         {
@@ -21,25 +23,13 @@ namespace LogicaNegocio
             this._apellido = apellido;
             this._email = email;
             this._password = password;
+            this._id = $"USU{s_ultimoID + 1}";
+            s_ultimoID++;
         }
 
-        public string Nombre
+        public string Id
         {
-            get { return _nombre; }
-        }
-
-        public string Apellido
-        {
-            get { return _apellido; }
-        }
-        public string Email
-        {
-            get { return _email; }
-        }
-
-        public bool Equals(Usuario? other)
-        {
-            return _email.Equals(other._email);
+            get { return _id; }
         }
     }
 }
