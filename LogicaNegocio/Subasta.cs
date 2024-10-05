@@ -21,14 +21,14 @@ namespace LogicaNegocio
             this._ofertas = ofertas;
         }
 
-        public bool NoEstaOferta(Oferta oferta)
+        public bool EstaEnOferta(Oferta oferta)
         {
-            bool noEsta = false;
-            if (!_ofertas.Contains(oferta))
+            bool esta = false;
+            if (_ofertas.Contains(oferta))
             {
-                noEsta = true;
+                esta = true;
             }
-            return noEsta;
+            return esta;
         }
     }
 }

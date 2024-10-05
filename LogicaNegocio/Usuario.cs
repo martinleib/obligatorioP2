@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace LogicaNegocio
 {
 
-    public abstract class Usuario:IEquatable<Usuario>
+    public abstract class Usuario
+        //IEquatable<Usuario>
 
     {
         private string _nombre;
@@ -30,6 +31,21 @@ namespace LogicaNegocio
         public string Id
         {
             get { return _id; }
+        }
+
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
+
+        public string Apellido
+        {
+            get { return _apellido; }
+        }
+
+        public string Email
+        {
+            get { return _email; }
         }
     }
 }

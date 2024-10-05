@@ -24,5 +24,10 @@ namespace LogicaNegocio
             this._usuario = usuario;
             this._fecha = fecha;
         }
+
+        public string Id
+        {
+            get { return _id; }
+        }
     }
 }

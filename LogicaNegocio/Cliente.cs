@@ -16,11 +16,6 @@ namespace LogicaNegocio
             get { return _saldo; }
         }
 
-        public string ID
-        {
-            get { return _id; }
-        }
-
         public Cliente(string nombre, string apellido, string email, string password, double saldo) : base(nombre, apellido, email, password)
         {
             this._saldo = saldo;
@@ -28,7 +23,7 @@ namespace LogicaNegocio
 
         public override string ToString()
         {
-            return $"Nombre completo: {Nombre} {Apellido}, informacion de contacto: {Email}, ID: {_id}, Saldo: {_saldo}";
+            return $"Nombre completo: {Nombre} {Apellido}, informacion de contacto: {Email}, ID: {Id}, Saldo: {_saldo}";
         }
     }
 }

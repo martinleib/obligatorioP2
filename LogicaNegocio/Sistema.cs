@@ -34,7 +34,7 @@ namespace LogicaNegocio
             Usuario usuarioCliente = null;
             while (i < _usuarios.Count && usuarioCliente == null)
             {
-                if (_usuarios[i].Id == id.Trim().ToUpper)
+                if (_usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     usuarioCliente = (Cliente) _usuarios[i];
                 }
@@ -277,8 +277,8 @@ namespace LogicaNegocio
 
         public void PrecargaOferta()
         {
-            AltaOferta(510, ObtenerUsuarioCliente("USU4"), new DateTime(2023, 10, 4))
-            AltaOferta(450, ObtenerUsuarioCliente("USU5"), new DateTime(2023, 11, 2))
+            AltaOferta(510, ObtenerUsuarioCliente("USU4"), new DateTime(2023, 10, 4));
+            AltaOferta(450, ObtenerUsuarioCliente("USU5"), new DateTime(2023, 11, 2));
         }
 
         public Oferta BuscarOferta(string id)
@@ -300,23 +300,23 @@ namespace LogicaNegocio
         {
             int i = 0;
             Oferta oferta = BuscarOferta(idOferta);
-            Publicacion publicacion = null;
+            Subasta subasta = null;
 
-            while (i < _publicaciones.Count && publicacion == null && oferta != null)
+            while (i < _publicaciones.Count && subasta == null && oferta != null)
             {
                 if (_publicaciones[i] is Subasta &&
-                    _publicaciones[i].Id == idPublicacion.Trim().ToUpper() &&
-                    _publicaciones[i].NoEstaOferta(oferta))
+                    _publicaciones[i].Id.Trim().ToUpper() == idPublicacion.Trim().ToUpper() &&
+                    ((Subasta)_publicaciones[i]).EstaEnOferta(oferta) == false)
                 {
-                    _publicaciones[i].Oferta.Add(oferta);
-                    publicacion = _publicaciones[i];
+                    subasta = (Subasta)_publicaciones[i];
+                    subasta.Ofertas.Add(oferta);
                 }
                 i++;
             }
 
-            if (publicacion != null)
+            if (subasta != null)
             {
-                return publicacion.Oferta;
+                return subasta.Ofertas;
             }
             else
             {
