@@ -28,13 +28,13 @@ namespace LogicaNegocio
             }
         }
 
-        public Usuario ObtenerUsuarioCliente(string id)
+        public Cliente ObtenerUsuarioCliente(string id)
         {
             int i = 0;
-            Usuario usuarioCliente = null;
+            Cliente usuarioCliente = null;
             while (i < _usuarios.Count && usuarioCliente == null)
             {
-                if (_usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     usuarioCliente = (Cliente) _usuarios[i];
                 }
