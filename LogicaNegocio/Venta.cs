@@ -12,7 +12,7 @@ namespace LogicaNegocio
         // Una subasta es adjudicada a una persona, pero solo un administrador la puede cerrar.
         private bool _relampago;
 
-        public Venta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador,List<Articulo> articulos, bool relampago):base(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, articulos)
+        public Venta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador,List<Articulo> articulos, bool relampago):base(nombre, estado, fechaPublicacion, comprador, finalizador, articulos)
 
         {
             this._relampago = relampago;

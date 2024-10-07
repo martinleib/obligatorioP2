@@ -31,14 +31,16 @@ namespace LogicaNegocio
         // guarda dentro de cada publicacion
         private Usuario _finalizador = null;
 
-        public Publicacion(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
+        public Publicacion(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
         {
             this._id = $"PUB{s_ultimoID + 1}";
             s_ultimoID++;
             this._nombre = nombre;
             this._estado = estado;
             this._fechaPublicacion = fechaPublicacion;
-            this._fechaFinalizacion = fechaFinalizacion;
+            // 07/10/2024
+            // No se agrega fechaFinalizacion en el constructor para que la fecha quede como nula
+            // y se pueda setear en el momento que se finaliza la publicacion             -Martin
             this._comprador = comprador;
             this._finalizador = finalizador;
             this._articulos = articulos;

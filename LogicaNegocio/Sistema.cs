@@ -42,18 +42,18 @@ namespace LogicaNegocio
             }
             return usuarioCliente;
         }
-        public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, bool relampago)
+        public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, bool relampago)
         {
-            Venta venta = new Venta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, articulos, relampago);
+            Venta venta = new Venta(nombre, estado, fechaPublicacion, comprador, finalizador, articulos, relampago);
             if (!_publicaciones.Contains(venta))
             {
                 _publicaciones.Add(venta);
             }
         }
 
-        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, DateTime fechaFinalizacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, List<Oferta> ofertas)
+        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, List<Oferta> ofertas)
         {
-            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, fechaFinalizacion, comprador, finalizador, articulos, ofertas);
+            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, comprador, finalizador, articulos, ofertas);
             if (!_publicaciones.Contains(subasta))
             {
                 _publicaciones.Add(subasta);
@@ -248,25 +248,25 @@ namespace LogicaNegocio
             // Dado que DateTime.MaxValue es solo de lectura y no de escritura (es decir, no es posible crear un objeto donde la fecha de finalizacion sea nula o de tipo null)
             // decidimos poner la fecha de finalizacion en 9999, 12, 12 para que sea una fecha muy lejana en el futuro y que sea equivalente a una fecha nula. Una vez que
             // se finalice la publicacion, se cambiara el estado de la publicacion a "CERRADA" y se asignara un comprador, un finalizador y una fecha de finalizacion.
-            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART11", "PUB2"), true);
+            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), null, null, ListaDeArticulos("ART11", "PUB2"), true);
 
-            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART10", "PUB3"), false);
+            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), null, null, ListaDeArticulos("ART10", "PUB3"), false);
 
-            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART9", "PUB4"), true);
+            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), null, null, ListaDeArticulos("ART9", "PUB4"), true);
 
-            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART8", "PUB5"), false);
+            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), null, null, ListaDeArticulos("ART8", "PUB5"), false);
 
-            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART7", "PUB6"), true);
+            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), null, null, ListaDeArticulos("ART7", "PUB6"), true);
 
-            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART6", "PUB7"), false);
+            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), null, null, ListaDeArticulos("ART6", "PUB7"), false);
 
-            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART5", "PUB8"), true);
+            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), null, null, ListaDeArticulos("ART5", "PUB8"), true);
 
-            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART4", "PUB9"), true);
+            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), null, null, ListaDeArticulos("ART4", "PUB9"), true);
 
-            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART3", "PUB10"), false);
+            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), null, null, ListaDeArticulos("ART3", "PUB10"), false);
 
-            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART2", "PUB11"), true);
+            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, ListaDeArticulos("ART2", "PUB11"), true);
         }
 
         public void AltaOferta(int monto, Usuario usuario, DateTime fecha)
@@ -332,25 +332,25 @@ namespace LogicaNegocio
             // Dado que DateTime.MaxValue es solo de lectura y no de escritura (es decir, no es posible crear un objeto donde la fecha de finalizacion sea nula o de tipo null)
             // decidimos poner la fecha de finalizacion en 9999, 12, 12 para que sea una fecha muy lejana en el futuro y que sea equivalente a una fecha nula. Una vez que
             // se finalice la publicacion, se cambiara el estado de la publicacion a "CERRADA" y se asignara un comprador, un finalizador y una fecha de finalizacion.
-            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART7", "PUB12"), ListaDeOfertas("OF2","PUB12"));
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, ListaDeArticulos("ART7", "PUB12"), ListaDeOfertas("OF2","PUB12"));
 
-            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART4", "PUB13"), ListaDeOfertas("OF3", "PUB13"));
+            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null, ListaDeArticulos("ART4", "PUB13"), ListaDeOfertas("OF3", "PUB13"));
 
-            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART3", "PUB14"), null);
+            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null, ListaDeArticulos("ART3", "PUB14"), null);
 
-            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART5", "PUB15"), null);
+            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null, ListaDeArticulos("ART5", "PUB15"), null);
 
-            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART12", "PUB16"), null);
+            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), null, null, ListaDeArticulos("ART12", "PUB16"), null);
 
-            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART11", "PUB17"), null);
+            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), null, null, ListaDeArticulos("ART11", "PUB17"), null);
 
-            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART43", "PUB18"), null);
+            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), null, null, ListaDeArticulos("ART43", "PUB18"), null);
 
-            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART29", "PUB19"), null);
+            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null, ListaDeArticulos("ART29", "PUB19"), null);
 
-            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART18", "PUB20"), null);
+            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), null, null, ListaDeArticulos("ART18", "PUB20"), null);
 
-            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), new DateTime(9999, 12, 12), null, null, ListaDeArticulos("ART17", "PUB21"), null);
+            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, ListaDeArticulos("ART17", "PUB21"), null);
         }
 
 
