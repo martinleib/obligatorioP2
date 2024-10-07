@@ -10,7 +10,7 @@ namespace LogicaNegocio
     {
         public Administrador(string nombre, string apellido, string email, string password) : base(nombre, apellido, email, password)
         {
-
+            // Administrador hereda de usuario
         }
     }
 }

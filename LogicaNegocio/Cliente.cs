@@ -8,6 +8,8 @@ namespace LogicaNegocio
 {
     public class Cliente:Usuario
     {
+        // Cliente hereda de usuario
+
         // Saldo disponible
         private double _saldo;
 

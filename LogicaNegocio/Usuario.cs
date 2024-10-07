@@ -8,8 +8,6 @@ namespace LogicaNegocio
 {
 
     public abstract class Usuario
-        //IEquatable<Usuario>
-
     {
         private string _nombre;
         private string _apellido;
