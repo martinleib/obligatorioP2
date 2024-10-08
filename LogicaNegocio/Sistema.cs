@@ -312,7 +312,7 @@ namespace LogicaNegocio
         }
 
         // Agrega una oferta a una publicacion (creo)?
-        public List<Oferta> ListaDeOfertas(string idOferta, string idPublicacion)
+        public List<Oferta> AgregarOferta(string idOferta, string idPublicacion)
         {
             int i = 0;
             Oferta oferta = BuscarOferta(idOferta);
