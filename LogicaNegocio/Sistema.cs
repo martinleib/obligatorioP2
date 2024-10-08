@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 
 namespace LogicaNegocio
@@ -9,8 +10,6 @@ namespace LogicaNegocio
         private List<Usuario> _usuarios = new List<Usuario>();
         private List<Publicacion> _publicaciones = new List<Publicacion>();
         private List<Articulo> _articulos = new List<Articulo>();
-        private List<Oferta> _ofertas = new List<Oferta>();
-
 
         // METODOS USUARIO
         // Alta de Administrador
@@ -290,75 +289,13 @@ namespace LogicaNegocio
 
         // METODOS OFERTA
         // Alta Oferta
-        // Es un metodo que crea una nueva instancia oferta, verifica que no esté en la lista de ofertas de la clase sistema y luego lo agrega a dicha lista.
-        public void AltaOferta(int monto, Usuario usuario, DateTime fecha)
-        {
-            Oferta oferta = new Oferta(monto, usuario, fecha);
-            if (!_ofertas.Contains(oferta))
-            {
-                _ofertas.Add(oferta);
-            }
-        }
-
-        // Precarga Oferta
-        // Usa el metodo “ AltaOferta” para crear manualmente instancias de tipo oferta.
-        public void PrecargaOferta()
-        {
-            AltaOferta(510, ObtenerCliente("USU4"), new DateTime(2023, 10, 4));
-            AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
-        }
-
-        // Obtener oferta
-        // Es un metodo que busca en la lista de ofertas de la clase sistema una oferta con el id pasado por parámetros y si lo encuentra devuelve una oferta, en caso de que no lo encuentre devuelve null.
-        public Oferta BuscarOferta(string id)
-        {
-            int i = 0;
-            Oferta oferta = null;
-            while (i < _ofertas.Count && oferta == null)
-            {
-                if (_ofertas[i].Id == id.Trim().ToUpper())
-                {
-                    oferta = _ofertas[i];
-                }
-                i++;
-            }
-            return oferta;
-        }
-
-        // Agrega una oferta a la lista de ofertas en una publicación de tipo subasta y devuelve dicha lista. En caso de no encontrar la publicación deseada devuelve null.
-        public List<Oferta> AgregarOferta(string idOferta, string idPublicacion)
-        {
-            int i = 0;
-            Oferta oferta = BuscarOferta(idOferta);
-            Subasta subasta = null;
-
-            while (i < _publicaciones.Count && subasta == null && oferta != null)
-            {
-                if (_publicaciones[i] is Subasta &&
-                    _publicaciones[i].Id.Trim().ToUpper() == idPublicacion.Trim().ToUpper() &&
-                    ((Subasta)_publicaciones[i]).EstaEnOferta(oferta) == false)
-                {
-                    subasta = (Subasta)_publicaciones[i];
-                    subasta.Ofertas.Add(oferta);
-                }
-                i++;
-            }
-
-            if (subasta != null)
-            {
-                return subasta.Ofertas;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        // Es un metodo que crea una nueva instancia oferta, verifica que no esté en la lista de ofertas de la clase sistema y luego lo agrega a dicha lista
 
         // Alta publicacion *subasta*
         // Es un metodo que crea una nueva instancia subasta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
-        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, List<Oferta> ofertas)
+        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
         {
-            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, comprador, finalizador, articulos, ofertas);
+            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, comprador, finalizador, articulos);
             if (!_publicaciones.Contains(subasta))
             {
                 _publicaciones.Add(subasta);
@@ -369,25 +306,48 @@ namespace LogicaNegocio
         // Usa el metodo “ AltaPublicacionSubasta” para crear manualmente instancias de tipo subasta.
         public void PrecargaSubasta()
         {
-            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, AgregarArticulo("ART7", "PUB12"), AgregarOferta("OF2", "PUB12"));
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, AgregarArticulo("ART7", "PUB12"));
 
-            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null, AgregarArticulo("ART4", "PUB13"), AgregarOferta("OF3", "PUB13"));
+            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null, AgregarArticulo("ART4", "PUB13"));
 
-            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null, AgregarArticulo("ART3", "PUB14"), null);
+            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null, AgregarArticulo("ART3", "PUB14"));
 
-            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null, AgregarArticulo("ART5", "PUB15"), null);
+            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null, AgregarArticulo("ART5", "PUB15"));
 
-            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), null, null, AgregarArticulo("ART12", "PUB16"), null);
+            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), null, null, AgregarArticulo("ART12", "PUB16"));
 
-            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), null, null, AgregarArticulo("ART11", "PUB17"), null);
+            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), null, null, AgregarArticulo("ART11", "PUB17"));
 
-            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), null, null, AgregarArticulo("ART43", "PUB18"), null);
+            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), null, null, AgregarArticulo("ART43", "PUB18"));
 
-            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null, AgregarArticulo("ART29", "PUB19"), null);
+            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null, AgregarArticulo("ART29", "PUB19"));
 
-            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), null, null, AgregarArticulo("ART18", "PUB20"), null);
+            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), null, null, AgregarArticulo("ART18", "PUB20"));
 
-            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, AgregarArticulo("ART17", "PUB21"), null);
+            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, AgregarArticulo("ART17", "PUB21"));
+        }
+
+        public Subasta ObtenerSubasta(string id)
+        {
+            Subasta publicacionEncontrada = null;
+
+            foreach (Publicacion publicacion in _publicaciones)
+            {
+                if (publicacion is Subasta && publicacion.Id.Trim().ToUpper() == id.Trim().ToUpper())
+                {
+                    publicacionEncontrada = (Subasta) publicacion;
+                }
+            }
+
+            return publicacionEncontrada;
+        }
+
+        // Precarga Oferta
+        // Usa el metodo “AltaOferta” para crear manualmente instancias de tipo oferta.
+        public void PrecargaOferta()
+        {
+            ObtenerSubasta("PUB13").AltaOferta(510, ObtenerCliente("USU4"), new DateTime(2023, 10, 4));
+            ObtenerSubasta("PUB14").AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
         }
 
         // Retorna el listado de clientes como un string (metodo usado por Program)
@@ -407,7 +367,7 @@ namespace LogicaNegocio
             {
                 throw new Exception("No hay clientes registrados en el sistema");
             }
-            
+
             return retornoClientes;
         }
 
