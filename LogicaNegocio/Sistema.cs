@@ -14,7 +14,7 @@ namespace LogicaNegocio
 
         // METODOS USUARIO
         // Alta de Administrador
-        // Es un metodo que crea una nueva instancia administrador, verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
+        // Es un metodo que crea una nueva instancia usuario. Verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
         
         public void AltaAdministrador(string nombre, string apellido, string email, string password)
         {
@@ -26,7 +26,7 @@ namespace LogicaNegocio
         }
         
         // Precarga administrador
-        // Usa el metodo “AltaUsuarioAdministrador” para crear manualmente instancias de tipo administrador.
+        // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
         {
             AltaAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
@@ -37,7 +37,7 @@ namespace LogicaNegocio
 
         // METODOS CLIENTE
         // Alta cliente
-        // Es un metodo que crea una nueva instancia cliente, verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
+        // Es un metodo que crea una nueva instancia cliente. Verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
         public void AltaCliente(string nombre, string apellido, string email, string password, double saldo)
         {
             Cliente cliente = new Cliente(nombre, apellido, email, password, saldo);
@@ -48,7 +48,7 @@ namespace LogicaNegocio
         }
 
         // Precarga cliente
-        // Usa el metodo “AltaUsuarioCliente” para crear manualmente instancias de tipo cliente.
+        // Usa el metodo “AltaCliente” para crear manualmente instancias de tipo cliente.
         public void PrecargaCliente()
         {
             AltaCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 1500);
