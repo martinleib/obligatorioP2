@@ -26,11 +26,11 @@ namespace LogicaNegocio
         // Cliente que realizo la compra
         private Cliente _comprador = null;
 
-        // Usuario que finaliza la compra, calculo que un administrador tiene que confirmar la compra manualmente
-        // y cuando en la letra se menciona "usuario que finaliza la compra" se refiere a este usuario que se
-        // guarda dentro de cada publicacion
+        // En el caso de una subasta el finalizador es un usuario de tipo Administrador
+        // mientras que en el caso de una compra el finalizador es un usuario de tipo Cliente
         private Usuario _finalizador = null;
 
+        // Es el método constructor de la clase publicacion que se usará para crear instancias del tipo publicacion.
         public Publicacion(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
         {
             this._id = $"PUB{s_ultimoID + 1}";
@@ -38,14 +38,12 @@ namespace LogicaNegocio
             this._nombre = nombre;
             this._estado = estado;
             this._fechaPublicacion = fechaPublicacion;
-            // 07/10/2024
-            // No se agrega fechaFinalizacion en el constructor para que la fecha quede como nula
-            // y se pueda setear en el momento que se finaliza la publicacion             -Martin
             this._comprador = comprador;
             this._finalizador = finalizador;
             this._articulos = articulos;
         }
 
+        // Propiedad que devuelve la lista de articulos de una instancia de tipo publicacion.
         public List<Articulo> Articulo
         {
             get
@@ -54,16 +52,20 @@ namespace LogicaNegocio
             }
         }
 
+        // Propiedad que devuelve el ID de una instancia de tipo publicacion.
         public string Id
         {
             get { return _id; }
         }
 
+        // Propiedad que devuelve la fecha de publicacion de una instancia de tipo publicacion.
         public DateTime FechaPublicacion
         {
             get { return _fechaPublicacion; }
         }
-        
+
+        // Precondición: el articulo pasado por parámetro no puede ser null.
+        // Es un metodo que devuelve false en caso de que el articulo pasado como parametro esté en la lista de articulos, en caso de que no esté devuelve true.
         public bool NoEstaEnLaListaElArticulo(Articulo articulo)
         {
             bool noEstaEnLaLista = false;
@@ -74,6 +76,7 @@ namespace LogicaNegocio
             return noEstaEnLaLista;
         }
 
+        // Metodo que modifica el comportamiento del método ToString de la clase publicación, permitiendo imprimir los atributos nombre, estado, fecha de publicación e ID.
         public override string ToString()
         {
             return $"Nombre: {_nombre}. Estado: {_estado}. Fecha de publicacion: {_fechaPublicacion}. ID: {_id}";
