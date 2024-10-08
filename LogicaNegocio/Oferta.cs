@@ -18,7 +18,7 @@ namespace LogicaNegocio
         // Es el método constructor de la clase oferta que se usará para crear instancias del tipo oferta.
         public Oferta(int monto, Usuario usuario, DateTime fecha)
         {
-            // El ID se veria: OF01, OF02, etc...
+            // El ID se veria: OF02, OF03, etc...
             this._id = $"OF{s_ultimoID + 1}";
             s_ultimoID++;
             this._monto = monto;
