@@ -15,7 +15,7 @@ namespace LogicaNegocio
         // METODOS USUARIO
         // Alta de Administrador
         // Es un metodo que crea una nueva instancia usuario. Verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
-        
+
         public void AltaAdministrador(string nombre, string apellido, string email, string password)
         {
             Usuario administrador = new Usuario(nombre, apellido, email, password);
@@ -24,7 +24,7 @@ namespace LogicaNegocio
                 _usuarios.Add(administrador);
             }
         }
-        
+
         // Precarga administrador
         // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
@@ -82,14 +82,14 @@ namespace LogicaNegocio
             {
                 if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
-                    usuarioCliente = (Cliente) _usuarios[i];
+                    usuarioCliente = (Cliente)_usuarios[i];
                 }
                 i++;
             }
             return usuarioCliente;
         }
 
-        
+
         // METODOS ARTICULO
         // Alta articulo
         // Es un metodo que crea una nueva instancia articulo, verifica que no esté en la lista de articulos de la clase sistema y luego lo agrega a dicha lista.
@@ -250,7 +250,7 @@ namespace LogicaNegocio
                 return null;
             }
         }
-        
+
         // METODOS PUBLICACION
         // Alta publicacion *venta*
         // Es un metodo que crea una nueva instancia venta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
@@ -293,7 +293,7 @@ namespace LogicaNegocio
         // Es un metodo que crea una nueva instancia oferta, verifica que no esté en la lista de ofertas de la clase sistema y luego lo agrega a dicha lista.
         public void AltaOferta(int monto, Usuario usuario, DateTime fecha)
         {
-            Oferta oferta = new Oferta(monto,usuario, fecha);
+            Oferta oferta = new Oferta(monto, usuario, fecha);
             if (!_ofertas.Contains(oferta))
             {
                 _ofertas.Add(oferta);
@@ -353,7 +353,7 @@ namespace LogicaNegocio
                 return null;
             }
         }
-        
+
         // Alta publicacion *subasta*
         // Es un metodo que crea una nueva instancia subasta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
         public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, List<Oferta> ofertas)
@@ -391,66 +391,74 @@ namespace LogicaNegocio
         }
 
         // Retorna el listado de clientes como un string (metodo usado por Program)
-        public string ListadoDeClientes() 
+        public List<Usuario> ListadoDeClientes()
         {
-            string retornoClientes = "";
+            List<Usuario> retornoClientes = new List<Usuario>();
 
             foreach (Usuario usuario in _usuarios)
             {
                 if (usuario is Cliente)
                 {
-                    retornoClientes += $"{usuario.ToString()} \n";
+                    retornoClientes.Add(usuario);
                 }
             }
 
-            if (_usuarios.Count == 0)
+            if (retornoClientes.Count == 0)
             {
-                retornoClientes = "No hay ningun cliente registrado en el sistema.";
+                return null;
             }
-
-            return retornoClientes;
+            else
+            {
+                return retornoClientes;
+            }
         }
 
         // Retorna el listado de publicaciones hechas entre dos fechas como un string (metodo usado por Program)
-        public string ListadoDePublicaciones(DateTime fechaUno, DateTime fechaDos)
+        public List<Publicacion> ListadoDePublicaciones(DateTime fechaUno, DateTime fechaDos)
         {
-            string retornoPublicaciones = "";
+
+            List<Publicacion> retornoPublicaciones = new List<Publicacion>();
 
             foreach (Publicacion publicacion in _publicaciones)
             {
                 if (publicacion.FechaPublicacion >= fechaUno && publicacion.FechaPublicacion <= fechaDos)
                 {
-                    retornoPublicaciones += $"{publicacion.ToString()} \n";
+                    retornoPublicaciones.Add(publicacion);
                 }
             }
 
-            if (_publicaciones.Count == 0)
+            if (retornoPublicaciones.Count == 0)
             {
-                retornoPublicaciones = "No hay ninguna publicacion registrada en el sistema.";
+                return null;
             }
-
-            return retornoPublicaciones;
+            else
+            {
+                return retornoPublicaciones;
+            }
         }
 
         // Retorna el listado de articulos con una categoria especifica como un string (metodo usado por Program)
-        public string ListadoDeArticulos(string categoria)
+        public List<Articulo> ListadoDeArticulos(string categoria)
         {
-            string listaDeArticulos = "";
+
+            List<Articulo> retornoArticulos = new List<Articulo>();
 
             foreach (Articulo articulo in _articulos)
             {
                 if (articulo.Categoria.Trim().ToLower() == categoria.Trim().ToLower())
                 {
-                    listaDeArticulos += $"{articulo.ToString()} \n";
+                    retornoArticulos.Add(articulo);
                 }
             }
 
-            if (_articulos.Count == 0)
+            if (retornoArticulos.Count == 0)
             {
-                listaDeArticulos = "No hay articulos en el sistema";
+                return null;
             }
-
-            return listaDeArticulos;
+            else
+            {
+                return retornoArticulos;
+            }
         }
     }
 }

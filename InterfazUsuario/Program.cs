@@ -1,4 +1,5 @@
 ﻿using LogicaNegocio;
+using System.ComponentModel.Design;
 
 namespace InterfazUsuario
 {
@@ -80,7 +81,17 @@ namespace InterfazUsuario
 
         static void MostrarClientes()
         {
-            Console.WriteLine(sistema.ListadoDeClientes());
+            if (sistema.ListadoDeClientes() != null)
+            {
+                foreach (Cliente cliente in sistema.ListadoDeClientes())
+                {
+                    Console.WriteLine(cliente);
+                }
+            }
+            else
+            {
+                { Console.WriteLine("No hay ningún cliente registrado en el sistema"); }
+            }
         }
 
         static void MostrarArticulos()
@@ -88,23 +99,70 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese la categoria de los articulos que desea ver");
             string categoria = Console.ReadLine();
 
-            Console.WriteLine(sistema.ListadoDeArticulos(categoria));
+            if (!String.IsNullOrEmpty(categoria))
+            {
+                if (sistema.ListadoDeArticulos(categoria) != null)
+                {
+                    foreach (Articulo articulo in sistema.ListadoDeArticulos(categoria))
+                    {
+                        Console.WriteLine(articulo);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No existe ningún articulo de esa categoría");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Debes escribir una categoría");
+            }
         }
 
         static void MostrarPublicaciones()
         {
             Console.WriteLine("Ingrese la primer fecha del rango");
             string primeraFechaString = Console.ReadLine();
-            DateTime.TryParse(primeraFechaString, out DateTime primeraFechaParsed);
 
-            Console.WriteLine("Ingrese la segunda fecha (debe ser posterior a la primera fecha)");
-
+            Console.WriteLine("Ingrese la segunda fecha");
             string segundaFechaString = Console.ReadLine();
-            DateTime.TryParse(segundaFechaString, out DateTime segundaFechaParsed);
 
-            if (primeraFechaParsed < segundaFechaParsed)
+            if (String.IsNullOrEmpty(primeraFechaString) || String.IsNullOrEmpty(segundaFechaString))
             {
-                Console.WriteLine(sistema.ListadoDePublicaciones(primeraFechaParsed, segundaFechaParsed));
+                Console.WriteLine("Las fechas no pueden estar vacías");
+            }
+            else
+            {
+                DateTime.TryParse(primeraFechaString, out DateTime primeraFechaParsed);
+                DateTime.TryParse(segundaFechaString, out DateTime segundaFechaParsed);
+                if (primeraFechaParsed < segundaFechaParsed)
+                {
+                    if (sistema.ListadoDePublicaciones(primeraFechaParsed, segundaFechaParsed) != null)
+                    {
+                        foreach (Publicacion publicacion in sistema.ListadoDePublicaciones(primeraFechaParsed, segundaFechaParsed))
+                        {
+                            Console.WriteLine(publicacion);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No existe ninguna publicacion dentro de ese rango de fechas");
+                    }
+                }
+                else
+                {
+                    if (sistema.ListadoDePublicaciones(segundaFechaParsed, primeraFechaParsed) != null)
+                    {
+                        foreach (Publicacion publicacion in sistema.ListadoDePublicaciones(segundaFechaParsed, primeraFechaParsed))
+                        {
+                            Console.WriteLine(publicacion);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No existe ninguna publicacion dentro de ese rango de fechas");
+                    }
+                }
             }
         }
     }
