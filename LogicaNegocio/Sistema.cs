@@ -74,7 +74,7 @@ namespace LogicaNegocio
 
         // Obtener cliente
         // Es un metodo que busca en la lista de clientes de la clase sistema un cliente con el id pasado por parámetros y si lo encuentra devuelve un usuario de tipo cliente, en caso de que no lo encuentra devuelve null.
-        public Cliente ObtenerUsuarioCliente(string id)
+        public Cliente ObtenerCliente(string id)
         {
             int i = 0;
             Cliente usuarioCliente = null;
@@ -304,8 +304,8 @@ namespace LogicaNegocio
         // Usa el metodo “ AltaOferta” para crear manualmente instancias de tipo oferta.
         public void PrecargaOferta()
         {
-            AltaOferta(510, ObtenerUsuarioCliente("USU4"), new DateTime(2023, 10, 4));
-            AltaOferta(450, ObtenerUsuarioCliente("USU5"), new DateTime(2023, 11, 2));
+            AltaOferta(510, ObtenerCliente("USU4"), new DateTime(2023, 10, 4));
+            AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
         }
 
         // Obtener oferta
