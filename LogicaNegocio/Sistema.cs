@@ -287,10 +287,6 @@ namespace LogicaNegocio
             AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, AgregarArticulo("ART2", "PUB11"), true);
         }
 
-        // METODOS OFERTA
-        // Alta Oferta
-        // Es un metodo que crea una nueva instancia oferta, verifica que no esté en la lista de ofertas de la clase sistema y luego lo agrega a dicha lista
-
         // Alta publicacion *subasta*
         // Es un metodo que crea una nueva instancia subasta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
         public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
