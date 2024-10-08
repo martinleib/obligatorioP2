@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LogicaNegocio
 {
 
-    public abstract class Usuario
+    public class Usuario
     {
         private string _nombre;
         private string _apellido;

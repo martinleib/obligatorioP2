@@ -16,9 +16,9 @@ namespace LogicaNegocio
         // Alta de Administrador
         // Es un metodo que crea una nueva instancia administrador, verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
         
-        public void AltaUsuarioAdministrador(string nombre, string apellido, string email, string password)
+        public void AltaAdministrador(string nombre, string apellido, string email, string password)
         {
-            Administrador administrador = new Administrador(nombre, apellido, email, password);
+            Usuario administrador = new Usuario(nombre, apellido, email, password);
             if (!_usuarios.Contains(administrador))
             {
                 _usuarios.Add(administrador);
@@ -29,8 +29,8 @@ namespace LogicaNegocio
         // Usa el metodo “AltaUsuarioAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
         {
-            AltaUsuarioAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
-            AltaUsuarioAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
+            AltaAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
+            AltaAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
         }
 
 
@@ -38,7 +38,7 @@ namespace LogicaNegocio
         // METODOS CLIENTE
         // Alta cliente
         // Es un metodo que crea una nueva instancia cliente, verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
-        public void AltaUsuarioCliente(string nombre, string apellido, string email, string password, double saldo)
+        public void AltaCliente(string nombre, string apellido, string email, string password, double saldo)
         {
             Cliente cliente = new Cliente(nombre, apellido, email, password, saldo);
             if (!_usuarios.Contains(cliente))
@@ -51,25 +51,25 @@ namespace LogicaNegocio
         // Usa el metodo “AltaUsuarioCliente” para crear manualmente instancias de tipo cliente.
         public void PrecargaCliente()
         {
-            AltaUsuarioCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 1500);
+            AltaCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 1500);
 
-            AltaUsuarioCliente("Javier", "Lopez", "JavierL1995@gmail.com", "JavierL789", 3200);
+            AltaCliente("Javier", "Lopez", "JavierL1995@gmail.com", "JavierL789", 3200);
 
-            AltaUsuarioCliente("Ana", "Fernandez", "AnaF1987@gmail.com", "AnaF101", 4000);
+            AltaCliente("Ana", "Fernandez", "AnaF1987@gmail.com", "AnaF101", 4000);
 
-            AltaUsuarioCliente("Pedro", "Ramirez", "PedroR1998@gmail.com", "PedroR202", 2700);
+            AltaCliente("Pedro", "Ramirez", "PedroR1998@gmail.com", "PedroR202", 2700);
 
-            AltaUsuarioCliente("María", "Hernandez", "MariaH1993@gmail.com", "MariaH303", 1800);
+            AltaCliente("María", "Hernandez", "MariaH1993@gmail.com", "MariaH303", 1800);
 
-            AltaUsuarioCliente("Luis", "Morales", "LuisM2003@gmail.com", "LuisM404", 3600);
+            AltaCliente("Luis", "Morales", "LuisM2003@gmail.com", "LuisM404", 3600);
 
-            AltaUsuarioCliente("Elena", "Diaz", "ElenaD2001@gmail.com", "ElenaD505", 2200);
+            AltaCliente("Elena", "Diaz", "ElenaD2001@gmail.com", "ElenaD505", 2200);
 
-            AltaUsuarioCliente("Fernando", "Cruz", "FernandoC1999@gmail.com", "FernandoC606", 3100);
+            AltaCliente("Fernando", "Cruz", "FernandoC1999@gmail.com", "FernandoC606", 3100);
 
-            AltaUsuarioCliente("Lucía", "Vasquez", "LuciaV1989@gmail.com", "LuciaV707", 2300);
+            AltaCliente("Lucía", "Vasquez", "LuciaV1989@gmail.com", "LuciaV707", 2300);
 
-            AltaUsuarioCliente("Andrés", "Pérez", "AndresP2005@gmail.com", "AndresP808", 2900);
+            AltaCliente("Andrés", "Pérez", "AndresP2005@gmail.com", "AndresP808", 2900);
         }
 
         // Obtener cliente
@@ -267,25 +267,25 @@ namespace LogicaNegocio
         // Usa el metodo “AltaPublicacionVenta” para crear manualmente instancias de tipo venta.
         public void PrecargaVenta()
         {
-            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), null, null, ListaDeArticulos("ART11", "PUB2"), true);
+            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), null, null, AgregarArticulo("ART11", "PUB2"), true);
 
-            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), null, null, ListaDeArticulos("ART10", "PUB3"), false);
+            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), null, null, AgregarArticulo("ART10", "PUB3"), false);
 
-            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), null, null, ListaDeArticulos("ART9", "PUB4"), true);
+            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), null, null, AgregarArticulo("ART9", "PUB4"), true);
 
-            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), null, null, ListaDeArticulos("ART8", "PUB5"), false);
+            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), null, null, AgregarArticulo("ART8", "PUB5"), false);
 
-            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), null, null, ListaDeArticulos("ART7", "PUB6"), true);
+            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), null, null, AgregarArticulo("ART7", "PUB6"), true);
 
-            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), null, null, ListaDeArticulos("ART6", "PUB7"), false);
+            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), null, null, AgregarArticulo("ART6", "PUB7"), false);
 
-            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), null, null, ListaDeArticulos("ART5", "PUB8"), true);
+            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), null, null, AgregarArticulo("ART5", "PUB8"), true);
 
-            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), null, null, ListaDeArticulos("ART4", "PUB9"), true);
+            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), null, null, AgregarArticulo("ART4", "PUB9"), true);
 
-            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), null, null, ListaDeArticulos("ART3", "PUB10"), false);
+            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), null, null, AgregarArticulo("ART3", "PUB10"), false);
 
-            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, ListaDeArticulos("ART2", "PUB11"), true);
+            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, AgregarArticulo("ART2", "PUB11"), true);
         }
 
         // METODOS OFERTA
@@ -369,25 +369,25 @@ namespace LogicaNegocio
         // Usa el metodo “ AltaPublicacionSubasta” para crear manualmente instancias de tipo subasta.
         public void PrecargaSubasta()
         {
-            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, ListaDeArticulos("ART7", "PUB12"), ListaDeOfertas("OF2", "PUB12"));
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, AgregarArticulo("ART7", "PUB12"), AgregarOferta("OF2", "PUB12"));
 
-            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null, ListaDeArticulos("ART4", "PUB13"), ListaDeOfertas("OF3", "PUB13"));
+            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null, AgregarArticulo("ART4", "PUB13"), AgregarOferta("OF3", "PUB13"));
 
-            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null, ListaDeArticulos("ART3", "PUB14"), null);
+            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null, AgregarArticulo("ART3", "PUB14"), null);
 
-            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null, ListaDeArticulos("ART5", "PUB15"), null);
+            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null, AgregarArticulo("ART5", "PUB15"), null);
 
-            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), null, null, ListaDeArticulos("ART12", "PUB16"), null);
+            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), null, null, AgregarArticulo("ART12", "PUB16"), null);
 
-            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), null, null, ListaDeArticulos("ART11", "PUB17"), null);
+            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), null, null, AgregarArticulo("ART11", "PUB17"), null);
 
-            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), null, null, ListaDeArticulos("ART43", "PUB18"), null);
+            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), null, null, AgregarArticulo("ART43", "PUB18"), null);
 
-            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null, ListaDeArticulos("ART29", "PUB19"), null);
+            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null, AgregarArticulo("ART29", "PUB19"), null);
 
-            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), null, null, ListaDeArticulos("ART18", "PUB20"), null);
+            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), null, null, AgregarArticulo("ART18", "PUB20"), null);
 
-            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, ListaDeArticulos("ART17", "PUB21"), null);
+            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, AgregarArticulo("ART17", "PUB21"), null);
         }
 
         // Retorna el listado de clientes como un string (metodo usado por Program)
