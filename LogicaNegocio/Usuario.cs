@@ -16,6 +16,7 @@ namespace LogicaNegocio
         private string _id;
         private static int s_ultimoID = 1;
 
+        // Es el método constructor de la clase usuario que se usará para crear instancias del tipo usuario.
         public Usuario(string nombre, string apellido, string email, string password)
         {
             this._nombre = nombre;
@@ -26,21 +27,25 @@ namespace LogicaNegocio
             s_ultimoID++;
         }
 
+        // Propiedad que devuelve el ID de una instancia usuario.
         public string Id
         {
             get { return _id; }
         }
 
+        // Propiedad que devuelve el nombre de una instancia usuario.
         public string Nombre
         {
             get { return _nombre; }
         }
 
+        // Propiedad que devuelve el apellido de una instancia usuario.
         public string Apellido
         {
             get { return _apellido; }
         }
 
+        // Propiedad que devuelve el correo de una instancia usuario.
         public string Email
         {
             get { return _email; }
