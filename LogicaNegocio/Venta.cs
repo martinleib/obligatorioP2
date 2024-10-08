@@ -12,18 +12,11 @@ namespace LogicaNegocio
         // Una subasta es adjudicada a una persona, pero solo un administrador la puede cerrar.
         private bool _relampago;
 
+        // Es el método constructor de la clase venta que se usará para crear instancias del tipo venta.
         public Venta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador,List<Articulo> articulos, bool relampago):base(nombre, estado, fechaPublicacion, comprador, finalizador, articulos)
 
         {
             this._relampago = relampago;
-        }
-
-        public bool Relampago
-        {
-            set
-            {
-                this._relampago = value;
-            }
         }
     }
 }
