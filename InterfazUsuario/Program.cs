@@ -14,6 +14,11 @@ namespace InterfazUsuario
             sistema.PrecargaSubasta();
             sistema.PrecargaOferta();
 
+            Menu();
+        }
+
+        static void Menu()
+        {
             bool ingresoCero = false;
             while (!ingresoCero)
             {
