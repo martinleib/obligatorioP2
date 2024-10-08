@@ -15,6 +15,7 @@ namespace LogicaNegocio
         private string _nombre;
         private string _categoria;
 
+        // Es el método constructor de la clase articulo que se usará para crear instancias del tipo articulo.
         public Articulo(int precio, string nombre, string categoria)
         {
             this._id = $"ART { s_ultimoID + 1}";
@@ -23,17 +24,20 @@ namespace LogicaNegocio
             this._nombre = nombre;
             this._categoria = categoria;
         }
-
+        
+        // Propiedad que devuelve el ID de una instancia articulo.
         public string Id
         {
             get { return _id; }
         }
 
+        // Propiedad que devuelve la categoría de una instancia articulo.
         public string Categoria
         {
             get { return _categoria; }
         }
 
+        // Metodo que modifica el comportamiento del método ToString de la clase artículo, permitiendo imprimir los atributos nombre, precio, categoría e ID.
         public override string ToString()
         {
             return $"Nombre: {_nombre}. Precio: {_precio}. Categoria: {_categoria}. ID: {_id}";
