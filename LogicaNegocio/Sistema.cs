@@ -405,12 +405,10 @@ namespace LogicaNegocio
 
             if (retornoClientes.Count == 0)
             {
-                return null;
+                throw new Exception("No hay clientes registrados en el sistema");
             }
-            else
-            {
-                return retornoClientes;
-            }
+            
+            return retornoClientes;
         }
 
         // Retorna el listado de publicaciones hechas entre dos fechas como un string (metodo usado por Program)
@@ -429,12 +427,10 @@ namespace LogicaNegocio
 
             if (retornoPublicaciones.Count == 0)
             {
-                return null;
+                throw new Exception("No existe ningún producto dentro de este rango de fechas");
             }
-            else
-            {
-                return retornoPublicaciones;
-            }
+
+            return retornoPublicaciones;
         }
 
         // Retorna el listado de articulos con una categoria especifica como un string (metodo usado por Program)
@@ -453,12 +449,10 @@ namespace LogicaNegocio
 
             if (retornoArticulos.Count == 0)
             {
-                return null;
+                throw new Exception($"No existen artículos de la categoría: {categoria}");
             }
-            else
-            {
-                return retornoArticulos;
-            }
+
+            return retornoArticulos;
         }
     }
 }

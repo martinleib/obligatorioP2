@@ -81,17 +81,14 @@ namespace InterfazUsuario
 
         static void MostrarClientes()
         {
-            if (sistema.ListadoDeClientes() != null)
+            try
             {
                 foreach (Cliente cliente in sistema.ListadoDeClientes())
                 {
                     Console.WriteLine(cliente);
                 }
             }
-            else
-            {
-                { Console.WriteLine("No hay ningún cliente registrado en el sistema"); }
-            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
 
         static void MostrarArticulos()
@@ -99,20 +96,21 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese la categoria de los articulos que desea ver");
             string categoria = Console.ReadLine();
 
-            if (!String.IsNullOrEmpty(categoria))
-            {
-                if (sistema.ListadoDeArticulos(categoria) != null)
+            if (!string.IsNullOrEmpty(categoria))
+                try
                 {
-                    foreach (Articulo articulo in sistema.ListadoDeArticulos(categoria))
                     {
-                        Console.WriteLine(articulo);
+                        foreach (Articulo articulo in sistema.ListadoDeArticulos(categoria))
+                        {
+                            Console.WriteLine(articulo);
+                        }
+
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Console.WriteLine("No existe ningún articulo de esa categoría");
+                    Console.WriteLine(ex.Message);
                 }
-            }
             else
             {
                 Console.WriteLine("Debes escribir una categoría");
@@ -127,7 +125,7 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese la segunda fecha");
             string segundaFechaString = Console.ReadLine();
 
-            if (String.IsNullOrEmpty(primeraFechaString) || String.IsNullOrEmpty(segundaFechaString))
+            if (string.IsNullOrEmpty(primeraFechaString) || string.IsNullOrEmpty(segundaFechaString))
             {
                 Console.WriteLine("Las fechas no pueden estar vacías");
             }
@@ -135,9 +133,9 @@ namespace InterfazUsuario
             {
                 DateTime.TryParse(primeraFechaString, out DateTime primeraFechaParsed);
                 DateTime.TryParse(segundaFechaString, out DateTime segundaFechaParsed);
-                if (primeraFechaParsed < segundaFechaParsed)
+                try
                 {
-                    if (sistema.ListadoDePublicaciones(primeraFechaParsed, segundaFechaParsed) != null)
+                    if (primeraFechaParsed < segundaFechaParsed)
                     {
                         foreach (Publicacion publicacion in sistema.ListadoDePublicaciones(primeraFechaParsed, segundaFechaParsed))
                         {
@@ -146,22 +144,15 @@ namespace InterfazUsuario
                     }
                     else
                     {
-                        Console.WriteLine("No existe ninguna publicacion dentro de ese rango de fechas");
-                    }
-                }
-                else
-                {
-                    if (sistema.ListadoDePublicaciones(segundaFechaParsed, primeraFechaParsed) != null)
-                    {
                         foreach (Publicacion publicacion in sistema.ListadoDePublicaciones(segundaFechaParsed, primeraFechaParsed))
                         {
                             Console.WriteLine(publicacion);
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("No existe ninguna publicacion dentro de ese rango de fechas");
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
