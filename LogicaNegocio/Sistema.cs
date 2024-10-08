@@ -216,7 +216,7 @@ namespace LogicaNegocio
         }
 
         // Agrega un articulo a una publicacion (creo)?
-        public List<Articulo> ListaDeArticulos(string idArticulo, string idPublicacion)
+        public List<Articulo> AgregarArticulo(string idArticulo, string idPublicacion)
         {
             int i = 0;
             Articulo articulo = BuscarArticulo(idArticulo);
