@@ -14,6 +14,8 @@ namespace LogicaNegocio
 
         // METODOS USUARIO
         // Alta de Administrador
+        // Es un metodo que crea una nueva instancia administrador, verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
+        
         public void AltaUsuarioAdministrador(string nombre, string apellido, string email, string password)
         {
             Administrador administrador = new Administrador(nombre, apellido, email, password);
@@ -24,6 +26,7 @@ namespace LogicaNegocio
         }
         
         // Precarga administrador
+        // Usa el metodo “AltaUsuarioAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
         {
             AltaUsuarioAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
@@ -34,6 +37,7 @@ namespace LogicaNegocio
 
         // METODOS CLIENTE
         // Alta cliente
+        // Es un metodo que crea una nueva instancia cliente, verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
         public void AltaUsuarioCliente(string nombre, string apellido, string email, string password, double saldo)
         {
             Cliente cliente = new Cliente(nombre, apellido, email, password, saldo);
@@ -44,6 +48,7 @@ namespace LogicaNegocio
         }
 
         // Precarga cliente
+        // Usa el metodo “AltaUsuarioCliente” para crear manualmente instancias de tipo cliente.
         public void PrecargaCliente()
         {
             AltaUsuarioCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 1500);
@@ -68,6 +73,7 @@ namespace LogicaNegocio
         }
 
         // Obtener cliente
+        // Es un metodo que busca en la lista de clientes de la clase sistema un cliente con el id pasado por parámetros y si lo encuentra devuelve un usuario de tipo cliente, en caso de que no lo encuentra devuelve null.
         public Cliente ObtenerUsuarioCliente(string id)
         {
             int i = 0;
@@ -86,6 +92,7 @@ namespace LogicaNegocio
         
         // METODOS ARTICULO
         // Alta articulo
+        // Es un metodo que crea una nueva instancia articulo, verifica que no esté en la lista de articulos de la clase sistema y luego lo agrega a dicha lista.
         public void AltaArticulo(int precio, string nombre, string categoria)
         {
             Articulo articulo = new Articulo(precio, nombre, categoria);
@@ -96,6 +103,7 @@ namespace LogicaNegocio
         }
 
         // Precarga articulo
+        // Usa el metodo “AltaArticulo” para crear manualmente instancias de tipo articulo.
         public void PrecargaArticulo()
         {
             AltaArticulo(100, "Silla de oficina", "Muebles");
@@ -200,6 +208,7 @@ namespace LogicaNegocio
         }
 
         // Obtener articulo
+        // Es un metodo que busca en la lista de articulos de la clase sistema un articulo con el id pasado por parámetros y si lo encuentra devuelve un articulo, en caso de que no lo encuentra devuelve null.
         public Articulo BuscarArticulo(string id)
         {
             int i = 0;
@@ -215,7 +224,7 @@ namespace LogicaNegocio
             return articulo;
         }
 
-        // Agrega un articulo a una publicacion (creo)?
+        // Agrega un artículo a la lista de artículos de una publicación y devolver dicha lista en caso de haber encontrado una publicación. En caso de que no exista la publicación devuelve null. 
         public List<Articulo> AgregarArticulo(string idArticulo, string idPublicacion)
         {
             int i = 0;
@@ -244,6 +253,7 @@ namespace LogicaNegocio
         
         // METODOS PUBLICACION
         // Alta publicacion *venta*
+        // Es un metodo que crea una nueva instancia venta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
         public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, bool relampago)
         {
             Venta venta = new Venta(nombre, estado, fechaPublicacion, comprador, finalizador, articulos, relampago);
@@ -254,6 +264,7 @@ namespace LogicaNegocio
         }
 
         // Precarga venta
+        // Usa el metodo “AltaPublicacionVenta” para crear manualmente instancias de tipo venta.
         public void PrecargaVenta()
         {
             AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), null, null, ListaDeArticulos("ART11", "PUB2"), true);
@@ -279,6 +290,7 @@ namespace LogicaNegocio
 
         // METODOS OFERTA
         // Alta Oferta
+        // Es un metodo que crea una nueva instancia oferta, verifica que no esté en la lista de ofertas de la clase sistema y luego lo agrega a dicha lista.
         public void AltaOferta(int monto, Usuario usuario, DateTime fecha)
         {
             Oferta oferta = new Oferta(monto,usuario, fecha);
@@ -289,6 +301,7 @@ namespace LogicaNegocio
         }
 
         // Precarga Oferta
+        // Usa el metodo “ AltaOferta” para crear manualmente instancias de tipo oferta.
         public void PrecargaOferta()
         {
             AltaOferta(510, ObtenerUsuarioCliente("USU4"), new DateTime(2023, 10, 4));
@@ -296,6 +309,7 @@ namespace LogicaNegocio
         }
 
         // Obtener oferta
+        // Es un metodo que busca en la lista de ofertas de la clase sistema una oferta con el id pasado por parámetros y si lo encuentra devuelve una oferta, en caso de que no lo encuentre devuelve null.
         public Oferta BuscarOferta(string id)
         {
             int i = 0;
@@ -311,7 +325,7 @@ namespace LogicaNegocio
             return oferta;
         }
 
-        // Agrega una oferta a una publicacion (creo)?
+        // Agrega una oferta a la lista de ofertas en una publicación de tipo subasta y devuelve dicha lista. En caso de no encontrar la publicación deseada devuelve null.
         public List<Oferta> AgregarOferta(string idOferta, string idPublicacion)
         {
             int i = 0;
@@ -341,6 +355,7 @@ namespace LogicaNegocio
         }
         
         // Alta publicacion *subasta*
+        // Es un metodo que crea una nueva instancia subasta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
         public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, List<Oferta> ofertas)
         {
             Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, comprador, finalizador, articulos, ofertas);
@@ -351,6 +366,7 @@ namespace LogicaNegocio
         }
 
         // Precarga subasta
+        // Usa el metodo “ AltaPublicacionSubasta” para crear manualmente instancias de tipo subasta.
         public void PrecargaSubasta()
         {
             AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, ListaDeArticulos("ART7", "PUB12"), ListaDeOfertas("OF2", "PUB12"));
