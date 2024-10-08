@@ -15,6 +15,7 @@ namespace LogicaNegocio
         private Usuario _usuario;
         private DateTime _fecha;
 
+        // Es el método constructor de la clase oferta que se usará para crear instancias del tipo oferta.
         public Oferta(int monto, Usuario usuario, DateTime fecha)
         {
             // El ID se veria: OF01, OF02, etc...
@@ -25,6 +26,7 @@ namespace LogicaNegocio
             this._fecha = fecha;
         }
 
+        // Propiedad que devuelve el id de una instancia de tipo oferta.
         public string Id
         {
             get { return _id; }
