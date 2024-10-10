@@ -58,6 +58,16 @@ namespace LogicaNegocio
             get { return _id; }
         }
 
+        public override bool Equals(object obj)
+    {
+        if (obj is Publicacion otraPublicacion)
+        {
+            // Compara los IDs ignorando mayúsculas y espacios
+            return string.Equals(this.Id.Trim().ToUpper(), otraPublicacion.Id.Trim().ToUpper());
+        }
+        return false;
+    }
+
         // Propiedad que devuelve la fecha de publicacion de una instancia de tipo publicacion.
         public DateTime FechaPublicacion
         {
