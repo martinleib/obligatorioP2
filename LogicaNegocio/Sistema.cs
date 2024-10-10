@@ -232,7 +232,7 @@ namespace LogicaNegocio
 
             while (i < _publicaciones.Count && publicacion == null && articulo != null)
             {
-                if (_publicaciones[i].Id == idPublicacion.ToUpper() && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo))
+                if (_publicaciones[i].Id.Trim().ToUpper().Equals(idPublicacion.Trim().ToUpper()) && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo))
                 {
                     _publicaciones[i].Articulo.Add(articulo);
                     publicacion = _publicaciones[i];
