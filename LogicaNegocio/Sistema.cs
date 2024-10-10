@@ -214,7 +214,7 @@ namespace LogicaNegocio
             Articulo articulo = null;
             while (i < _articulos.Count && articulo == null)
             {
-                if (_articulos[i].Id.Trim().ToUpper.Equals(id.Trim().ToUpper()))
+                if (_articulos[i].Id.Trim().ToUpper().Equals(id.Trim().ToUpper()))
                 {
                     articulo = _articulos[i];
                 }
