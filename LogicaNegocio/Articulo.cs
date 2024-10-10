@@ -31,6 +31,15 @@ namespace LogicaNegocio
             get { return _id; }
         }
 
+        public override bool Equals(object obj)
+    {
+        if (obj is Articulo otroArticulo)
+        {
+            return string.Equals(this.Id.Trim().ToUpper(), otroArticulo.Id.Trim().ToUpper());
+        }
+        return false;
+    }
+
         // Propiedad que devuelve la categoría de una instancia articulo.
         public string Categoria
         {
