@@ -25,11 +25,5 @@ namespace LogicaNegocio
             this._usuario = usuario;
             this._fecha = fecha;
         }
-
-        // Propiedad que devuelve el id de una instancia de tipo oferta.
-        public string Id
-        {
-            get { return _id; }
-        }
     }
 }
