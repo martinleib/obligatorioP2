@@ -79,7 +79,7 @@ namespace LogicaNegocio
             Cliente usuarioCliente = null;
             while (i < _usuarios.Count && usuarioCliente == null)
             {
-                if (_usuarios[i] is Cliente cliente && cliente.Id.Trim().ToUpper().Equals(id.Trim().ToUpper()))
+                if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper().Equals(id.Trim().ToUpper()))
                 {
                     usuarioCliente = (Cliente)_usuarios[i];
                 }
