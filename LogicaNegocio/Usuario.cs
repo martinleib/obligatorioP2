@@ -33,6 +33,15 @@ namespace LogicaNegocio
             get { return _id; }
         }
 
+        public override bool Equals(object obj)
+    {
+        if (obj is Cliente otroCliente)
+        {
+            return string.Equals(this.Id.Trim(), otroCliente.Id.Trim());
+        }
+        return false;
+    }
+
         // Propiedad que devuelve el nombre de una instancia usuario.
         public string Nombre
         {
