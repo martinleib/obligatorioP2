@@ -329,7 +329,7 @@ namespace LogicaNegocio
 
             foreach (Publicacion publicacion in _publicaciones)
             {
-                if (publicacion is Subasta && publicacion.Id.Trim().ToUpper() == id.Trim().ToUpper())
+                if (publicacion is Subasta && publicacion.Id.Trim().ToUpper().Equals(id.Trim().ToUpper()))
                 {
                     publicacionEncontrada = (Subasta) publicacion;
                 }
