@@ -31,20 +31,5 @@ namespace LogicaNegocio
                 _ofertas.Add(oferta);
             }
         }
-
-        public Oferta ObtenerOferta(string id)
-        {
-            Oferta ofertaEncontrada = null;
-
-            foreach (Oferta oferta in _ofertas)
-            {
-                if (oferta.Id == id)
-                {
-                    ofertaEncontrada = oferta;
-                }
-            }
-
-            return ofertaEncontrada;
-        }
     }
 }
