@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form action="#" method="post">
+    <header class="mb-3">
+        <h1 class="fs-4">Iniciar sesión</h1>
+    </header>
+    <section class="mb-3">
+        <label class="form-label" id="login--email">Email</label>
+        <input type="text" class="form-control" for="login--email"/>
+    </section>
+    <section class="mb-3">
+        <label class="form-label" id="login--password">Contraseña</label>
+        <input type="password" class="form-control" for="login--password"/>
+    </section>
+    <section class="mb-3">
+        <p class="d-inline me-1">No tenés una cuenta?</p><a href="/Register/">Registrate haciendo click acá</a>
+    </section>
+    <section class="mb-3">
+        <button type="submit" class="btn btn-dark">Iniciar sesión</button>
+    </section>
+</form>
