@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LogicaNegocio
 {
 
-    public class Usuario
+    public class Usuario:IValidate
     {
         private string _nombre;
         private string _apellido;
@@ -58,6 +58,26 @@ namespace LogicaNegocio
         public string Email
         {
             get { return _email; }
+        }
+        
+        public void Validar()
+        {
+            if (string.IsNullOrEmpty(_nombre))
+            {
+                throw new Exception("El nombre no puede estar vacío");
+            }
+            if (string.IsNullOrEmpty(_apellido))
+            {
+                throw new Exception("El apellido no puede estar vacío");
+            }
+            if (string.IsNullOrEmpty(_email))
+            {
+                throw new Exception("El email no puede estar vacío");
+            }
+            if (string.IsNullOrEmpty(_password))
+            {
+                throw new Exception("La contraseña no puede estar vacía");
+            }
         }
     }
 }

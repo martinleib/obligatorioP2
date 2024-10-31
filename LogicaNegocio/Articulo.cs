@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio
 {
-    public class Articulo
+    public class Articulo:IValidate
     {
         private string _id;
         private static int s_ultimoID = 1;
@@ -50,6 +50,22 @@ namespace LogicaNegocio
         public override string ToString()
         {
             return $"Nombre: {_nombre}. Precio: {_precio}. Categoria: {_categoria}. ID: {_id}";
+        }
+
+        public void Validar()
+        {
+            if (_precio <= 0)
+            {
+                throw new Exception("El precio debe ser mayor a cero");
+            }
+            if (string.IsNullOrEmpty(_nombre))
+            {
+                throw new Exception("El nombre no puede estar vacío");
+            }
+            if (string.IsNullOrEmpty(_categoria))
+            {
+                throw new Exception("La categoría no puede estar vacía");
+            }
         }
     }
 }

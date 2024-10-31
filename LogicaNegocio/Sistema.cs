@@ -95,6 +95,8 @@ namespace LogicaNegocio
         public void AltaArticulo(int precio, string nombre, string categoria)
         {
             Articulo articulo = new Articulo(precio, nombre, categoria);
+            articulo.Validar();
+            
             if (!_articulos.Contains(articulo))
             {
                 _articulos.Add(articulo);
