@@ -9,11 +9,11 @@ namespace LogicaNegocio
 
     public class Usuario:IValidate
     {
-        private string _nombre;
-        private string _apellido;
-        private string _email;
+        protected string _nombre;
+        protected string _apellido;
+        protected string _email;
         private string _password;
-        private string _id;
+        protected string _id;
         private static int s_ultimoID = 1;
 
         // Es el método constructor de la clase usuario que se usará para crear instancias del tipo usuario.
@@ -33,34 +33,23 @@ namespace LogicaNegocio
             get { return _id; }
         }
 
-        public override bool Equals(object obj)
-    {
-        if (obj is Cliente otroCliente)
-        {
-            return string.Equals(this.Id.Trim(), otroCliente.Id.Trim());
-        }
-        return false;
-    }
-
-        // Propiedad que devuelve el nombre de una instancia usuario.
-        public string Nombre
-        {
-            get { return _nombre; }
-        }
-
-        // Propiedad que devuelve el apellido de una instancia usuario.
-        public string Apellido
-        {
-            get { return _apellido; }
-        }
-
-        // Propiedad que devuelve el correo de una instancia usuario.
         public string Email
         {
             get { return _email; }
         }
+
+        public override bool Equals(object obj)
+        {
+            bool sonIguales = false;
+            if (obj != null && obj is Usuario)
+            {
+                Usuario usuario = (Usuario)obj;
+                sonIguales = _email == usuario._email;
+            }
+            return sonIguales;
+        }
         
-        public void Validar()
+        public override void Validar()
         {
             if (string.IsNullOrEmpty(_nombre))
             {

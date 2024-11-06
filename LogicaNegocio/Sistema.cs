@@ -15,13 +15,42 @@ namespace LogicaNegocio
         // Alta de Administrador
         // Es un metodo que crea una nueva instancia usuario. Verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
 
+        private static Sistema _instancia;
+
+        public static Sistema Instancia
+        {
+            get
+            {
+                if(_instancia == null)
+                {
+                    _instancia = new Sistema();
+                }
+                return _instancia;
+            }
+        }
         public void AltaAdministrador(string nombre, string apellido, string email, string password)
         {
             Usuario administrador = new Usuario(nombre, apellido, email, password);
+            administrador.Validar();
             if (!_usuarios.Contains(administrador))
             {
                 _usuarios.Add(administrador);
             }
+        }
+
+        public Usuario ObtenerAdministrador(string email)
+        {
+            int i = 0;
+            Usuario usuarioAdministrador = null;
+            while (i < _usuarios.Count && usuarioAdministrador == null && !string.IsNullOrEmpty(email))
+            {
+                if ( _usuarios[i] is Usuario && _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper())
+                {
+                    usuarioAdministrador = _usuarios[i];
+                }
+                i++;
+            }
+            return usuarioAdministrador;
         }
 
         // Precarga administrador
@@ -40,6 +69,7 @@ namespace LogicaNegocio
         public void AltaCliente(string nombre, string apellido, string email, string password, double saldo)
         {
             Cliente cliente = new Cliente(nombre, apellido, email, password, saldo);
+            cliente.Validar();
             if (!_usuarios.Contains(cliente))
             {
                 _usuarios.Add(cliente);
@@ -73,13 +103,13 @@ namespace LogicaNegocio
 
         // Obtener cliente
         // Es un metodo que busca en la lista de clientes de la clase sistema un cliente con el id pasado por parámetros y si lo encuentra devuelve un usuario de tipo cliente, en caso de que no lo encuentra devuelve null.
-        public Cliente ObtenerCliente(string id)
+        public Cliente ObtenerCliente(string email)
         {
             int i = 0;
             Cliente usuarioCliente = null;
-            while (i < _usuarios.Count && usuarioCliente == null)
+            while (i < _usuarios.Count && usuarioCliente == null && !string.IsNullOrEmpty(email))
             {
-                if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper().Equals(id.Trim().ToUpper()))
+                if (_usuarios[i] is Cliente && _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper())
                 {
                     usuarioCliente = (Cliente)_usuarios[i];
                 }
@@ -88,15 +118,13 @@ namespace LogicaNegocio
             return usuarioCliente;
         }
 
-
-        // METODOS ARTICULO
-        // Alta articulo
-        // Es un metodo que crea una nueva instancia articulo, verifica que no esté en la lista de articulos de la clase sistema y luego lo agrega a dicha lista.
+// METODOS ARTICULO
+// Alta articulo
+// Es un metodo que crea una nueva instancia articulo, verifica que no esté en la lista de articulos de la clase sistema y luego lo agrega a dicha lista.
         public void AltaArticulo(int precio, string nombre, string categoria)
         {
             Articulo articulo = new Articulo(precio, nombre, categoria);
             articulo.Validar();
-            
             if (!_articulos.Contains(articulo))
             {
                 _articulos.Add(articulo);
@@ -210,13 +238,13 @@ namespace LogicaNegocio
 
         // Obtener articulo
         // Es un metodo que busca en la lista de articulos de la clase sistema un articulo con el id pasado por parámetros y si lo encuentra devuelve un articulo, en caso de que no lo encuentra devuelve null.
-        public Articulo BuscarArticulo(string id)
+        public Articulo BuscarArticulo(string nombre)
         {
             int i = 0;
             Articulo articulo = null;
             while (i < _articulos.Count && articulo == null)
             {
-                if (_articulos[i].Id.Trim().ToUpper().Equals(id.Trim().ToUpper()))
+                if (_articulos[i].Nombre.Trim().ToUpper() == nombre.Trim().ToUpper())
                 {
                     articulo = _articulos[i];
                 }
@@ -224,33 +252,11 @@ namespace LogicaNegocio
             }
             return articulo;
         }
+        //Cambiar el equals para buscar por nombre por ejemplo.
+
 
         // Agrega un artículo a la lista de artículos de una publicación y devolver dicha lista en caso de haber encontrado una publicación. En caso de que no exista la publicación devuelve null. 
-        public List<Articulo> AgregarArticulo(string idArticulo, string idPublicacion)
-        {
-            int i = 0;
-            Articulo articulo = BuscarArticulo(idArticulo);
-            Publicacion publicacion = null;
 
-            while (i < _publicaciones.Count && publicacion == null && articulo != null)
-            {
-                if (_publicaciones[i].Id.Trim().ToUpper().Equals(idPublicacion.Trim().ToUpper()) && _publicaciones[i].NoEstaEnLaListaElArticulo(articulo))
-                {
-                    _publicaciones[i].Articulo.Add(articulo);
-                    publicacion = _publicaciones[i];
-                }
-                i++;
-            }
-
-            if (publicacion != null)
-            {
-                return publicacion.Articulo;
-            }
-            else
-            {
-                return null;
-            }
-        }
 
         // METODOS PUBLICACION
         // Alta publicacion *venta*
@@ -258,6 +264,7 @@ namespace LogicaNegocio
         public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos, bool relampago)
         {
             Venta venta = new Venta(nombre, estado, fechaPublicacion, comprador, finalizador, articulos, relampago);
+            venta.Validar();
             if (!_publicaciones.Contains(venta))
             {
                 _publicaciones.Add(venta);
@@ -288,12 +295,41 @@ namespace LogicaNegocio
 
             AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, AgregarArticulo("ART2", "PUB11"), true);
         }
+        public Publicacion ObtenerPublicacion(string nombre)
+        {
+            int i = 0;
+            Publicacion publicacion = null;
+            while (i < _publicaciones.Count && !string.IsNullOrEmpty(nombre) && publicacion == null)
+            {
+                if (_publicaciones[i].Nombre.Trim().ToUpper() == nombre.Trim().ToUpper())
+                {
+                    publicacion = _publicaciones[i];
+                }
+                i++;
+            }
+            return publicacion;
+        }
+        public List<Articulo> AgregarArticulo(string nombreArticulo, string nombrePublicacion)
+        {
+            int i = 0;
+            Articulo articulo = BuscarArticulo(nombreArticulo);
+            Publicacion publicacionBuscada = ObtenerPublicacion(nombrePublicacion);
 
+            if (publicacionBuscada != null && articulo != null && publicacionBuscada.NoEstaEnLaListaElArticulo(articulo))
+            {
+                publicacionBuscada.Articulo.Add(articulo);
+                return publicacionBuscada.Articulo;
+            }else
+            {
+                return null;
+            }
+        }
         // Alta publicacion *subasta*
         // Es un metodo que crea una nueva instancia subasta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
         public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
         {
             Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, comprador, finalizador, articulos);
+            subasta.Validar();
             if (!_publicaciones.Contains(subasta))
             {
                 _publicaciones.Add(subasta);
@@ -324,20 +360,16 @@ namespace LogicaNegocio
 
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, AgregarArticulo("ART17", "PUB21"));
         }
-
-        public Subasta ObtenerSubasta(string id)
+        public Subasta ObtenerSubasta(string nombre)
         {
-            Subasta publicacionEncontrada = null;
+            Subasta subasta = null;
+            Publicacion publicacion = ObtenerPublicacion(nombre);
 
-            foreach (Publicacion publicacion in _publicaciones)
-            {
-                if (publicacion is Subasta && publicacion.Id.Trim().ToUpper().Equals(id.Trim().ToUpper()))
-                {
-                    publicacionEncontrada = (Subasta) publicacion;
-                }
-            }
-
-            return publicacionEncontrada;
+              if (publicacion is Subasta)
+              {
+                subasta = (Subasta) publicacion;
+              }
+              return subasta;
         }
 
         // Precarga Oferta
@@ -412,5 +444,10 @@ namespace LogicaNegocio
 
             return retornoArticulos;
         }
+
+
+        public void MostrarAlCliente() { }
+
+        public void MostrarAlAdministrador() { }
     }
 }

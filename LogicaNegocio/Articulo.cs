@@ -30,21 +30,28 @@ namespace LogicaNegocio
         {
             get { return _id; }
         }
-
-        public override bool Equals(object obj)
-    {
-        if (obj is Articulo otroArticulo)
-        {
-            return string.Equals(this.Id.Trim().ToUpper(), otroArticulo.Id.Trim().ToUpper());
-        }
-        return false;
-    }
-
-        // Propiedad que devuelve la categoría de una instancia articulo.
         public string Categoria
         {
             get { return _categoria; }
         }
+
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
+        public override bool Equals(object obj)
+        {
+            bool sonIguales = false;
+            if (obj != null && obj is Articulo)
+            {
+                Articulo articulo = (Articulo)obj;
+                sonIguales = _nombre == articulo._nombre;
+            }
+            return sonIguales;
+        }
+
+        // Propiedad que devuelve la categoría de una instancia articulo.
+
 
         // Metodo que modifica el comportamiento del método ToString de la clase artículo, permitiendo imprimir los atributos nombre, precio, categoría e ID.
         public override string ToString()
@@ -52,7 +59,7 @@ namespace LogicaNegocio
             return $"Nombre: {_nombre}. Precio: {_precio}. Categoria: {_categoria}. ID: {_id}";
         }
 
-        public void Validar()
+        public override void Validar()
         {
             if (_precio <= 0)
             {

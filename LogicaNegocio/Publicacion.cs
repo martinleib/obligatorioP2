@@ -57,22 +57,28 @@ namespace LogicaNegocio
         {
             get { return _id; }
         }
-
-        public override bool Equals(object obj)
-    {
-        if (obj is Publicacion otraPublicacion)
-        {
-            // Compara los IDs ignorando mayúsculas y espacios
-            return string.Equals(this.Id.Trim().ToUpper(), otraPublicacion.Id.Trim().ToUpper());
-        }
-        return false;
-    }
-
         // Propiedad que devuelve la fecha de publicacion de una instancia de tipo publicacion.
         public DateTime FechaPublicacion
         {
             get { return _fechaPublicacion; }
         }
+
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
+        public override bool Equals(object obj)
+        {
+            bool sonIguales = false;
+            if (obj != null && obj is Publicacion)
+            {
+                Publicacion publicacion = (Publicacion)obj;
+                sonIguales = _nombre == publicacion._nombre;
+            }
+            return sonIguales;
+        }
+
+
 
         // Precondición: el articulo pasado por parámetro no puede ser null.
         // Es un metodo que devuelve false en caso de que el articulo pasado como parametro esté en la lista de articulos, en caso de que no esté devuelve true.

@@ -24,7 +24,7 @@ namespace LogicaNegocio
         // Metodo que modifica el comportamiento del método ToString de la clase usuario, permitiendo imprimir los atributos nombre, apellido, email, ID y saldo.
         public override string ToString()
         {
-            return $"Nombre completo: {Nombre} {Apellido}, informacion de contacto: {Email}, ID: {Id}, Saldo: {_saldo}";
+            return $"Nombre completo: {_nombre} {_apellido}, informacion de contacto: {_email}, ID: {_id}, Saldo: {_saldo}";
         }
     }
 }
