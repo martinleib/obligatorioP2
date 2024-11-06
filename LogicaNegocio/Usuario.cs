@@ -49,7 +49,7 @@ namespace LogicaNegocio
             return sonIguales;
         }
         
-        public override void Validar()
+        public void Validar()
         {
             if (string.IsNullOrEmpty(_nombre))
             {

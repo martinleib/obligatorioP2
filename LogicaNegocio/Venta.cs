@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio
 {
-    public class Venta:Publicacion
+    public class Venta:Publicacion, IValidate
     {
         // En una venta el usuario comprador y el que la finaliza es la misma persona.
         // Una subasta es adjudicada a una persona, pero solo un administrador la puede cerrar.
@@ -14,9 +14,16 @@ namespace LogicaNegocio
 
         // Es el método constructor de la clase venta que se usará para crear instancias del tipo venta.
         public Venta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador,List<Articulo> articulos, bool relampago):base(nombre, estado, fechaPublicacion, comprador, finalizador, articulos)
-
         {
             this._relampago = relampago;
+        }
+
+        public void Validar()
+        {
+            base.Validar();
+
+            if (_relampago == false)
+                throw new Exception("Oferta relampágo no puede estar vacío, debe ser si-no");
         }
     }
 }

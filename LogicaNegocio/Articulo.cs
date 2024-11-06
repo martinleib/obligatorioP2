@@ -59,7 +59,7 @@ namespace LogicaNegocio
             return $"Nombre: {_nombre}. Precio: {_precio}. Categoria: {_categoria}. ID: {_id}";
         }
 
-        public override void Validar()
+        public void Validar()
         {
             if (_precio <= 0)
             {

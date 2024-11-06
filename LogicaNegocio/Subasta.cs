@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace LogicaNegocio
 {
     // Subasta hereda de Publicacion
-    public class Subasta:Publicacion
+    public class Subasta : Publicacion
     {
-        private List<Oferta>_ofertas;
+        private List<Oferta> _ofertas;
 
         // Propiedad que devuelve la lista de ofertas de una instancia del tipo subasta.
         public List<Oferta> Ofertas
@@ -18,7 +18,8 @@ namespace LogicaNegocio
         }
 
         // Es el método constructor de la clase subasta que se usará para crear instancias del tipo subasta.
-        public Subasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos) : base(nombre, estado, fechaPublicacion, comprador, finalizador, articulos)
+        public Subasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador,
+            List<Articulo> articulos) : base(nombre, estado, fechaPublicacion, comprador, finalizador, articulos)
         {
             this._ofertas = new List<Oferta>();
         }
