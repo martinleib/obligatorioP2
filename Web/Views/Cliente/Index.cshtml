@@ -1,0 +1,34 @@
+@model List<LogicaNegocio.Publicacion>
+
+@{
+    ViewData["Title"] = "Ver publicaciones";
+}
+
+@if (Model != null & Model.Count > 0)
+{
+    <table>
+        <thead>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Fecha de publicación</th>
+            <th>Acción</th>
+        </thead>
+        
+        <tbody>
+        @foreach(LogicaNegocio.Publicacion publicacion in Model){
+            <tr>
+                <td>@publicacion.Id</td>
+                <td>@publicacion.Nombre</td>
+                <td>@publicacion.FechaPublicacion</td>
+                <td>
+                    <button class="btn btn-dark">Comprar</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay publicaciones en el sistema</p>
+}

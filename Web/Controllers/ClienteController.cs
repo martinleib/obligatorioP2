@@ -6,17 +6,19 @@ namespace Web.Controllers;
 public class ClienteController : Controller
 {
     private Sistema sistema = Sistema.Instancia;
-    /*public IActionResult Index()
+    public IActionResult Index()
     {
-        return View();
-    }*/
+        return View(sistema.Publicaciones);
+    }
 
+    [HttpGet]
     public IActionResult Create()
     {
         return View();
     }
+    
+    
     [HttpPost]
-
     public IActionResult Create(string nombre, string apellido, string email, string password, double saldo)
     {
         try

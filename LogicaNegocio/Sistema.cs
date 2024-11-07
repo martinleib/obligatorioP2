@@ -28,6 +28,26 @@ namespace LogicaNegocio
                 return _instancia;
             }
         }
+
+        private Sistema()
+        {
+            PrecargaAdministrador();
+            PrecargaCliente();
+            PrecargaArticulo();
+            PrecargaVenta();
+            PrecargaSubasta();
+            PrecargaOferta();
+        }
+        
+        public List<Publicacion> Publicaciones
+        {
+            get
+            {
+                return _publicaciones;
+            }
+        }
+        
+        
         public void AltaAdministrador(string nombre, string apellido, string email, string password)
         {
             Usuario administrador = new Usuario(nombre, apellido, email, password);
