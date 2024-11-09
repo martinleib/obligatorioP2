@@ -39,6 +39,12 @@ namespace LogicaNegocio
         {
             get { return _nombre; }
         }
+
+        public int Precio
+        {
+            get { return _precio; }
+        }
+
         public override bool Equals(object obj)
         {
             bool sonIguales = false;

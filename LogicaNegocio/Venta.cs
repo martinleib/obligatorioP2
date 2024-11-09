@@ -18,6 +18,45 @@ namespace LogicaNegocio
             this._relampago = relampago;
         }
 
+        public override double Precio()
+        {
+            double precioFinal = 0;
+            double descuento = (precioFinal * 20) / 100;
+            for (int i = 0; i < Articulo.Count; i++)
+            {
+                precioFinal += Articulo[i].Precio;
+
+                if (_relampago == true)
+                {
+                    precioFinal -= descuento;
+                }
+            }
+            return precioFinal;
+            
+        }
+
+        public string Compra(Cliente cliente)
+        {
+            string mensaje = "";
+            string estadoMay = _estado.Trim().ToUpper();
+            double precio = Precio();
+            if (estadoMay == "ABIERTO" && _comprador.Saldo > precio)
+            {
+                _comprador = cliente;
+                _estado = "CERRADO";
+                _finalizador = cliente;
+                _fechaFinalizacion = DateTime.Now;
+                _comprador.Saldo -= precio;
+                mensaje = "Se realizo la compra con exito";
+            }
+            else
+            {
+                mensaje = "No se pudo realizar la compra";
+            }
+            return mensaje;
+        }
+
+
         public void Validar()
         {
             base.Validar();

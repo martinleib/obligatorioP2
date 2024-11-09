@@ -1,34 +1,35 @@
-@model List<LogicaNegocio.Publicacion>
-
+﻿@model List<LogicaNegocio.Usuario>
 @{
-    ViewData["Title"] = "Ver publicaciones";
+    ViewData["Title"] = "Index";
 }
-
-@if (Model != null & Model.Count > 0)
+<p>@TempData["Mensaje"]</p>
+<h1>Listado de clientes</h1>
+@if (Model != null && Model.Count > 0)
 {
     <table>
         <thead>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Fecha de publicación</th>
-            <th>Acción</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Saldo</th>
+        <th>Cargar saldo</th>
         </thead>
-        
         <tbody>
-        @foreach(LogicaNegocio.Publicacion publicacion in Model){
-            <tr>
-                <td>@publicacion.Id</td>
-                <td>@publicacion.Nombre</td>
-                <td>@publicacion.FechaPublicacion</td>
-                <td>
-                    <button class="btn btn-dark">Comprar</button>
-                </td>
-            </tr>
-        }
+            @foreach (LogicaNegocio.Cliente cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.Nombre</td>
+                    <td>@cliente.Apellido</td>
+                    <td>@cliente.Email</td>
+                    <td>@cliente.Saldo</td>
+                    <td><a href="/Cliente/Edit/@cliente.Id">Cargar saldo</a></td>
+                </tr>
+            }
         </tbody>
     </table>
 }
 else
 {
-    <p>No hay publicaciones en el sistema</p>
+    <p>No existen clientes en el sistema</p>
+
 }

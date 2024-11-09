@@ -21,6 +21,12 @@ namespace LogicaNegocio
             this._saldo = saldo;
         }
 
+        public double Saldo
+        {
+            get { return _saldo; }
+            set { _saldo = value; }
+        }
+
         // Metodo que modifica el comportamiento del método ToString de la clase usuario, permitiendo imprimir los atributos nombre, apellido, email, ID y saldo.
         public override string ToString()
         {

@@ -25,5 +25,10 @@ namespace LogicaNegocio
             this._usuario = usuario;
             this._fecha = fecha;
         }
+
+        public int Monto
+        {
+            get { return _monto; }
+        }
     }
 }

@@ -14,21 +14,21 @@ namespace LogicaNegocio
         private string _nombre;
 
         // Estado puede ser: ABIERTA, CANCELADA, CERRADA
-        private string _estado;
+        protected string _estado;
 
         // Fecha de publicacion y finalizacion de la publicacion
         private DateTime _fechaPublicacion;
-        private DateTime _fechaFinalizacion;
+        protected DateTime _fechaFinalizacion;
 
         // Lista de articulos dentro de la publicacion
         private List<Articulo> _articulos = new List<Articulo>();
 
         // Cliente que realizo la compra
-        private Cliente _comprador = null;
+        protected Cliente _comprador = null;
 
         // En el caso de una subasta el finalizador es un usuario de tipo Administrador
         // mientras que en el caso de una compra el finalizador es un usuario de tipo Cliente
-        private Usuario _finalizador = null;
+        protected Usuario _finalizador = null;
 
         // Es el método constructor de la clase publicacion que se usará para crear instancias del tipo publicacion.
         public Publicacion(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
@@ -41,6 +41,11 @@ namespace LogicaNegocio
             this._comprador = comprador;
             this._finalizador = finalizador;
             this._articulos = articulos;
+        }
+
+        public string Estado
+        {
+            get { return _estado; }
         }
 
         // Propiedad que devuelve la lista de articulos de una instancia de tipo publicacion.
@@ -67,6 +72,9 @@ namespace LogicaNegocio
         {
             get { return _nombre; }
         }
+
+        public abstract double Precio();
+
         public override bool Equals(object obj)
         {
             bool sonIguales = false;

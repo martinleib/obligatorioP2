@@ -27,15 +27,29 @@ namespace LogicaNegocio
             s_ultimoID++;
         }
 
+        public string Nombre
+        {
+            get { return _nombre; }
+            set { _nombre = value; }
+        }
+
+        public string Apellido
+        {
+            get { return _apellido; }
+            set { _apellido = value; }
+        }
+
         // Propiedad que devuelve el ID de una instancia usuario.
         public string Id
         {
             get { return _id; }
+            set { _id = value; }
         }
 
         public string Email
         {
             get { return _email; }
+            set { _email = value; }
         }
 
         public override bool Equals(object obj)

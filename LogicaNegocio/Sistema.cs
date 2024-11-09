@@ -29,6 +29,10 @@ namespace LogicaNegocio
             }
         }
 
+        public List<Usuario> Usuarios
+        {
+            get { return _usuarios; }
+        }
         private Sistema()
         {
             PrecargaAdministrador();
@@ -136,6 +140,18 @@ namespace LogicaNegocio
                 i++;
             }
             return usuarioCliente;
+        }
+
+        public bool ModificarSaldo(string email, double monto)
+        {
+            bool result = false;
+            Cliente clienteBuscado = ObtenerCliente(email);
+            if (clienteBuscado != null && monto > 0)
+            {
+                clienteBuscado.Saldo += monto;
+                result = true;
+            }
+            return result;
         }
 
 // METODOS ARTICULO

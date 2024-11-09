@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@model LogicaNegocio.Cliente
+<h1>Cargar saldo en su billetera electrónica</h1>
+<form method="post">
+    <input type="text" value="@Model.Id" name="IdCliente" readonly />
+    <br />
+    <label>Nombre</label>
+    <input type="text" value="@Model.Nombre" name="Nombre" readonly />
+    <br />
+    <label>Apellido</label>
+    <input type="text" value="@Model.Apellido" name="Apellido" readonly />
+    <br />
+    <label>Email</label>
+    <input type="text" value="@Model.Email" name="Email" readonly />
+    <br />
+    <label>Sueldo</label>
+    <input type="number" value="@Model.Saldo" name="Saldo" />
+    <br />
+    <label for="modificar--sueldo" name="Monto">Ingrese monto a cargar</label>
+    <input type="number" id="modificar--sueldo" />
+    <input type="submit" value="Cargar saldo" />
+</form>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+else if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Exito"]
+    </div>
+}
+

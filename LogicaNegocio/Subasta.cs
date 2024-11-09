@@ -24,6 +24,56 @@ namespace LogicaNegocio
             this._ofertas = new List<Oferta>();
         }
 
+        public bool MaximoMonto(int monto)
+        {
+            bool result = false;
+            int maxMonto = 0;
+            for (int i = 0; i < _ofertas.Count; i++)
+            {
+                if (_ofertas[i].Monto > maxMonto)
+                {
+                    maxMonto = _ofertas[i].Monto;
+                }
+            }
+            if (monto > maxMonto)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public override double Precio()
+        {
+            int precio = 0;
+            for (int i = 0; i < _ofertas.Count; i++)
+            {
+                if (_ofertas[i].Monto > precio)
+                {
+                    precio = _ofertas[i].Monto;
+                }
+            }
+            return precio;
+        }
+
+        public bool Ofertar(Cliente cliente,int monto)
+        {
+            bool result = false;
+            if (monto > 0 && cliente != null) {
+
+                string estadoMay = _estado.Trim().ToUpper();
+                bool maxMonto = MaximoMonto(monto);
+
+                if (estadoMay == "ABIERTO" && maxMonto)
+                { 
+                    Oferta oferta = new Oferta(monto,cliente,DateTime.Now);
+                    _ofertas.Add(oferta);
+                    result = true;
+                }
+            }
+            return result;
+        }
+
         public void AltaOferta(int monto, Usuario usuario, DateTime fecha)
         {
             Oferta oferta = new Oferta(monto, usuario, fecha);

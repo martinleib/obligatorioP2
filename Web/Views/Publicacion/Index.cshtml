@@ -1,0 +1,62 @@
+﻿@model List<LogicaNegocio.Publicacion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<1>Listado de publicaciones</1>
+@if (Model != null & Model.Count > 0)
+{
+    <table>
+        <thead>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Precio</th>
+        <th>Acción</th>
+        </thead>
+
+        <tbody>
+            @foreach (LogicaNegocio.Publicacion publicacion in Model)
+            {
+                <tr>
+                    <td>@publicacion.Nombre</td>
+                    <td>@publicacion.Estado</td>
+                    <td>@publicacion.Precio()</td>
+                </tr>
+                @if (publicacion is LogicaNegocio.Subasta subasta)
+                {
+                    <form action="/SubastaController/Ofertar" method="post">
+                        <input type="hidden" name="subastaId" value="@subasta.Id" />
+
+                        <label for="monto">Ingrese el monto de la oferta</label>
+                        <input type="number" name="monto" />
+
+                        <button type="submit">Ofertar</button>
+                    </form>
+                
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["Error"]
+                        </div>
+                    }
+                    else if (TempData["Exito"] != null)
+                    {
+                            <div class="alert alert-success">
+                                @TempData["Exito"]
+                            </div>
+                    }
+                }
+                else if (publicacion is LogicaNegocio.Venta venta)
+                {
+                    //<td>@venta.Compra(cliente)</td>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay publicaciones en el sistema</p>
+}
+
