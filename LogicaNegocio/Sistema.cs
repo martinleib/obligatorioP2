@@ -152,9 +152,9 @@ namespace LogicaNegocio
             return result;
         }
 
-// METODOS ARTICULO
-// Alta articulo
-// Es un metodo que crea una nueva instancia articulo, verifica que no esté en la lista de articulos de la clase sistema y luego lo agrega a dicha lista.
+        // METODOS ARTICULO
+        // Alta articulo
+        // Es un metodo que crea una nueva instancia articulo, verifica que no esté en la lista de articulos de la clase sistema y luego lo agrega a dicha lista.
         public void AltaArticulo(int precio, string nombre, string categoria)
         {
             Articulo articulo = new Articulo(precio, nombre, categoria);
@@ -329,13 +329,13 @@ namespace LogicaNegocio
 
             AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, AgregarArticulo("ART2", "PUB11"), true);
         }
-        public Publicacion ObtenerPublicacion(string nombre)
+        public Publicacion ObtenerPublicacion(string id)
         {
             int i = 0;
             Publicacion publicacion = null;
-            while (i < _publicaciones.Count && !string.IsNullOrEmpty(nombre) && publicacion == null)
+            while (i < _publicaciones.Count && !string.IsNullOrEmpty(id) && publicacion == null)
             {
-                if (_publicaciones[i].Nombre.Trim().ToUpper() == nombre.Trim().ToUpper())
+                if (_publicaciones[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     publicacion = _publicaciones[i];
                 }
