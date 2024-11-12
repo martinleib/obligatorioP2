@@ -62,13 +62,13 @@ namespace LogicaNegocio
             }
         }
 
-        public Usuario ObtenerAdministrador(string email)
+        public Usuario ObtenerAdministrador(string id)
         {
             int i = 0;
             Usuario usuarioAdministrador = null;
-            while (i < _usuarios.Count && usuarioAdministrador == null && !string.IsNullOrEmpty(email))
+            while (i < _usuarios.Count && usuarioAdministrador == null && !string.IsNullOrEmpty(id))
             {
-                if ( _usuarios[i] is Usuario && _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper())
+                if ( _usuarios[i] is Usuario && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     usuarioAdministrador = _usuarios[i];
                 }
