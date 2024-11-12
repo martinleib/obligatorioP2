@@ -11,7 +11,7 @@
 			<li>Cerrar sesión - como admin</li>
 		</ol>
 	</li>
-	<li>Cerrar una subasta<li>
+	<li>Cerrar una subasta</li>
 </ol>
 
 ### TO-DO opcionales:
