@@ -13,7 +13,7 @@ public class LoginController : Controller
     }
     [HttpPost]
 
-    public ActionResult Login(string email)
+    public IActionResult Login(string email)
     {
         try
         {
@@ -25,9 +25,9 @@ public class LoginController : Controller
                 {
                     sistema.MostrarAlCliente();
                     // Ver todas las publicaciones
-                    //Comprar una publicación de tipo venta
+                    //Comprar una publicaciï¿½n de tipo venta
                     // Ofertar en una subasta
-                    //Cargar saldo en su billetera electrónica
+                    //Cargar saldo en su billetera electrï¿½nica
                     //Logout
                 }
                 else if (administradorBuscado != null)
