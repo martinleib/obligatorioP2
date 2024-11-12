@@ -333,6 +333,7 @@ namespace LogicaNegocio
         {
             int i = 0;
             Publicacion publicacion = null;
+            
             while (i < _publicaciones.Count && !string.IsNullOrEmpty(id) && publicacion == null)
             {
                 if (_publicaciones[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
@@ -390,14 +391,12 @@ namespace LogicaNegocio
 
             AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null, AgregarArticulo("ART29", "PUB19"));
 
-            AltaPublicacionSubasta("Guitarra eléctrica", "ABIERTA", new DateTime(2023, 8, 1), null, null, AgregarArticulo("ART18", "PUB20"));
-
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, AgregarArticulo("ART17", "PUB21"));
         }
-        public Subasta ObtenerSubasta(string nombre)
+        public Subasta ObtenerSubasta(string id)
         {
             Subasta subasta = null;
-            Publicacion publicacion = ObtenerPublicacion(nombre);
+            Publicacion publicacion = ObtenerPublicacion(id);
 
               if (publicacion is Subasta)
               {
