@@ -17,7 +17,7 @@ namespace LogicaNegocio
         protected string _estado;
 
         // Fecha de publicacion y finalizacion de la publicacion
-        private DateTime _fechaPublicacion;
+        protected DateTime _fechaPublicacion;
         protected DateTime _fechaFinalizacion;
 
         // Lista de articulos dentro de la publicacion

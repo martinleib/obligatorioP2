@@ -82,5 +82,10 @@ namespace LogicaNegocio
                 _ofertas.Add(oferta);
             }
         }
+
+        public int CompareTo(Subasta other)
+        {
+            return _fechaPublicacion.CompareTo(other._fechaPublicacion) * -1;
+        }
     }
 }

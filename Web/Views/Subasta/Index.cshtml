@@ -1,0 +1,45 @@
+﻿@model List<LogicaNegocio.Subasta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>lista de subastas</h1>
+@if (Model != null & Model.Count > 0)
+{
+    <table>
+        <thead>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Precio</th>
+        <th>Fecha de publicacion</th>
+        <th>Tipo</th>
+        <th>Acción</th>
+        </thead>
+
+        <tbody>
+            @foreach (LogicaNegocio.Subasta subasta in Model)
+            {
+                    <tr>
+                    <td>@subasta.Nombre</td>
+                    <td>@subasta.Estado</td>
+                    <td>@subasta.Precio()</td>
+                    <td>@subasta.FechaPublicacion</td>
+                    <td>Subasta</td>
+                    </tr>
+                    @if (subasta.Estado.Trim().ToUpper() == "ABIERTO")
+                        {
+                            <td><a href="/Subasta/Edit/@subasta.Id">Cerrar subasta</td>
+                        }
+                    }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay subastas en el sistema</p>
+}
+
+
+

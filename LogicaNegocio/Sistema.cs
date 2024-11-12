@@ -408,6 +408,22 @@ namespace LogicaNegocio
               return subasta;
         }
 
+        public List<Subasta> SubastasOrdenadas()
+        {
+            List<Subasta> subastaOrdenada = new List<Subasta>();
+            foreach (Publicacion publicacion in _publicaciones)
+            {
+                if (publicacion != null && publicacion is Subasta)
+                {
+                    subastaOrdenada.Add((Subasta)publicacion);
+                }
+            }
+
+            subastaOrdenada.Sort();
+
+            return subastaOrdenada;
+        }
+
         // Precarga Oferta
         // Usa el metodo “AltaOferta” para crear manualmente instancias de tipo oferta.
         public void PrecargaOferta()
@@ -480,10 +496,5 @@ namespace LogicaNegocio
 
             return retornoArticulos;
         }
-
-
-        public void MostrarAlCliente() { }
-
-        public void MostrarAlAdministrador() { }
     }
 }

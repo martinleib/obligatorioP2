@@ -1,5 +1,7 @@
 ﻿using LogicaNegocio;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Web.Controllers
 {
@@ -11,7 +13,7 @@ namespace Web.Controllers
             return View();
         }
 
-        public IActionResult Ofertar(string subastaId, double monto)
+        /*public IActionResult Ofertar(string subastaId, double monto)
         {
             Subasta subasta = sistema.ObtenerSubasta(subastaId);
             bool resultado = false;
@@ -38,6 +40,18 @@ namespace Web.Controllers
             {
                 TempData["Error"] = ex.Message;
             }
+        }*/
+
+        public IActionResult Index()
+        {
+            return View(sistema.SubastasOrdenadas());
         }
+
+        /*public IActionResult Edit(string nombre)
+        {
+            Subasta subasta = sistema.ObtenerSubasta(nombre);
+            return View(subasta);
+        }*/
+        //[HttpPost]
     }
 }
