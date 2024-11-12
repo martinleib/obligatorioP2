@@ -3,12 +3,18 @@
 
 
 ### TO-DO:
-1. Manejo de sesiones
-	1.1. Iniciar sesión
-	1.2. Cerrar sesión - como cliente
-	1.3. Cerrar sesión - como admin
+<ol>
+	<li>Manejo de sesiones</li>
+		<ol>
+			<li>Iniciar sesión</li>
+			<li>Cerrar sesión - como cliente</li>
+			<li>Cerrar sesión - como admin</li>
+		</ol>
 
-2. Cerrar una subasta
+	<li>Cerrar una subasta<li>
+</ol>
 
 ### TO-DO opcionales:
-3. Validaciones con JS
+<ol>
+	<li>Validaciones con JS</li>
+</ol>
