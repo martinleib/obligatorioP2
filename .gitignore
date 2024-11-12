@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # Jetbrains IDE
 /.idea
+
+# DS_Store
+.DS_Store
