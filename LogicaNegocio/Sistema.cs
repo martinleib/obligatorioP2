@@ -84,9 +84,7 @@ namespace LogicaNegocio
             AltaAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
             AltaAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
         }
-
-
-
+        
         // METODOS CLIENTE
         // Alta cliente
         // Es un metodo que crea una nueva instancia cliente. Verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
@@ -127,13 +125,13 @@ namespace LogicaNegocio
 
         // Obtener cliente
         // Es un metodo que busca en la lista de clientes de la clase sistema un cliente con el id pasado por parámetros y si lo encuentra devuelve un usuario de tipo cliente, en caso de que no lo encuentra devuelve null.
-        public Cliente ObtenerCliente(string email)
+        public Cliente ObtenerCliente(string id)
         {
             int i = 0;
             Cliente usuarioCliente = null;
-            while (i < _usuarios.Count && usuarioCliente == null && !string.IsNullOrEmpty(email))
+            while (i < _usuarios.Count && usuarioCliente == null && !string.IsNullOrEmpty(id))
             {
-                if (_usuarios[i] is Cliente && _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper())
+                if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     usuarioCliente = (Cliente)_usuarios[i];
                 }
