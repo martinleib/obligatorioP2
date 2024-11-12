@@ -25,31 +25,11 @@
                 </tr>
                 @if (publicacion is LogicaNegocio.Subasta subasta)
                 {
-                    <form action="/SubastaController/Ofertar" method="post">
-                        <input type="hidden" name="subastaId" value="@subasta.Id" />
-
-                        <label for="monto">Ingrese el monto de la oferta</label>
-                        <input type="number" name="monto" />
-
-                        <button type="submit">Ofertar</button>
-                    </form>
-                
-                    @if (TempData["Error"] != null)
-                    {
-                        <div class="alert alert-danger">
-                            @TempData["Error"]
-                        </div>
-                    }
-                    else if (TempData["Exito"] != null)
-                    {
-                            <div class="alert alert-success">
-                                @TempData["Exito"]
-                            </div>
-                    }
+                <td><a href="/Subasta/Edit/@subasta.Id" name="IdSubasta">Agregar oferta</td>
                 }
                 else if (publicacion is LogicaNegocio.Venta venta)
                 {
-                    //<td>@venta.Compra(cliente)</td>
+                <td><a href="/Venta/Edit/@venta.Id" name="IdVenta">Comprar</td>
                 }
             }
         </tbody>

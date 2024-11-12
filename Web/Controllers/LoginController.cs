@@ -23,7 +23,7 @@ public class LoginController : Controller
                 Cliente clienteBuscado = sistema.ObtenerCliente(email);
                 if (clienteBuscado != null)
                 {
-                    sistema.MostrarAlCliente();
+                    //sistema.MostrarAlCliente();
                     // Ver todas las publicaciones
                     //Comprar una publicaci�n de tipo venta
                     // Ofertar en una subasta
@@ -32,7 +32,7 @@ public class LoginController : Controller
                 }
                 else if (administradorBuscado != null)
                 {
-                    sistema.MostrarAlAdministrador();
+                    //sistema.MostrarAlAdministrador();
                     //Ver todas las subastas
                     //Cerrar una subasta
                     //Logout

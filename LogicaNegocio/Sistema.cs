@@ -429,6 +429,22 @@ namespace LogicaNegocio
             ObtenerSubasta("PUB14").AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
         }
 
+        public Venta ObtenerVenta(string IdVenta)
+        {
+            int i = 0;
+            Venta venta = null;
+
+            while (i < _publicaciones.Count && !string.IsNullOrEmpty(IdVenta) && venta == null)
+            {
+                if (_publicaciones[i].Id.Trim().ToUpper() == IdVenta.Trim().ToUpper() && _publicaciones[i] is Venta)
+                {
+                    venta = (Venta)_publicaciones[i];
+                }
+                i++;
+            }
+            return venta;
+        }
+
         // Retorna el listado de clientes como un string (metodo usado por Program)
         public List<Usuario> ListadoDeClientes()
         {

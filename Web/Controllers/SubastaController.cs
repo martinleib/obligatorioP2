@@ -8,50 +8,47 @@ namespace Web.Controllers
     public class SubastaController : Controller
     {
         private Sistema sistema = Sistema.Instancia;
-        public IActionResult Ofertar()
-        {
-            return View();
-        }
-
-        /*public IActionResult Ofertar(string subastaId, double monto)
-        {
-            Subasta subasta = sistema.ObtenerSubasta(subastaId);
-            bool resultado = false;
-            try
-            {
-                if (subasta != null && subasta != null && monto > 0)
-                {
-                    //resultado = subasta.Ofertar(cliente, monto);
-                }
-
-                if (resultado)
-                {
-                    TempData["Exito"] = "Oferta realizada con éxito!";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-
-                    TempData["Error"] = "No fue la oferta mas alta hasta el momento";
-                    return RedirectToAction("Edit");
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-            }
-        }*/
 
         public IActionResult Index()
         {
             return View(sistema.SubastasOrdenadas());
         }
 
-        /*public IActionResult Edit(string nombre)
+        /*public IActionResult Edit(string IdSubasta)
         {
-            Subasta subasta = sistema.ObtenerSubasta(nombre);
+            Subasta subasta = sistema.ObtenerSubasta(IdSubasta);
             return View(subasta);
         }*/
-        //[HttpPost]
+
+        /*public IActionResult Edit(string IdSubasta, double monto)
+        {
+        
+            Subasta subasta = sistema.ObtenerSubasta(subastaId);
+            Cliente cliente = sistema.ObtenerCliente(IdUsuario);
+            bool resultado = false;
+            try
+            {
+                if (subasta != null && monto > 0 && cliente != null)
+                {
+                    resultado = subasta.Ofertar(cliente, monto);
+                }
+
+                if (resultado)
+                {
+                    TempData["Exito"] = "Oferta realizada con éxito!";
+                    return RedirectToAction("Edit");
+                }
+                else
+                {
+
+                    TempData["Error"] = "No fue posible agregar la oferta";
+                    return RedirectToAction("Edit");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "No fue posible agregar la oferta";
+            }
+        }*/
     }
 }
