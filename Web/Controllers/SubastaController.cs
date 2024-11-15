@@ -24,25 +24,27 @@ namespace Web.Controllers
         {
         
             Subasta subasta = sistema.ObtenerSubasta(subastaId);
-            Cliente cliente = sistema.ObtenerCliente(IdUsuario);
             bool resultado = false;
             try
             {
-                if (subasta != null && monto > 0 && cliente != null)
-                {
-                    resultado = subasta.Ofertar(cliente, monto);
-                }
+                if(tipo.Trim().ToUpper() == "CLIENTE"){
+                    Cliente cliente = sistema.ObtenerCliente(IdUsuario);
+                    if (subasta != null && monto > 0 && cliente != null)
+                    {
+                        resultado = subasta.Ofertar(cliente, monto);
+                    }
 
-                if (resultado)
-                {
-                    TempData["Exito"] = "Oferta realizada con éxito!";
-                    return RedirectToAction("Edit");
-                }
-                else
-                {
+                    if (resultado)
+                    {
+                        TempData["Exito"] = "Oferta realizada con éxito!";
+                        return RedirectToAction("Edit");
+                    }
+                    else
+                    {
 
-                    TempData["Error"] = "No fue posible agregar la oferta";
-                    return RedirectToAction("Edit");
+                        TempData["Error"] = "No fue posible agregar la oferta";
+                        return RedirectToAction("Edit");
+                    }
                 }
             }
             catch (Exception ex)

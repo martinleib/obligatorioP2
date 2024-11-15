@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LogicaNegocio
 {
     // Subasta hereda de Publicacion
-    public class Subasta : Publicacion
+    public class Subasta : Publicacion,IComparable<Subasta>
     {
         private List<Oferta> _ofertas;
 
@@ -85,7 +85,7 @@ namespace LogicaNegocio
 
         public int CompareTo(Subasta other)
         {
-            return _fechaPublicacion.CompareTo(other._fechaPublicacion) * -1;
+            return _fechaPublicacion.CompareTo(other._fechaPublicacion);
         }
     }
 }
