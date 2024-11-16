@@ -26,13 +26,11 @@
                     <td>@subasta.Precio()</td>
                     <td>@subasta.FechaPublicacion</td>
                     <td>Subasta</td>
-
                     </tr>
-                    @if (subasta.Estado.Trim().ToUpper() == "ABIERTO" || true)
+                        @if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
                         {
                             <td><a href="/Subasta/Edit/@subasta.Id">Cerrar subasta</td>
                         }
-                    }
             }
        </tbody>
     </table>

@@ -283,6 +283,7 @@ namespace LogicaNegocio
                 {
                     articulo = _articulos[i];
                 }
+                i++;
             }
             return articulo;
 
@@ -378,8 +379,13 @@ namespace LogicaNegocio
         public void PrecargaSubasta()
         {
             
-            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, AgregarArticulo("ART7", "PUB12"));
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, null);
+            PrecargaArticulosEnSubasta("PUB12", "ART7");
+            PrecargaArticulosEnSubasta("PUB12", "ART20");
+            PrecargaArticulosEnSubasta("PUB12", "ART2");
+            PrecargaArticulosEnSubasta("PUB12", "ART8");
 
+            /*
             AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null, AgregarArticulo("ART4", "PUB13"));
             
             AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null, AgregarArticulo("ART3", "PUB14"));
@@ -395,8 +401,39 @@ namespace LogicaNegocio
             AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null, AgregarArticulo("ART29", "PUB19"));
 
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, AgregarArticulo("ART17", "PUB21"));
+            */
+        }
+
+        /*public List<Articulo> CrearListaConArticulo(string idArticulo)
+        {
+            List<Articulo> listaArticulos = new List<Articulo>();
+
+            Articulo articulo = BuscarArticulo(idArticulo);
+            listaArticulos.Add(articulo);
+            return listaArticulos;
+
+        }*/
+
+        public void PrecargaArticulosEnSubasta(string idSubasta , string idArticulo)
+        {
+            Articulo articulo = BuscarArticulo(idArticulo);
+            Subasta subasta = ObtenerSubasta(idSubasta);
+
+            if(subasta != null && articulo!=null)
+            {
+
+                if(subasta.Articulo == null)
+                {
+                    subasta.Articulo = new List<Articulo>();
+                }
+
+                subasta.Articulo.Add(articulo);
             
             }
+                
+
+        }
+
         public Subasta ObtenerSubasta(string id)
         {
             Subasta subasta = null;

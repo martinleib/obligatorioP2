@@ -55,6 +55,10 @@ namespace LogicaNegocio
             {
                 return _articulos;
             }
+            set
+            {
+                _articulos = value;
+            }
         }
 
         // Propiedad que devuelve el ID de una instancia de tipo publicacion.
@@ -116,7 +120,7 @@ namespace LogicaNegocio
                     throw new Exception("La fecha de publicacion no puede estar vacía.");
             }
             else if (_articulos == null){
-                throw new Exception("Tienen que haber artículos asociados a la publicación.");
+                //throw new Exception("Tienen que haber artículos asociados a la publicación.");
             }
        }
     }
