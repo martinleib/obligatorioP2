@@ -106,14 +106,18 @@ namespace LogicaNegocio
 
         public void Validar()
         {
-            if (string.IsNullOrEmpty(_nombre))
+            if (string.IsNullOrEmpty(_nombre)) {
                 throw new Exception("El nombre no puede estar vacio.");
-            else if (string.IsNullOrEmpty(_estado))
+            }
+            else if (string.IsNullOrEmpty(_estado)) {
                 throw new Exception("El estado no puede estar vacio.");
-            else if (_fechaPublicacion == DateTime.MinValue)
-                throw new Exception("La fecha de publicacion no puede estar vacía.");
-            else if (_articulos == null)
+            }
+            else if (_fechaPublicacion == DateTime.MinValue) {
+                    throw new Exception("La fecha de publicacion no puede estar vacía.");
+            }
+            else if (_articulos == null){
                 throw new Exception("Tienen que haber artículos asociados a la publicación.");
-        }
+            }
+       }
     }
 }

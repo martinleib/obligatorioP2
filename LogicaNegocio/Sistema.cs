@@ -272,19 +272,21 @@ namespace LogicaNegocio
 
         // Obtener articulo
         // Es un metodo que busca en la lista de articulos de la clase sistema un articulo con el id pasado por parámetros y si lo encuentra devuelve un articulo, en caso de que no lo encuentra devuelve null.
-        public Articulo BuscarArticulo(string nombre)
+        public Articulo BuscarArticulo(string id)
         {
-            int i = 0;
             Articulo articulo = null;
-            while (i < _articulos.Count && articulo == null)
+            int i = 0;
+
+            while(i<_articulos.Count && articulo == null)
             {
-                if (_articulos[i].Nombre.Trim().ToUpper() == nombre.Trim().ToUpper())
+                if (_articulos[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     articulo = _articulos[i];
                 }
-                i++;
             }
             return articulo;
+
+
         }
         //Cambiar el equals para buscar por nombre por ejemplo.
 
@@ -344,11 +346,11 @@ namespace LogicaNegocio
             }
             return publicacion;
         }
-        public List<Articulo> AgregarArticulo(string nombreArticulo, string nombrePublicacion)
+        public List<Articulo> AgregarArticulo(string idArticulo, string idPublicacion)
         {
             int i = 0;
-            Articulo articulo = BuscarArticulo(nombreArticulo);
-            Publicacion publicacionBuscada = ObtenerPublicacion(nombrePublicacion);
+            Articulo articulo = BuscarArticulo(idArticulo);
+            Publicacion publicacionBuscada = ObtenerPublicacion(idPublicacion);
 
             if (publicacionBuscada != null && articulo != null && publicacionBuscada.NoEstaEnLaListaElArticulo(articulo))
             {
@@ -375,10 +377,11 @@ namespace LogicaNegocio
         // Usa el metodo “ AltaPublicacionSubasta” para crear manualmente instancias de tipo subasta.
         public void PrecargaSubasta()
         {
+            
             AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null, AgregarArticulo("ART7", "PUB12"));
 
             AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null, AgregarArticulo("ART4", "PUB13"));
-
+            
             AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null, AgregarArticulo("ART3", "PUB14"));
 
             AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null, AgregarArticulo("ART5", "PUB15"));
@@ -392,7 +395,8 @@ namespace LogicaNegocio
             AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null, AgregarArticulo("ART29", "PUB19"));
 
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null, AgregarArticulo("ART17", "PUB21"));
-        }
+            
+            }
         public Subasta ObtenerSubasta(string id)
         {
             Subasta subasta = null;
@@ -425,8 +429,8 @@ namespace LogicaNegocio
         // Usa el metodo “AltaOferta” para crear manualmente instancias de tipo oferta.
         public void PrecargaOferta()
         {
-            ObtenerSubasta("PUB13").AltaOferta(510, ObtenerCliente("USU4"), new DateTime(2023, 10, 4));
-            ObtenerSubasta("PUB14").AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
+            /*ObtenerSubasta("PUB13").AltaOferta(510, ObtenerCliente("USU4"), new DateTime(2023, 10, 4));
+            ObtenerSubasta("PUB14").AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));*/
         }
 
         public Venta ObtenerVenta(string IdVenta)

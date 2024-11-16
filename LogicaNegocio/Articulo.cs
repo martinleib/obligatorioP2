@@ -18,7 +18,7 @@ namespace LogicaNegocio
         // Es el método constructor de la clase articulo que se usará para crear instancias del tipo articulo.
         public Articulo(int precio, string nombre, string categoria)
         {
-            this._id = $"ART { s_ultimoID + 1}";
+            this._id = $"ART{ s_ultimoID + 1}";
             s_ultimoID++;
             this._precio = precio;
             this._nombre = nombre;
@@ -66,7 +66,7 @@ namespace LogicaNegocio
         }
 
         public void Validar()
-        {
+        {   
             if (_precio <= 0)
             {
                 throw new Exception("El precio debe ser mayor a cero");

@@ -56,13 +56,16 @@ namespace LogicaNegocio
             return mensaje;
         }
 
-
+        /*
         public void Validar()
         {
             base.Validar();
 
-            if (_relampago == false)
+            if (_relampago == null)
+            {
                 throw new Exception("Oferta relampágo no puede estar vacío, debe ser si-no");
-        }
+            }
+
+        }*/
     }
 }

@@ -1,4 +1,4 @@
-﻿@model List<LogicaNegocio.Sistema.SubastasOrdenadas()>
+﻿@model List<LogicaNegocio.Subasta>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +7,7 @@
 <h1>lista de subastas</h1>
 @if (Model != null & Model.Count > 0)
 {
-    <table>
+    <table class="table">
         <thead>
         <th>Nombre</th>
         <th>Estado</th>
@@ -18,7 +18,7 @@
         </thead>
 
         <tbody>
-            @foreach (LogicaNegocio.Sistema.SubastasOrdenadas() subasta in Model)
+            @foreach (LogicaNegocio.Subasta subasta in Model)
             {
                     <tr>
                     <td>@subasta.Nombre</td>
@@ -26,8 +26,9 @@
                     <td>@subasta.Precio()</td>
                     <td>@subasta.FechaPublicacion</td>
                     <td>Subasta</td>
+
                     </tr>
-                    @if (subasta.Estado.Trim().ToUpper() == "ABIERTO")
+                    @if (subasta.Estado.Trim().ToUpper() == "ABIERTO" || true)
                         {
                             <td><a href="/Subasta/Edit/@subasta.Id">Cerrar subasta</td>
                         }
