@@ -7,6 +7,7 @@
 <h1>Listado de publicaciones</h1>
 @if (Model != null & Model.Count > 0)
 {
+    
     <table>
         <thead>
         <th>Nombre</th>
@@ -22,21 +23,36 @@
                     <td>@publicacion.Nombre</td>
                     <td>@publicacion.Estado</td>
                     <td>@publicacion.Precio()</td>
+                
+                    @if (publicacion is LogicaNegocio.Subasta subasta)
+                    {
+                        <td><a href="/Subasta/Edit/@subasta.Id">Agregar oferta</td>
+                    }
+                    else if (publicacion is LogicaNegocio.Venta venta)
+                    {
+                        <td><a href="/Venta/Edit/@venta.Id" name="IdVenta">Comprar</td>
+                    }
                 </tr>
-                @if (publicacion is LogicaNegocio.Subasta subasta)
-                {
-                <td><a href="/Subasta/Edit/@subasta.Id" name="IdSubasta">Agregar oferta</td>
-                }
-                else if (publicacion is LogicaNegocio.Venta venta)
-                {
-                <td><a href="/Venta/Edit/@venta.Id" name="IdVenta">Comprar</td>
-                }
             }
         </tbody>
     </table>
+   
 }
 else
 {
     <p>No hay publicaciones en el sistema</p>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+else if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Exito"]
+    </div>
 }
 

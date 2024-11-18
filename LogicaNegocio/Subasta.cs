@@ -18,16 +18,14 @@ namespace LogicaNegocio
         }
 
         // Es el método constructor de la clase subasta que se usará para crear instancias del tipo subasta.
-        public Subasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador,
-            List<Articulo> articulos) : base(nombre, estado, fechaPublicacion, comprador, finalizador, articulos)
+        public Subasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador) : base(nombre, estado, fechaPublicacion, comprador, finalizador)
         {
             this._ofertas = new List<Oferta>();
         }
 
-        public bool MaximoMonto(int monto)
+        public double MaximoMonto()
         {
-            bool result = false;
-            int maxMonto = 0;
+            double maxMonto = 0;
             for (int i = 0; i < _ofertas.Count; i++)
             {
                 if (_ofertas[i].Monto > maxMonto)
@@ -35,17 +33,12 @@ namespace LogicaNegocio
                     maxMonto = _ofertas[i].Monto;
                 }
             }
-            if (monto > maxMonto)
-            {
-                result = true;
-            }
-
-            return result;
+            return maxMonto;
         }
 
         public override double Precio()
         {
-            int precio = 0;
+            double precio = 0;
             for (int i = 0; i < _ofertas.Count; i++)
             {
                 if (_ofertas[i].Monto > precio)
@@ -56,18 +49,19 @@ namespace LogicaNegocio
             return precio;
         }
 
-        public bool Ofertar(Cliente cliente,int monto)
+        public bool Ofertar(Cliente cliente, double monto)
         {
             bool result = false;
             if (monto > 0 && cliente != null) {
 
-                string estadoMay = _estado.Trim().ToUpper();
-                bool maxMonto = MaximoMonto(monto);
+                string estado = _estado.Trim().ToUpper();
+                double maxMonto = MaximoMonto();
 
-                if (estadoMay == "ABIERTO" && maxMonto)
+                if (estado == "ABIERTA" && monto > maxMonto && cliente.Saldo>= monto)
                 { 
                     Oferta oferta = new Oferta(monto,cliente,DateTime.Now);
                     _ofertas.Add(oferta);
+                    cliente.Saldo -= monto;
                     result = true;
                 }
             }

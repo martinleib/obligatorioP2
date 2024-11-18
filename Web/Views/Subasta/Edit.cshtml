@@ -4,26 +4,29 @@
 }
 
 @model LogicaNegocio.Subasta
-<h1>Cerrar subasta</h1>
+<h1>Ofertar</h1>
 <form method="post">
-    <input type="text" value="@Model.Id" name="IdSubasta" readonly />
+        <input type="text" value="@Model.Id" name="IdSubasta" readonly />
     <br />
     <label>Nombre</label>
-    <input type="text" value="@Model.Nombre" name="Nombre" readonly />
+        <input type="text" value="@Model.Nombre" name="Nombre" readonly />
     <br />
     <label>Estado</label>
-    <input type="text" value="@Model.Estado" name="Estado" readonly />
+            <input type="text" value="@Model.Estado" name="Estado" readonly />
     <br />
     <label>Precio</label>
-    <input type="number" value="@Model.Precio()" name="Precio" readonly />
+        <input type="number" value="@Model.Precio()" name="Precio" readonly />
     <br />
     <label>Fecha de publicacion</label>
-    <input type="text" value="@Model.FechaPublicacion" name="FechaDePublicacion" />
+        <input type="text" value="@Model.FechaPublicacion" name="FechaDePublicacion" />
     <br />
     <label>Tipo</label>
-    <input type="text" value="Subasta" name="Tipo" />
+        <input type="text" value="Subasta" name="Tipo" />
     <br />
-    <input type="submit" value="Cerrar subasta" />
+    <label>Agregar monto de oferta</label>
+        <input type="number" name="Monto" />
+    </<br />
+    <input type="submit" value="Ofertar"/>
 </form>
 
 @if (TempData["Error"] != null)

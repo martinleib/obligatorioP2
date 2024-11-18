@@ -8,49 +8,56 @@ namespace Web.Controllers
     public class SubastaController : Controller
     {
         private Sistema sistema = Sistema.Instancia;
+       
 
         public IActionResult Index()
         {
             return View(sistema.SubastasOrdenadas());
         }
 
-        /*public IActionResult Edit(string IdSubasta)
+        [HttpGet]
+        public IActionResult Edit(string Id)
         {
-            Subasta subasta = sistema.ObtenerSubasta(IdSubasta);
+            Subasta subasta = sistema.ObtenerSubasta(Id);
             return View(subasta);
-        }*/
+        }
 
-        /*public IActionResult Edit(string IdSubasta, double monto)
+
+
+        [HttpPost]
+        public IActionResult Edit(string Id, int Monto)
         {
-        
-            Subasta subasta = sistema.ObtenerSubasta(subastaId);
-            bool resultado = false;
-            try
+
+        Subasta subasta = sistema.ObtenerSubasta(Id);
+        bool resultado = false;
+        try
+        {
+            Cliente cliente = sistema.ObtenerCliente("USU10");
+
+            if (subasta != null && Monto > 0 && cliente != null)
             {
-                if(tipo.Trim().ToUpper() == "CLIENTE"){
-                    Cliente cliente = sistema.ObtenerCliente(IdUsuario);
-                    if (subasta != null && monto > 0 && cliente != null)
-                    {
-                        resultado = subasta.Ofertar(cliente, monto);
-                    }
-
-                    if (resultado)
-                    {
-                        TempData["Exito"] = "Oferta realizada con éxito!";
-                        return RedirectToAction("Edit");
-                    }
-                    else
-                    {
-
-                        TempData["Error"] = "No fue posible agregar la oferta";
-                        return RedirectToAction("Edit");
-                    }
-                }
+                resultado = subasta.Ofertar(cliente, Monto);
             }
-            catch (Exception ex)
+
+            if (resultado)
             {
+                TempData["Exito"] = "Oferta realizada con éxito!";
+                return RedirectToAction("Index","Publicacion");
+            }
+            else
+            {
+
                 TempData["Error"] = "No fue posible agregar la oferta";
+                return RedirectToAction("Index","Publicacion");
             }
-        }*/
+        }
+        
+        catch (Exception ex)
+        {
+            TempData["Error"] = "No fue posible agregar la oferta";
+        }
+        return View();
+
+        }
     }
 }

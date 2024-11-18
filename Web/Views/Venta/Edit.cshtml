@@ -5,37 +5,26 @@
 
 @model LogicaNegocio.Venta
 <h1>Comprar publicacion</h1>
-<form method="post">
+<form method="POST">
     <input type="text" value="@Model.Id" name="IdVenta" readonly />
     <br />
     <label>Nombre</label>
-    <input type="text" value="@Model.Nombre" name="Nombre" readonly />
+    <input type="text" value="@Model.Nombre" readonly />
     <br />
     <label>Estado</label>
-    <input type="text" value="@Model.Estado" name="Estado" readonly />
+    <input type="text" value="@Model.Estado" readonly />
     <br />
     <label>Precio</label>
-    <input type="number" value="@Model.Precio()" name="Precio" readonly />
+    <input type="number" value="@Model.Precio()" readonly />
     <br />
     <label>Fecha de publicacion</label>
-    <input type="text" value="@Model.FechaPublicacion" name="FechaDePublicacion" />
+    <input type="text" value="@Model.FechaPublicacion" />
     <br />
     <label>Tipo</label>
-    <input type="text" value="Venta" name="Tipo" />
+    <input type="text" value="Venta"/>
     <br />
-    <input type="submit" value="Comprar" />
+    <input type="submit" value="Comprar"/>
 </form>
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
-else if (TempData["Exito"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Exito"]
-    </div>
-}
+
 

@@ -10,5 +10,11 @@ namespace Web.Controllers
         {
             return View(sistema.Publicaciones);
         }
+
+        public IActionResult Redireccion(string IdSubasta)
+        {
+            TempData[IdSubasta] = IdSubasta;
+            return RedirectToAction("Edit", "Subasta");
+        }
     }
 }

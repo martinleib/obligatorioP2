@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace LogicaNegocio
 {
+
     public abstract class Publicacion:IValidate
     {
         private string _id;
@@ -31,7 +33,7 @@ namespace LogicaNegocio
         protected Usuario _finalizador = null;
 
         // Es el método constructor de la clase publicacion que se usará para crear instancias del tipo publicacion.
-        public Publicacion(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, List<Articulo> articulos)
+        public Publicacion(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador)
         {
             this._id = $"PUB{s_ultimoID + 1}";
             s_ultimoID++;
@@ -40,7 +42,9 @@ namespace LogicaNegocio
             this._fechaPublicacion = fechaPublicacion;
             this._comprador = comprador;
             this._finalizador = finalizador;
-            this._articulos = articulos;
+            this._articulos = new List<Articulo>();
+
+            
         }
 
         public string Estado
@@ -55,12 +59,7 @@ namespace LogicaNegocio
             {
                 return _articulos;
             }
-            set
-            {
-                _articulos = value;
-            }
         }
-
         // Propiedad que devuelve el ID de una instancia de tipo publicacion.
         public string Id
         {
@@ -102,6 +101,16 @@ namespace LogicaNegocio
             return noEstaEnLaLista;
         }
 
+        public void AgregarArticulo(Articulo articulo) {
+
+            if (articulo != null && !_articulos.Contains(articulo)){
+                _articulos.Add(articulo);
+            }
+        }
+
+
+
+
         // Metodo que modifica el comportamiento del método ToString de la clase publicación, permitiendo imprimir los atributos nombre, estado, fecha de publicación e ID.
         public override string ToString()
         {
@@ -115,12 +124,6 @@ namespace LogicaNegocio
             }
             else if (string.IsNullOrEmpty(_estado)) {
                 throw new Exception("El estado no puede estar vacio.");
-            }
-            else if (_fechaPublicacion == DateTime.MinValue) {
-                    throw new Exception("La fecha de publicacion no puede estar vacía.");
-            }
-            else if (_articulos == null){
-                //throw new Exception("Tienen que haber artículos asociados a la publicación.");
             }
        }
     }

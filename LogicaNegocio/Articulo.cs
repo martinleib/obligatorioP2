@@ -10,15 +10,15 @@ namespace LogicaNegocio
     {
         private string _id;
         private static int s_ultimoID = 1;
-        private int _precio;
+        private double _precio;
 
         private string _nombre;
         private string _categoria;
 
         // Es el método constructor de la clase articulo que se usará para crear instancias del tipo articulo.
-        public Articulo(int precio, string nombre, string categoria)
+        public Articulo(double precio, string nombre, string categoria)
         {
-            this._id = $"ART{ s_ultimoID + 1}";
+            this._id = $"ART{s_ultimoID + 1}";
             s_ultimoID++;
             this._precio = precio;
             this._nombre = nombre;
@@ -30,6 +30,8 @@ namespace LogicaNegocio
         {
             get { return _id; }
         }
+
+        // Propiedad que devuelve la categoría de una instancia articulo.
         public string Categoria
         {
             get { return _categoria; }
@@ -40,7 +42,7 @@ namespace LogicaNegocio
             get { return _nombre; }
         }
 
-        public int Precio
+        public double Precio
         {
             get { return _precio; }
         }
@@ -51,13 +53,10 @@ namespace LogicaNegocio
             if (obj != null && obj is Articulo)
             {
                 Articulo articulo = (Articulo)obj;
-                sonIguales = _nombre == articulo._nombre;
+                sonIguales = _nombre == articulo.Nombre;
             }
             return sonIguales;
         }
-
-        // Propiedad que devuelve la categoría de una instancia articulo.
-
 
         // Metodo que modifica el comportamiento del método ToString de la clase artículo, permitiendo imprimir los atributos nombre, precio, categoría e ID.
         public override string ToString()
