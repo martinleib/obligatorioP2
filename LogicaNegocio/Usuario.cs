@@ -52,6 +52,10 @@ namespace LogicaNegocio
             set { _email = value; }
         }
 
+        public string Password
+        {
+            get { return _password; }
+        }
         public override bool Equals(object obj)
         {
             bool sonIguales = false;

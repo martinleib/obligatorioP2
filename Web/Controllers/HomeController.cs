@@ -43,21 +43,27 @@ namespace Web.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(email))
+                if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
                 {
-                    Usuario administradorBuscado = sistema.ObtenerAdministrador(email);
-                    Cliente clienteBuscado = sistema.ObtenerCliente(email);
-                    if (clienteBuscado != null)
+                    Usuario admin = sistema.ObtenerAdministrador(email, password);
+                    Cliente cliente = sistema.ObtenerCliente(email, password);
+                    
+                    if (cliente != null)
                     {
-                        //sistema.MostrarAlCliente();
+                        HttpContext.Session.SetString("idUsuario", cliente.Id);
+                        // return RedirectToAction("MostrarAlCliente", "Cliente");
+
                         // Ver todas las publicaciones
                         //Comprar una publicaci�n de tipo venta
                         // Ofertar en una subasta
                         //Cargar saldo en su billetera electr�nica
                         //Logout
                     }
-                    else if (administradorBuscado != null)
+                    else if (admin != null)
                     {
+                        HttpContext.Session.SetString("idAdmin", admin.Id);
+                        // return RedirectToAction("MostrarAlAdmin", "Usuario");
+                        
                         //sistema.MostrarAlAdministrador();
                         //Ver todas las subastas
                         //Cerrar una subasta
@@ -65,7 +71,7 @@ namespace Web.Controllers
                     }
                     else
                     {
-                        ViewBag.Error = "Debe registrarse antes de inciar sesion";
+                        ViewBag.Error = "Las credenciales no son correctas, inténtelo nuevamente";
                     }
                 }
             }

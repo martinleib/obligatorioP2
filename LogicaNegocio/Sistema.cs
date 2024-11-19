@@ -61,19 +61,26 @@ namespace LogicaNegocio
             }
         }
 
-        public Usuario ObtenerAdministrador(string id)
+        public Usuario ObtenerAdministrador(string id, string password)
         {
             int i = 0;
-            Usuario usuarioAdministrador = null;
-            while (i < _usuarios.Count && usuarioAdministrador == null && !string.IsNullOrEmpty(id))
+            Usuario admin = null;
+            
+            while (i < _usuarios.Count && admin == null)
             {
-                if ( _usuarios[i] is Usuario && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                if ( _usuarios[i] is Usuario &&
+                     _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper() &&
+                     _usuarios[i].Password == password )
+                    // no trimeé ni cambié el formato de la contraseña porque se supone
+                    // que tienen que ser 100% iguales. sino no sería case-sensitive
                 {
-                    usuarioAdministrador = _usuarios[i];
+                    admin = _usuarios[i];
                 }
+                
                 i++;
             }
-            return usuarioAdministrador;
+            
+            return admin;
         }
 
         // Precarga administrador
