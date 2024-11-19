@@ -8,17 +8,18 @@ public class ClienteController : Controller
 {
     private Sistema sistema = Sistema.Instancia;
 
+    [HttpGet]
     public IActionResult Index()
     {
        return View(sistema.Usuarios);
     }
+    
+    
     [HttpGet]
-
     public IActionResult Create()
     {
         return View();
     }
-    
     
     [HttpPost]
     public IActionResult Create(string nombre, string apellido, string email, string password, double saldo)
@@ -37,13 +38,15 @@ public class ClienteController : Controller
         return View();
     }
 
+    [HttpGet]
     public IActionResult Edit(string email)
     {
         Cliente cliente = sistema.ObtenerCliente(email);
         return View(cliente);
     }
+    
+    
     [HttpPost]
-
     public IActionResult Edit(double Monto, string Email)
     {
         bool resultado = false;
@@ -54,7 +57,7 @@ public class ClienteController : Controller
             }
             if (resultado)
             {
-                TempData["Exito"] = "La carga se a realizado con éxito!";
+                TempData["Exito"] = "La carga se a realizado con ï¿½xito!";
                 return RedirectToAction("Edit");
             }
             else
@@ -70,4 +73,17 @@ public class ClienteController : Controller
             return RedirectToAction("Edit");
         }
     }
+    
+    [HttpGet]
+    public IActionResult MostrarAlCliente()
+    {
+        if (HttpContext.Session.GetString("idUsuario") != null) {
+            string idUsuario = (string)HttpContext.Session.GetString("idUsuario");
+        }
+        else
+            return RedirectToAction("Login", "Home");
+            
+        return View();
+    }
+
 }

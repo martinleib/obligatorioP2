@@ -45,34 +45,24 @@ namespace Web.Controllers
             {
                 if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
                 {
-                    Usuario admin = sistema.BuscarAdministrador(email, password);
-                    Cliente cliente = sistema.BuscarCliente(email, password);
+                    Usuario aux = sistema.BuscarUsuario(email, password);
+                    string rol = aux.ObtenerTipo();
                     
-                    if (cliente != null)
+                    if (aux != null)
                     {
-                        HttpContext.Session.SetString("idUsuario", cliente.Id);
-                        // return RedirectToAction("MostrarAlCliente", "Cliente");
-
-                        // Ver todas las publicaciones
-                        //Comprar una publicaci�n de tipo venta
-                        // Ofertar en una subasta
-                        //Cargar saldo en su billetera electr�nica
-                        //Logout
-                    }
-                    else if (admin != null)
-                    {
-                        HttpContext.Session.SetString("idAdmin", admin.Id);
-                        // return RedirectToAction("MostrarAlAdmin", "Usuario");
+                        HttpContext.Session.SetString("idUsuario", aux.Id);
+                        HttpContext.Session.SetString("tipo", rol);
                         
-                        //sistema.MostrarAlAdministrador();
-                        //Ver todas las subastas
-                        //Cerrar una subasta
-                        //Logout
+                        switch (rol)
+                        {
+                            case "Cliente":
+                                return RedirectToAction("MostrarAlCliente", "Cliente");
+                            case "Administrador":
+                                return RedirectToAction("MostrarAlAdmin", "Usuario");
+                        }
                     }
                     else
-                    {
                         ViewBag.Error = "Las credenciales no son correctas, inténtelo nuevamente";
-                    }
                 }
             }
             catch (Exception ex)

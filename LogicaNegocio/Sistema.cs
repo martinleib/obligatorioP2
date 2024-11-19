@@ -6,14 +6,9 @@ namespace LogicaNegocio
 {
     public class Sistema
     {
-        // Listas
         private List<Usuario> _usuarios = new List<Usuario>();
         private List<Publicacion> _publicaciones = new List<Publicacion>();
         private List<Articulo> _articulos = new List<Articulo>();
-
-        // METODOS USUARIO
-        // Alta de Administrador
-        // Es un metodo que crea una nueva instancia usuario. Verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
 
         private static Sistema _instancia;
 
@@ -77,6 +72,8 @@ namespace LogicaNegocio
                 if (_usuarios[i] is Cliente &&
                     _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() && 
                     _usuarios[i].Password == password)
+                    // no trimeé ni cambié el formato de la contraseña porque se supone
+                    // que tienen que ser 100% iguales. sino no sería case-sensitive
                 {
                     cliente = (Cliente)_usuarios[i];
                 }
@@ -106,6 +103,25 @@ namespace LogicaNegocio
             }
             
             return admin;
+        }
+        
+        public Usuario BuscarUsuario(string email, string password)
+        {
+            int i = 0;
+            Usuario aux = null;
+            
+            while (i < _usuarios.Count && aux == null)
+            {
+                if (_usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() &&
+                    _usuarios[i].Password == password )
+                {
+                    aux = _usuarios[i];
+                }
+                
+                i++;
+            }
+            
+            return aux;
         }
         
         public Cliente ObtenerCliente(string id)

@@ -32,5 +32,10 @@ namespace LogicaNegocio
         {
             return $"Nombre completo: {_nombre} {_apellido}, informacion de contacto: {_email}, ID: {_id}, Saldo: {_saldo}";
         }
+        
+        public override string ObtenerTipo()
+        {
+            return "Cliente";
+        }
     }
 }

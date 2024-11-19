@@ -86,5 +86,10 @@ namespace LogicaNegocio
                 throw new Exception("La contraseña no puede estar vacía");
             }
         }
+
+        public virtual string ObtenerTipo()
+        {
+            return "Administrador";
+        }
     }
 }
