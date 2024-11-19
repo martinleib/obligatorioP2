@@ -74,6 +74,7 @@ public class ClienteController : Controller
         }
     }
     
+    [HttpGet]
     public IActionResult MostrarAlAdmin()
     {
         if (HttpContext.Session.GetString("logged-user-id") != null &&
