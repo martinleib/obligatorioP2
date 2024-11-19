@@ -16,10 +16,10 @@ namespace Web.Controllers
             _logger = logger;
         }
         
-        // public IActionResult Index()
-        // {
-        //     return View();
-        // }
+        public IActionResult Index()
+        {
+            return View();
+        }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -38,7 +38,7 @@ namespace Web.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
+                if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
                 {
                     Usuario aux = sistema.BuscarUsuario(email, password);
                     string rol = aux.ObtenerTipo();
@@ -51,9 +51,9 @@ namespace Web.Controllers
                         switch (rol)
                         {
                             case "Cliente":
-                                return RedirectToAction("MostrarAlCliente", "Cliente");
+                                return RedirectToAction("Index", "Cliente");
                             case "Administrador":
-                                return RedirectToAction("MostrarAlAdmin", "Usuario");
+                                return RedirectToAction("Index", "Usuario");
                         }
                     }
                     else
@@ -65,6 +65,12 @@ namespace Web.Controllers
                 ViewBag.Error = ex.Message;
             }
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
     }
 }

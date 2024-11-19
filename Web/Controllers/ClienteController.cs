@@ -11,9 +11,15 @@ public class ClienteController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-       return View(sistema.Usuarios);
+        if (HttpContext.Session.GetString("logged-user-id") != null &&
+            HttpContext.Session.GetString("logged-user-type") != "Cliente") {
+            string idCliente = (string)HttpContext.Session.GetString("logged-user-id");
+        }
+        else
+            return RedirectToAction("Login", "Home");
+            
+        return View(sistema.Usuarios);
     }
-    
     
     [HttpGet]
     public IActionResult Create()
@@ -73,18 +79,4 @@ public class ClienteController : Controller
             return RedirectToAction("Edit");
         }
     }
-    
-    [HttpGet]
-    public IActionResult MostrarAlAdmin()
-    {
-        if (HttpContext.Session.GetString("logged-user-id") != null &&
-            HttpContext.Session.GetString("logged-user-type") != "Cliente") {
-            string idCliente = (string)HttpContext.Session.GetString("logged-user-id");
-        }
-        else
-            return RedirectToAction("Login", "Home");
-            
-        return View();
-    }
-
 }

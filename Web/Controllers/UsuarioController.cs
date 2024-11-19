@@ -4,14 +4,8 @@ namespace Web.Controllers;
 
 public class UsuarioController : Controller
 {
-    // GET
-    public IActionResult Index()
-    {
-        return View();
-    }
-    
     [HttpGet]
-    public IActionResult MostrarAlAdmin()
+    public IActionResult Index()
     {
         if (HttpContext.Session.GetString("logged-user-id") != null &&
             HttpContext.Session.GetString("logged-user-type") != "Administrador") {
