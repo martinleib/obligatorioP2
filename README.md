@@ -6,11 +6,12 @@
 <ol>
 	<li>Manejo de sesiones
 		<ol>
-			<li>Iniciar sesión</li>
-			<li>Cerrar sesión - como cliente</li>
-			<li>Cerrar sesión - como admin</li>
+			<li>✅ Iniciar sesión</li>
+			<li>✅ Cerrar sesión - como cliente</li>
+			<li>✅ Cerrar sesión - como admin</li>
 		</ol>
 	</li>
+    <li>Manejar vista por cada vista de usuario</li>
 	<li>Cerrar una subasta</li>
 </ol>
 
