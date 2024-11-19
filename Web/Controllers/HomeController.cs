@@ -50,8 +50,8 @@ namespace Web.Controllers
                     
                     if (aux != null)
                     {
-                        HttpContext.Session.SetString("idUsuario", aux.Id);
-                        HttpContext.Session.SetString("tipo", rol);
+                        HttpContext.Session.SetString("logged-user-id", aux.Id);
+                        HttpContext.Session.SetString("logged-user-type", rol);
                         
                         switch (rol)
                         {

@@ -74,11 +74,11 @@ public class ClienteController : Controller
         }
     }
     
-    [HttpGet]
-    public IActionResult MostrarAlCliente()
+    public IActionResult MostrarAlAdmin()
     {
-        if (HttpContext.Session.GetString("idUsuario") != null) {
-            string idUsuario = (string)HttpContext.Session.GetString("idUsuario");
+        if (HttpContext.Session.GetString("logged-user-id") != null &&
+            HttpContext.Session.GetString("logged-user-type") != "Cliente") {
+            string idAdmin = (string)HttpContext.Session.GetString("logged-user-id");
         }
         else
             return RedirectToAction("Login", "Home");
