@@ -16,9 +16,9 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(string Id)
+        public IActionResult Edit(string id)
         {
-            Subasta subasta = sistema.ObtenerSubasta(Id);
+            Subasta subasta = sistema.ObtenerSubasta(id);
             return View(subasta);
         }
         

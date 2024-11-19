@@ -75,8 +75,7 @@ public class ClienteController : Controller
         Cliente cliente = sistema.ObtenerCliente(email);
         return View(cliente);
     }
-
-
+    
     [HttpPost]
     public IActionResult Edit(double Monto, string Email)
     {
@@ -90,7 +89,7 @@ public class ClienteController : Controller
 
             if (resultado)
             {
-                TempData["Exito"] = "La carga se a realizado con �xito!";
+                TempData["Exito"] = "La carga se ha realizado con éxito!";
                 return RedirectToAction("Edit");
             }
             else
