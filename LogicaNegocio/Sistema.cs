@@ -61,7 +61,32 @@ namespace LogicaNegocio
             }
         }
 
-        public Usuario ObtenerAdministrador(string id, string password)
+        /// <summary>
+        /// Ver como hacer para que no nos queden dos métodos "BuscarCliente" "ObtenerCliente"
+        /// Oh dios mío, esto es una pija. El problema es que nuestros métodos internos
+        /// buscan un usuario por ID... Capaz les ponemos a los que usamos para el login
+        /// RetornarClienteLogin? Me parece horrible también... Esto es una garcha
+        /// </summary>
+        public Cliente BuscarCliente(string email, string password)
+        {
+            int i = 0;
+            Cliente cliente = null;
+            
+            while (i < _usuarios.Count && cliente == null)
+            {
+                if (_usuarios[i] is Cliente &&
+                    _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() && 
+                    _usuarios[i].Password == password)
+                {
+                    cliente = (Cliente)_usuarios[i];
+                }
+                
+                i++;
+            }
+            return cliente;
+        }
+        
+        public Usuario BuscarAdministrador(string email, string password)
         {
             int i = 0;
             Usuario admin = null;
@@ -69,7 +94,7 @@ namespace LogicaNegocio
             while (i < _usuarios.Count && admin == null)
             {
                 if ( _usuarios[i] is Usuario &&
-                     _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper() &&
+                     _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() &&
                      _usuarios[i].Password == password )
                     // no trimeé ni cambié el formato de la contraseña porque se supone
                     // que tienen que ser 100% iguales. sino no sería case-sensitive
@@ -82,7 +107,7 @@ namespace LogicaNegocio
             
             return admin;
         }
-
+        
         // Precarga administrador
         // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
@@ -132,22 +157,25 @@ namespace LogicaNegocio
 
         // Obtener cliente
         // Es un metodo que busca en la lista de clientes de la clase sistema un cliente con el id pasado por parámetros y si lo encuentra devuelve un usuario de tipo cliente, en caso de que no lo encuentra devuelve null.
-        public Cliente ObtenerCliente(string id)
+        public Cliente ObtenerCliente(string id, string password)
         {
             int i = 0;
-            Cliente usuarioCliente = null;
+            Cliente cliente = null;
             
-            while (i < _usuarios.Count && usuarioCliente == null && !string.IsNullOrEmpty(id))
+            while (i < _usuarios.Count && cliente == null)
             {
-                if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                if (_usuarios[i] is Cliente &&
+                    _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper() && 
+                    _usuarios[i].Password == password)
                 {
-                    usuarioCliente = (Cliente)_usuarios[i];
+                    cliente = (Cliente)_usuarios[i];
                 }
+                
                 i++;
             }
-            return usuarioCliente;
+            return cliente;
         }
-
+        
         public bool ModificarSaldo(string email, double monto)
         {
             bool result = false;

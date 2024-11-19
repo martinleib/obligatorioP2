@@ -45,8 +45,8 @@ namespace Web.Controllers
             {
                 if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
                 {
-                    Usuario admin = sistema.ObtenerAdministrador(email, password);
-                    Cliente cliente = sistema.ObtenerCliente(email, password);
+                    Usuario admin = sistema.BuscarAdministrador(email, password);
+                    Cliente cliente = sistema.BuscarCliente(email, password);
                     
                     if (cliente != null)
                     {
