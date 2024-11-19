@@ -78,7 +78,7 @@ public class ClienteController : Controller
     {
         if (HttpContext.Session.GetString("logged-user-id") != null &&
             HttpContext.Session.GetString("logged-user-type") != "Cliente") {
-            string idAdmin = (string)HttpContext.Session.GetString("logged-user-id");
+            string idCliente = (string)HttpContext.Session.GetString("logged-user-id");
         }
         else
             return RedirectToAction("Login", "Home");
