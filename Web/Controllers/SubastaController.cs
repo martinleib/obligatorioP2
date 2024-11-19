@@ -21,9 +21,7 @@ namespace Web.Controllers
             Subasta subasta = sistema.ObtenerSubasta(Id);
             return View(subasta);
         }
-
-
-
+        
         [HttpPost]
         public IActionResult Edit(string Id, int Monto)
         {

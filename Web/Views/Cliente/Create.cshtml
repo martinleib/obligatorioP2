@@ -7,24 +7,24 @@
         <h1 class="fs-4">Registro</h1>
     </header>
     <section class="mb-3">
-        <label class="form-label" for="register--nombre" name="nombre">Nombre</label>
-        <input type="text" class="form-control" id="register--nombre" />
+        <label class="form-label" for="register--nombre">Nombre</label>
+        <input type="text" class="form-control" id="register--nombre" name="nombre" />
     </section>
     <section class="mb-3">
-        <label class="form-label" for="register--apellido" name="apellido">Apellido</label>
-        <input type="text" class="form-control" id="register--apellido" />
+        <label class="form-label" for="register--apellido">Apellido</label>
+        <input type="text" class="form-control" id="register--apellido" name="apellido" />
     </section>
     <section class="mb-3">
-        <label class="form-label" for="register--email" name="email">Email</label>
-        <input type="text" class="form-control" id="register--email" />
+        <label class="form-label" for="register--email">Email</label>
+        <input type="text" class="form-control" id="register--email" name="email" />
     </section>
     <section class="mb-3">
-        <label class="form-label" for="register--password" name="password">Contraseña</label>
-        <input type="text" class="form-control" id="register--password" />
+        <label class="form-label" for="register--password">Contraseña</label>
+        <input type="text" class="form-control" id="register--password" name="password" />
     </section>
     <section class="mb-3">
-        <label class="form-label" for="register--saldo" name="saldo">Saldo</label>
-        <input type="number" class="form-control" id="register--saldo" />
+        <label class="form-label" for="register--saldo">Saldo</label>
+        <input type="number" class="form-control" id="register--saldo" name="saldo" />
     </section>
     <section class="mb-3">
         <p class="d-inline me-1">Ya tenés una cuenta?</p><a href="/Login/">Iniciá sesión haciendo click aqui</a>
@@ -33,6 +33,5 @@
         <button type="submit" class="btn btn-dark">Registrarte</button>
     </section>
 </form>
-@ViewBag.Error
-@ViewBag.Mensaje
+<p>@ViewBag.Mensaje</p>
 
