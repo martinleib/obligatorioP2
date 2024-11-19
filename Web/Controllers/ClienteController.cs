@@ -11,32 +11,15 @@ public class ClienteController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-
-        //METODO EN SISTEMA QUE DEVUELVA UNA LISTA DE CLIENTES RECORRIENDO LA LISTA DE USUARIO
-        //No hay que castiarlo despues porque va a devolver una lista de clientes osea se castea directamente
-        //en el metodo asi es solo poner por ejemplo
-        //return View(sistema.ListaDeClientes)
-
-
-        List<Cliente> aux = new List<Cliente>();
-
         if (HttpContext.Session.GetString("logged-user-id") != null &&
             HttpContext.Session.GetString("logged-user-type") == "Cliente")
         {
             string idCliente = (string)HttpContext.Session.GetString("logged-user-id");
-
-            foreach (Usuario usuario in sistema.Usuarios)
-            {
-                if (usuario.ObtenerTipo() == "Cliente")
-                {
-                    aux.Add((Cliente)usuario);
-                }
-            }
         }
         else { 
             return RedirectToAction("Login", "Home");
         }
-        return View(aux);
+        return View(sistema.ListaClientes());
     }
 
     [HttpGet]

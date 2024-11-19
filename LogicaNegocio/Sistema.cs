@@ -494,26 +494,19 @@ namespace LogicaNegocio
             }
             return venta;
         }
-
-        // Retorna el listado de clientes como un string (metodo usado por Program)
-        public List<Usuario> ListadoDeClientes()
+        public List<Cliente> ListaClientes()
         {
-            List<Usuario> retornoClientes = new List<Usuario>();
+            List<Cliente> aux = new List<Cliente>();
 
             foreach (Usuario usuario in _usuarios)
             {
-                if (usuario is Cliente)
+                if (usuario.ObtenerTipo() == "Cliente")
                 {
-                    retornoClientes.Add(usuario);
+                    aux.Add((Cliente)usuario);
                 }
             }
 
-            if (retornoClientes.Count == 0)
-            {
-                throw new Exception("No hay clientes registrados en el sistema");
-            }
-
-            return retornoClientes;
+            return aux;
         }
 
         // Retorna el listado de publicaciones hechas entre dos fechas como un string (metodo usado por Program)
