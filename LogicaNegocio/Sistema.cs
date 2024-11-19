@@ -146,6 +146,7 @@ namespace LogicaNegocio
         // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
         {
+            AltaAdministrador("prueba", "prueba", "admin", "password");
             AltaAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
             AltaAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
         }
@@ -168,13 +169,15 @@ namespace LogicaNegocio
         public void PrecargaCliente()
         {
             //Comienzan desde la id : USU3 ? quien sabe
+            AltaCliente("prueba", "prueba", "user", "password", 3000);
+
             AltaCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 1500);
 
             AltaCliente("Javier", "Lopez", "JavierL1995@gmail.com", "JavierL789", 3200);
 
             AltaCliente("Ana", "Fernandez", "AnaF1987@gmail.com", "AnaF101", 4000);
 
-                AltaCliente("Pedro", "Ramirez", "PedroR1998@gmail.com", "PedroR202", 2700);
+            AltaCliente("Pedro", "Ramirez", "PedroR1998@gmail.com", "PedroR202", 2700);
 
             AltaCliente("María", "Hernandez", "MariaH1993@gmail.com", "MariaH303", 1800);
 
