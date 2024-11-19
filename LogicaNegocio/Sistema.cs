@@ -59,20 +59,20 @@ namespace LogicaNegocio
         public Usuario BuscarUsuario(string email, string password)
         {
             int i = 0;
-            Usuario aux = null;
+            Usuario usuario = null;
             
-            while (i < _usuarios.Count && aux == null)
+            while (i < _usuarios.Count && usuario == null)
             {
                 if (_usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() &&
                     _usuarios[i].Password == password )
                 {
-                    aux = _usuarios[i];
+                    usuario = _usuarios[i];
                 }
                 
                 i++;
             }
             
-            return aux;
+            return usuario;
         }
         
         public Cliente ObtenerCliente(string id)
