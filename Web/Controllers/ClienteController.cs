@@ -77,21 +77,23 @@ public class ClienteController : Controller
     }
 
     [HttpGet]
-    public IActionResult Edit(string email)
+
+    //Hay 
+    public IActionResult Edit(string Id)
     {
-        Cliente cliente = sistema.ObtenerCliente(email);
+        Cliente cliente = sistema.ObtenerCliente(Id);
         return View(cliente);
     }
     
     [HttpPost]
-    public IActionResult Edit(double Monto, string Email)
+    public IActionResult Edit(double Monto, string Id)
     {
         bool resultado = false;
         try
         {
-            if (Monto > 0 && !string.IsNullOrEmpty(Email))
+            if (Monto > 0 && !string.IsNullOrEmpty(Id))
             {
-                resultado = sistema.ModificarSaldo(Email, Monto);
+                resultado = sistema.ModificarSaldo(Id, Monto);
             }
 
             if (resultado)
