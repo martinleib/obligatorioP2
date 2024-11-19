@@ -62,48 +62,49 @@ namespace LogicaNegocio
         /// buscan un usuario por ID... Capaz les ponemos a los que usamos para el login
         /// RetornarClienteLogin? Me parece horrible también... Esto es una garcha
         /// </summary>
-        public Cliente BuscarCliente(string email, string password)
-        {
-            int i = 0;
-            Cliente cliente = null;
-            
-            while (i < _usuarios.Count && cliente == null)
-            {
-                if (_usuarios[i] is Cliente &&
-                    _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() && 
-                    _usuarios[i].Password == password)
-                    // no trimeé ni cambié el formato de la contraseña porque se supone
-                    // que tienen que ser 100% iguales. sino no sería case-sensitive
-                {
-                    cliente = (Cliente)_usuarios[i];
-                }
-                
-                i++;
-            }
-            return cliente;
-        }
         
-        public Usuario BuscarAdministrador(string email, string password)
-        {
-            int i = 0;
-            Usuario admin = null;
-            
-            while (i < _usuarios.Count && admin == null)
-            {
-                if ( _usuarios[i] is Usuario &&
-                     _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() &&
-                     _usuarios[i].Password == password )
-                    // no trimeé ni cambié el formato de la contraseña porque se supone
-                    // que tienen que ser 100% iguales. sino no sería case-sensitive
-                {
-                    admin = _usuarios[i];
-                }
-                
-                i++;
-            }
-            
-            return admin;
-        }
+        // public Cliente BuscarCliente(string email, string password)
+        // {
+        //     int i = 0;
+        //     Cliente cliente = null;
+        //     
+        //     while (i < _usuarios.Count && cliente == null)
+        //     {
+        //         if (_usuarios[i] is Cliente &&
+        //             _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() && 
+        //             _usuarios[i].Password == password)
+        //             // no trimeé ni cambié el formato de la contraseña porque se supone
+        //             // que tienen que ser 100% iguales. sino no sería case-sensitive
+        //         {
+        //             cliente = (Cliente)_usuarios[i];
+        //         }
+        //         
+        //         i++;
+        //     }
+        //     return cliente;
+        // }
+        
+        // public Usuario BuscarAdministrador(string email, string password)
+        // {
+        //     int i = 0;
+        //     Usuario admin = null;
+        //     
+        //     while (i < _usuarios.Count && admin == null)
+        //     {
+        //         if ( _usuarios[i] is Usuario &&
+        //              _usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() &&
+        //              _usuarios[i].Password == password )
+        //             // no trimeé ni cambié el formato de la contraseña porque se supone
+        //             // que tienen que ser 100% iguales. sino no sería case-sensitive
+        //         {
+        //             admin = _usuarios[i];
+        //         }
+        //         
+        //         i++;
+        //     }
+        //     
+        //     return admin;
+        // }
         
         public Usuario BuscarUsuario(string email, string password)
         {
