@@ -108,6 +108,23 @@ namespace LogicaNegocio
             return admin;
         }
         
+        public Cliente ObtenerCliente(string id)
+        {
+            int i = 0;
+            Cliente usuarioCliente = null;
+            
+            while (i < _usuarios.Count && usuarioCliente == null && !string.IsNullOrEmpty(id))
+            {
+                if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                {
+                    usuarioCliente = (Cliente)_usuarios[i];
+                }
+                i++;
+            }
+            return usuarioCliente;
+        }
+
+        
         // Precarga administrador
         // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
