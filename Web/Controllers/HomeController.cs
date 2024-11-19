@@ -41,10 +41,11 @@ namespace Web.Controllers
                 if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
                 {
                     Usuario aux = sistema.BuscarUsuario(email, password);
-                    string rol = aux.ObtenerTipo();
                     
                     if (aux != null)
                     {
+                        string rol = aux.ObtenerTipo();
+
                         HttpContext.Session.SetString("logged-user-id", aux.Id);
                         HttpContext.Session.SetString("logged-user-type", rol);
                         
@@ -54,6 +55,8 @@ namespace Web.Controllers
                                 return RedirectToAction("Index", "Cliente");
                             case "Administrador":
                                 return RedirectToAction("Index", "Usuario");
+                            default:
+                                return RedirectToAction("Index", "Home");
                         }
                     }
                     else

@@ -12,7 +12,7 @@ public class ClienteController : Controller
     public IActionResult Index()
     {
         if (HttpContext.Session.GetString("logged-user-id") != null &&
-            HttpContext.Session.GetString("logged-user-type") != "Cliente") {
+            HttpContext.Session.GetString("logged-user-type") == "Cliente") {
             string idCliente = (string)HttpContext.Session.GetString("logged-user-id");
         }
         else
