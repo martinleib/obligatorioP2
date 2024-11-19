@@ -50,6 +50,21 @@ namespace LogicaNegocio
                 return _publicaciones;
             }
         }
+
+        public Usuario BuscarUsuario(string id)
+        {
+            Usuario aux = null;
+
+            foreach (Usuario usuario in _usuarios)
+            {
+                if (usuario.Id == id)
+                {
+                    aux = usuario;
+                }
+            }
+
+            return aux;
+        }
         
         
         public void AltaAdministrador(string nombre, string apellido, string email, string password)

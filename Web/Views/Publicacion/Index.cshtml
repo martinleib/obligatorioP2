@@ -26,11 +26,11 @@
                 
                     @if (publicacion is LogicaNegocio.Subasta subasta)
                     {
-                        <td><a href="/Subasta/Edit/@subasta.Id">Agregar oferta</td>
+                        <td><a href="/Subasta/Edit/@subasta.Id">Agregar oferta</a></td>
                     }
                     else if (publicacion is LogicaNegocio.Venta venta)
                     {
-                        <td><a href="/Venta/Edit/@venta.Id" name="IdVenta">Comprar</td>
+                        <td><a href="/Venta/Edit/@venta.Id" name="IdVenta">Comprar</a></td>
                     }
                 </tr>
             }
