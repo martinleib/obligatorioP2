@@ -11,6 +11,8 @@ public class ClienteController : Controller
     [HttpGet]
     public IActionResult Index()
     {
+
+        //METODO EN SISTEMA QUE DEVUELVA UNA LISTA DE CLIENTES RECORRIENDO LA LISTA DE USUARIO
         List<Cliente> aux = new List<Cliente>();
 
         if (HttpContext.Session.GetString("logged-user-id") != null &&
