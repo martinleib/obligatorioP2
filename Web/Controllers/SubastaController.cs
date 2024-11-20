@@ -57,5 +57,21 @@ namespace Web.Controllers
 
             return View();
         }
+        
+        [HttpGet]
+        public IActionResult Cerrar(string id)
+        {
+            Subasta subasta = sistema.ObtenerSubasta(id);
+            return View(subasta);
+        }
+        
+        [HttpPost]
+        public IActionResult Cerrar(string idsubasta, int monto)
+        {
+            Subasta subasta = sistema.ObtenerSubasta(idsubasta);
+            string idcliente = HttpContext.Session.GetString("logged-user-id");
+            
+            return View(subasta);
+        }
     }
 }

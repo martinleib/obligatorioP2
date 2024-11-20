@@ -26,7 +26,7 @@
                     @if (Context.Session.GetString("logged-user-type") == "Administrador") {
                         @if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
                         {
-                            <td><a href="/Subasta/Edit?id=@subasta.Id">Cerrar subasta</a></td>
+                            <td><a href="/Subasta/Cerrar?id=@subasta.Id">Cerrar subasta</a></td>
                         }
                     } else if (Context.Session.GetString("logged-user-type") == "Cliente")
                     {

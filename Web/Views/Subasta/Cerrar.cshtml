@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@model LogicaNegocio.Subasta
+<form action="#" method="post">
+    <header class="mb-3">
+        <h1 class="fs-4">Se va a cerrar la siguiente subasta:</h1>
+    </header>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--id">ID</label>
+        <input type="text" class="form-control" id="subasta--id" name="idsubasta" value="@Model.Id" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--nombre">Nombre</label>
+        <input type="text" class="form-control" id="subasta--nombre" name="nombre" value="@Model.Nombre" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--estado">Estado</label>
+        <input type="text" class="form-control" id="subasta--estado" name="estado" value="@Model.Estado" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--precio">Precio</label>
+        <input type="email" class="form-control" id="subasta--precio" name="precio" value="@Model.Precio()" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--fpub">Fecha de publicacion</label>
+        <input type="number" class="form-control" id="subasta--fpub" name="fpub" value="@Model.FechaPublicacion.Date" readonly />
+    </section>
+    <section class="mb-3">
+        <button type="submit" class="btn btn-danger">Confirmar</button>
+    </section>
+</form>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+else if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Exito"]
+    </div>
+}
