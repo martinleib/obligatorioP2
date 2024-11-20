@@ -7,19 +7,32 @@ namespace Web.Controllers;
 public class ClienteController : Controller
 {
     private Sistema sistema = Sistema.Instancia;
-
+    
     [HttpGet]
     public IActionResult Index()
     {
-        if (HttpContext.Session.GetString("logged-user-id") == null ||
-            HttpContext.Session.GetString("logged-user-type") != "Administrador")
+        string loggedUserId = HttpContext.Session.GetString("logged-user-id");
+        string loggedUserType = HttpContext.Session.GetString("logged-user-type");
+
+        List<Cliente> aux = new List<Cliente>();
+        if (!string.IsNullOrEmpty(loggedUserId))
         {
-            return RedirectToAction("Login", "Home");
+            if (loggedUserType == "Administrador")
+            {
+                List<Cliente> clientes = sistema.ListaClientes();
+                return View(clientes);
+            }
+            else if (loggedUserType == "Cliente")
+            {
+                Cliente cliente = sistema.ObtenerCliente(loggedUserId);
+                aux.Add(cliente);
+                return View(aux);
+            }
         }
         
-        return View(sistema.ListaClientes());
+        return RedirectToAction("Login", "Home");
     }
-
+    
     [HttpGet]
     public IActionResult Create()
     {

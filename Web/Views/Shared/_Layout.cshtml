@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using LogicaNegocio
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,27 +13,34 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web</a>
+                @if (Context.Session.GetString("logged-user-type") == null) {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                } else if (Context.Session.GetString("logged-user-type") == "Administrador") {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ver clientes</a>
+                } else if (Context.Session.GetString("logged-user-type") == "Cliente") {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Mi perfil</a>
+                }
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (Context.Session.GetString("logged-user-type") == null) {
+                        @if (Context.Session.GetString("logged-user-type") == null)
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Iniciar sesión</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Create">Registrarse</a>
                             </li>
-                            
-                        } else if (Context.Session.GetString("logged-user-type") == "Administrador") {
+                        }
+                        else if (Context.Session.GetString("logged-user-type") == "Administrador")
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Subasta" asp-action="Index">Ver subastas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Ver clientes registrados</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Cerrar sesión</a>

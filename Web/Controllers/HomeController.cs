@@ -18,7 +18,7 @@ namespace Web.Controllers
         
         public IActionResult Index()
         {
-            return View();
+            return RedirectPermanent("/Cliente/Index");
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

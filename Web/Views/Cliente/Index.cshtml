@@ -1,19 +1,51 @@
 ﻿@model List<LogicaNegocio.Cliente>
+
 @{
     ViewData["Title"] = "Index";
+    string tipoDeUsuario = Context.Session.GetString("logged-user-type");
 }
-<p>@TempData["Mensaje"]</p>
-<h1>Listado de clientes</h1>
-@if (Model != null && Model.Count > 0)
+
+@if (tipoDeUsuario == "Cliente")
 {
+    <h1>Mi perfil</h1>
     <table class="table">
         <thead>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Email</th>
-        <th>Saldo</th>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Saldo</th>
+            <th>Acción</th>
+        </tr>
         </thead>
         <tbody>
+        @foreach (LogicaNegocio.Cliente cliente in Model) {
+            <tr>
+                <td>@cliente.Nombre</td>
+                <td>@cliente.Apellido</td>
+                <td>@cliente.Email</td>
+                <td>@cliente.Saldo</td>
+                <td>Modificar saldo</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else if (tipoDeUsuario == "Administrador")
+{
+    <h1>Listado de clientes</h1>
+    @if (Model != null && Model.Count > 0)
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Saldo</th>
+            </tr>
+            </thead>
+            <tbody>
             @foreach (LogicaNegocio.Cliente cliente in Model)
             {
                 <tr>
@@ -23,11 +55,16 @@
                     <td>@cliente.Saldo</td>
                 </tr>
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No existen clientes en el sistema</p>
+    }
 }
 else
 {
-    <p>No existen clientes en el sistema</p>
-
+    <p>No se ha identificado el tipo de usuario.</p>
 }
+
