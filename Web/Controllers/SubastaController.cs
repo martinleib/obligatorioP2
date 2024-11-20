@@ -66,10 +66,13 @@ namespace Web.Controllers
         }
         
         [HttpPost]
-        public IActionResult Cerrar(string idsubasta, int monto)
+        public IActionResult CerrarPost(string id)
         {
-            Subasta subasta = sistema.ObtenerSubasta(idsubasta);
             string idcliente = HttpContext.Session.GetString("logged-user-id");
+
+            Subasta subasta = sistema.ObtenerSubasta(id);
+            Cliente cliente = sistema.ObtenerCliente(idcliente);
+            // sistema.CerrarSubasta(subasta, cliente);
             
             return View(subasta);
         }

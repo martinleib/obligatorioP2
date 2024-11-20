@@ -30,7 +30,13 @@
                         }
                     } else if (Context.Session.GetString("logged-user-type") == "Cliente")
                     {
+                        if (@subasta.Estado.Trim().ToUpper() == "ABIERTA") {
                         <td><a href="/Subasta/Edit?id=@subasta.Id">Ofertar</a></td>
+                        }
+                        else
+                        {
+                            <td><p>---</p></td>
+                        }
                     }
                     </tr>
             }
