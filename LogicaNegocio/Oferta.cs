@@ -30,5 +30,10 @@ namespace LogicaNegocio
         {
             get { return _monto; }
         }
+
+        public Usuario Usuario
+        {
+            get { return _usuario; }
+        }
     }
 }

@@ -28,6 +28,10 @@
                         {
                             <td><a href="/Subasta/Cerrar?id=@subasta.Id">Cerrar subasta</a></td>
                         }
+                        else
+                        {
+                            <td><p>Subasta cerrada el @subasta.FechaFinalizacion.ToShortDateString()</p></td>
+                        }
                     } else if (Context.Session.GetString("logged-user-type") == "Cliente")
                     {
                         if (@subasta.Estado.Trim().ToUpper() == "ABIERTA") {

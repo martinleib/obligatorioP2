@@ -91,6 +91,21 @@ namespace LogicaNegocio
             return usuarioCliente;
         }
 
+        public Usuario ObtenerAdmin(string id)
+        {
+            int i = 0;
+            Usuario usuarioAdmin = null;
+            
+            while (i < _usuarios.Count && usuarioAdmin == null && !string.IsNullOrEmpty(id))
+            {
+                if (_usuarios[i] is not Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                {
+                    usuarioAdmin = _usuarios[i];
+                }
+                i++;
+            }
+            return usuarioAdmin;
+        }
         
         // Precarga administrador
         // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
@@ -493,6 +508,29 @@ namespace LogicaNegocio
             {
                 throw new Exception(ex.Message);
             }
+        }
+        
+        public bool CerrarSubasta(Subasta subasta, Usuario admin)
+        {
+            bool result = false;
+            
+            try
+            {
+                if (subasta.Estado.Trim().ToUpper() != "ABIERTA")
+                    throw new Exception("La subasta no está activa");
+                
+                subasta.Estado = "CERRADA";
+                subasta.FechaFinalizacion = DateTime.Now;
+                subasta.Comprador = (Cliente)subasta.ObtenerMayorPostor();
+                subasta.Finalizador = admin;
+                result = true;
+
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
         }
         
         public List<Cliente> ListaClientes()

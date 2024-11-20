@@ -61,20 +61,26 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Cerrar(string id)
         {
-            Subasta subasta = sistema.ObtenerSubasta(id);
-            return View(subasta);
+            return View(sistema.ObtenerSubasta(id));
         }
-        
-        [HttpPost]
-        public IActionResult CerrarPost(string id)
-        {
-            string idcliente = HttpContext.Session.GetString("logged-user-id");
 
-            Subasta subasta = sistema.ObtenerSubasta(id);
-            Cliente cliente = sistema.ObtenerCliente(idcliente);
-            // sistema.CerrarSubasta(subasta, cliente);
-            
-            return View(subasta);
+        [HttpPost]
+        public IActionResult Cerrar(string idsubasta, string idadmin)
+        {
+            Subasta subasta = sistema.ObtenerSubasta(idsubasta);
+            Usuario admin = sistema.ObtenerAdmin(idadmin);
+            bool result = sistema.CerrarSubasta(subasta, admin);
+
+            if (!result)
+            {
+                TempData["Error"] = "No fue posible cerrar la subasta";
+                return RedirectToAction("Index", "Subasta");
+            }
+            else
+            {
+                TempData["Exito"] = "Oferta cerrada con éxito!";
+                return RedirectToAction("Index", "Subasta");
+            }
         }
     }
 }

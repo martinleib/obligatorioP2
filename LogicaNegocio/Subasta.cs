@@ -36,6 +36,21 @@ namespace LogicaNegocio
             return maxMonto;
         }
 
+        public Usuario ObtenerMayorPostor()
+        {
+            Usuario mayorPostor = null;
+            
+            foreach (Oferta oferta in _ofertas)
+            {
+                if (oferta.Monto == MaximoMonto())
+                {
+                    mayorPostor = oferta.Usuario;
+                }
+            }
+            
+            return mayorPostor;
+        }
+        
         public override double Precio()
         {
             double precio = 0;
