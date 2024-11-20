@@ -1,28 +1,35 @@
-﻿
+﻿@model LogicaNegocio.Cliente
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Cargar saldo";
 }
 
-@model LogicaNegocio.Cliente
-<h1>Cargar saldo en su billetera electrónica</h1>
-<form method="post">
-    <input type="text" value="@Model.Id" name="IdCliente" readonly />
-    <br />
-    <label>Nombre</label>
-    <input type="text" value="@Model.Nombre" name="Nombre" readonly />
-    <br />
-    <label>Apellido</label>
-    <input type="text" value="@Model.Apellido" name="Apellido" readonly />
-    <br />
-    <label>Email</label>
-    <input type="text" value="@Model.Email" name="Email" readonly />
-    <br />
-    <label>Sueldo</label>
-    <input type="number" value="@Model.Saldo" name="Saldo" />
-    <br />
-    <label for="modificar--sueldo" name="Monto">Ingrese monto a cargar</label>
-    <input type="number" id="modificar--sueldo" />
-    <input type="submit" value="Cargar saldo" />
+<form action="#" method="post">
+    <header class="mb-3">
+        <h1 class="fs-4">Cargar saldo en su billetera electrónica</h1>
+    </header>
+    <section class="mb-3">
+        <label class="form-label" for="register--nombre">Nombre</label>
+        <input type="text" class="form-control" id="register--nombre" name="nombre" value="@Model.Nombre" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="register--apellido">Apellido</label>
+        <input type="text" class="form-control" id="register--apellido" name="apellido" value="@Model.Apellido" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="register--email">Email</label>
+        <input type="email" class="form-control" id="register--email" name="email" value="@Model.Email" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="register--saldo">Saldo actual</label>
+        <input type="number" class="form-control" id="register--saldo" name="saldo" value="@Model.Saldo" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="register--monto">Monto a cargar</label>
+        <input type="number" class="form-control" id="register--monto" name="monto" />
+    </section>
+    <section class="mb-3">
+        <button type="submit" class="btn btn-dark">Cargar saldo</button>
+    </section>
 </form>
 @if (TempData["Error"] != null)
 {

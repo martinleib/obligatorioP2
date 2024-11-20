@@ -71,40 +71,42 @@ public class ClienteController : Controller
     }
 
     [HttpGet]
-
-    //Hay 
-    public IActionResult Edit(string Id)
+    
+    public IActionResult Edit()
     {
-        Cliente cliente = sistema.ObtenerCliente(Id);
+        string id = HttpContext.Session.GetString("logged-user-id");
+        Cliente cliente = sistema.ObtenerCliente(id);
         return View(cliente);
     }
     
     [HttpPost]
-    public IActionResult Edit(double Monto, string Id)
+    public IActionResult Edit(double monto)
     {
         bool resultado = false;
+        string id = HttpContext.Session.GetString("logged-user-id");
+        
         try
         {
-            if (Monto > 0 && !string.IsNullOrEmpty(Id))
+            if (monto > 0 && !string.IsNullOrEmpty(id))
             {
-                resultado = sistema.ModificarSaldo(Id, Monto);
+                resultado = sistema.ModificarSaldo(id, monto);
             }
-
+    
             if (resultado)
             {
-                TempData["Exito"] = "La carga se ha realizado con éxito!";
-                return RedirectToAction("Edit");
+                TempData["Mensaje"] = $"La carga de {monto} USD se realizó con éxito. \n Tu nuevo saldo es de {sistema.ObtenerCliente(id).Saldo} USD.";
+                return RedirectToAction("Index");
             }
             else
             {
-                TempData["Error"] = "No se logro cargar la billetera electronica";
-                return RedirectToAction("Edit");
+                TempData["Mensaje"] = "Hubo un error a la hora de cargar saldo. Intente nuevamente.";
+                return RedirectToAction("Index");
             }
         }
         catch (Exception ex)
         {
-            TempData["Error"] = ex.Message;
-            return RedirectToAction("Edit");
+            TempData["Mensaje"] = ex.Message;
+            return RedirectToAction("Index");
         }
     }
 }

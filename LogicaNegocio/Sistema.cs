@@ -145,7 +145,9 @@ namespace LogicaNegocio
         public bool ModificarSaldo(string id, double monto)
         {
             bool result = false;
+            
             Cliente clienteBuscado = ObtenerCliente(id);
+            
             if (clienteBuscado != null && monto > 0)
             {
                 clienteBuscado.Saldo += monto;

@@ -25,7 +25,9 @@
                 <td>@cliente.Apellido</td>
                 <td>@cliente.Email</td>
                 <td>@cliente.Saldo</td>
-                <td>Modificar saldo</td>
+                <td>
+                    <a asp-controller="Cliente" asp-action="Edit">Cargar saldo</a>
+                </td>
             </tr>
         }
         </tbody>
@@ -68,3 +70,4 @@ else
     <p>No se ha identificado el tipo de usuario.</p>
 }
 
+<p>@TempData["Mensaje"]</p>
