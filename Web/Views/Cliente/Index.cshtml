@@ -6,13 +6,12 @@
 <h1>Listado de clientes</h1>
 @if (Model != null && Model.Count > 0)
 {
-    <table>
+    <table class="table">
         <thead>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Email</th>
         <th>Saldo</th>
-        <th>Cargar saldo</th>
         </thead>
         <tbody>
             @foreach (LogicaNegocio.Cliente cliente in Model)
@@ -22,7 +21,6 @@
                     <td>@cliente.Apellido</td>
                     <td>@cliente.Email</td>
                     <td>@cliente.Saldo</td>
-                    <td><a href="/Cliente/Edit/@cliente.Id">Cargar saldo</a></td>
                 </tr>
             }
         </tbody>

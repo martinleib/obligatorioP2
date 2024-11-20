@@ -36,27 +36,5 @@ namespace LogicaNegocio
 
             return precioFinal;
         }
-
-        public bool Compra(Cliente cliente)
-        {
-            bool respuesta = false;
-
-            string estado = _estado.Trim().ToUpper();
-            double precio = Precio();
-
-            if (estado == "ABIERTA" && cliente.Saldo > precio)
-            {
-                _comprador = cliente;
-                _estado = "CERRADA";
-                _finalizador = cliente;
-                _fechaFinalizacion = DateTime.Now;
-                cliente.Saldo -= precio;
-                respuesta = true;
-            }
-            
-            return respuesta;
-        }
-
-     
     }
 }

@@ -8,7 +8,7 @@ namespace Web.Controllers
         private Sistema sistema = Sistema.Instancia;
         public IActionResult Index()
         {
-            return View(sistema.Publicaciones);
+            return View(sistema.ListaVentas());
         }
     }
 }

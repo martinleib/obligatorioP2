@@ -11,14 +11,12 @@ public class ClienteController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        if (HttpContext.Session.GetString("logged-user-id") != null &&
-            HttpContext.Session.GetString("logged-user-type") == "Cliente")
+        if (HttpContext.Session.GetString("logged-user-id") == null ||
+            HttpContext.Session.GetString("logged-user-type") != "Administrador")
         {
-            string idCliente = (string)HttpContext.Session.GetString("logged-user-id");
-        }
-        else { 
             return RedirectToAction("Login", "Home");
         }
+        
         return View(sistema.ListaClientes());
     }
 

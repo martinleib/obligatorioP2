@@ -4,19 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>lista de subastas</h1>
+<h1>Subastas</h1>
 @if (Model != null & Model.Count > 0)
 {
     <table class="table">
         <thead>
         <th>Nombre</th>
         <th>Estado</th>
-        <th>Precio</th>
+        <th>Oferta más alta</th>
         <th>Fecha de publicacion</th>
-        <th>Tipo</th>
         <th>Acción</th>
         </thead>
-
         <tbody>
             @foreach (LogicaNegocio.Subasta subasta in Model)
             {
@@ -25,13 +23,16 @@
                     <td>@subasta.Estado</td>
                     <td>@subasta.Precio()</td>
                     <td>@subasta.FechaPublicacion</td>
-                    <td>Subasta</td>
-                    @if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
+                    @if (Context.Session.GetString("logged-user-type") == "Administrador") {
+                        @if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
+                        {
+                            <td><a href="/Subasta/Edit/@subasta.Id">Cerrar subasta</a></td>
+                        }
+                    } else if (Context.Session.GetString("logged-user-type") == "Cliente")
                     {
-                        <td><a href="/Subasta/Edit/@subasta.Id">Cerrar subasta</a></td>
+                        <td><a href="/Subasta/Edit/@subasta.Id">Ofertar</a></td>
                     }
                     </tr>
-                        
             }
        </tbody>
     </table>

@@ -1,29 +1,16 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Edit";
 }
 
 @model LogicaNegocio.Venta
-<h1>Comprar publicacion</h1>
+
+<h1 class="fs-4">Gracias por tu compra!</h1>
 <form method="POST">
-    <input type="text" value="@Model.Id" name="IdVenta" readonly />
-    <br />
-    <label>Nombre</label>
-    <input type="text" value="@Model.Nombre" readonly />
-    <br />
-    <label>Estado</label>
-    <input type="text" value="@Model.Estado" readonly />
-    <br />
-    <label>Precio</label>
-    <input type="number" value="@Model.Precio()" readonly />
-    <br />
-    <label>Fecha de publicacion</label>
-    <input type="text" value="@Model.FechaPublicacion" />
-    <br />
-    <label>Tipo</label>
-    <input type="text" value="Venta"/>
-    <br />
-    <input type="submit" value="Comprar"/>
+    <p class="mb-0">@Model.Id</p>
+    <p class="mb-0">@Model.Nombre</p>
+    <p class="mb-0">@Model.Precio() USD</p>
+    
+    <small class="d-block">Pago con Mastercard &middot;&middot;51</small>
 </form>
 
 

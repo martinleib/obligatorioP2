@@ -141,32 +141,11 @@ namespace LogicaNegocio
 
             AltaCliente("Andrés", "Pérez", "AndresP2005@gmail.com", "AndresP808", 2900);
         }
-
-        // Obtener cliente
-        // Es un metodo que busca en la lista de clientes de la clase sistema un cliente con el id pasado por parámetros y si lo encuentra devuelve un usuario de tipo cliente, en caso de que no lo encuentra devuelve null.
-        public Cliente ObtenerCliente(string id, string password)
-        {
-            int i = 0;
-            Cliente cliente = null;
-            
-            while (i < _usuarios.Count && cliente == null)
-            {
-                if (_usuarios[i] is Cliente &&
-                    _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper() && 
-                    _usuarios[i].Password == password)
-                {
-                    cliente = (Cliente)_usuarios[i];
-                }
-                
-                i++;
-            }
-            return cliente;
-        }
         
-        public bool ModificarSaldo(string email, double monto)
+        public bool ModificarSaldo(string id, double monto)
         {
             bool result = false;
-            Cliente clienteBuscado = ObtenerCliente(email);
+            Cliente clienteBuscado = ObtenerCliente(id);
             if (clienteBuscado != null && monto > 0)
             {
                 clienteBuscado.Saldo += monto;
@@ -494,6 +473,26 @@ namespace LogicaNegocio
             }
             return venta;
         }
+
+        public void CompraVenta(string id, Venta venta)
+        {
+            try
+            {
+                if (venta.Estado.Trim().ToUpper() != "ABIERTA")
+                    throw new Exception("La publicación no está activa");
+                
+                Cliente comprador = ObtenerCliente(id);
+                comprador.Saldo -= venta.Precio();
+                venta.Estado = "CERRADA";
+                venta.FechaFinalizacion = DateTime.Now;
+                venta.Comprador = comprador;
+                venta.Finalizador = comprador;
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        
         public List<Cliente> ListaClientes()
         {
             List<Cliente> aux = new List<Cliente>();
@@ -509,48 +508,19 @@ namespace LogicaNegocio
             return aux;
         }
 
-        // Retorna el listado de publicaciones hechas entre dos fechas como un string (metodo usado por Program)
-        public List<Publicacion> ListadoDePublicaciones(DateTime fechaUno, DateTime fechaDos)
+        public List<Venta> ListaVentas()
         {
-
-            List<Publicacion> retornoPublicaciones = new List<Publicacion>();
+            List<Venta> aux = new List<Venta>();
 
             foreach (Publicacion publicacion in _publicaciones)
             {
-                if (publicacion.FechaPublicacion >= fechaUno && publicacion.FechaPublicacion <= fechaDos)
+                if (publicacion is Venta)
                 {
-                    retornoPublicaciones.Add(publicacion);
+                    aux.Add((Venta)publicacion);
                 }
             }
 
-            if (retornoPublicaciones.Count == 0)
-            {
-                throw new Exception("No existe ningún producto dentro de este rango de fechas");
-            }
-
-            return retornoPublicaciones;
-        }
-
-        // Retorna el listado de articulos con una categoria especifica como un string (metodo usado por Program)
-        public List<Articulo> ListadoDeArticulos(string categoria)
-        {
-
-            List<Articulo> retornoArticulos = new List<Articulo>();
-
-            foreach (Articulo articulo in _articulos)
-            {
-                if (articulo.Categoria.Trim().ToLower() == categoria.Trim().ToLower())
-                {
-                    retornoArticulos.Add(articulo);
-                }
-            }
-
-            if (retornoArticulos.Count == 0)
-            {
-                throw new Exception($"No existen artículos de la categoría: {categoria}");
-            }
-
-            return retornoArticulos;
+            return aux;
         }
     }
 }

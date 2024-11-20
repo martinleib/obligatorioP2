@@ -43,15 +43,26 @@ namespace LogicaNegocio
             this._comprador = comprador;
             this._finalizador = finalizador;
             this._articulos = new List<Articulo>();
-
-            
         }
 
         public string Estado
         {
             get { return _estado; }
+            set { _estado = value; }
+        }
+        
+        public Cliente Comprador
+        {
+            get { return _comprador; }
+            set { _comprador = value; }
         }
 
+        public Usuario Finalizador
+        {
+            get { return _finalizador; }
+            set { _finalizador = value; }
+        }
+        
         // Propiedad que devuelve la lista de articulos de una instancia de tipo publicacion.
         public List<Articulo> Articulo
         {
@@ -71,6 +82,17 @@ namespace LogicaNegocio
             get { return _fechaPublicacion; }
         }
 
+        public DateTime FechaFinalizacion
+        {
+            get { return _fechaFinalizacion;}
+            set { _fechaFinalizacion = value; }
+        }
+        
+        public void CierrePubliicacion()
+        {
+            _estado = "CERRADA";
+        }
+        
         public string Nombre
         {
             get { return _nombre; }
@@ -107,10 +129,7 @@ namespace LogicaNegocio
                 _articulos.Add(articulo);
             }
         }
-
-
-
-
+        
         // Metodo que modifica el comportamiento del método ToString de la clase publicación, permitiendo imprimir los atributos nombre, estado, fecha de publicación e ID.
         public override string ToString()
         {

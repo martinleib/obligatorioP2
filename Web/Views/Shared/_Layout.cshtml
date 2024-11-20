@@ -26,24 +26,28 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Create">Registrarse</a>
                             </li>
+                            
                         } else if (Context.Session.GetString("logged-user-type") == "Administrador") {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Subasta" asp-action="Index">Ver subastas</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Ver clientes registrados</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Cerrar sesión</a>
                             </li>
                         }
-                        else
+                        else if (Context.Session.GetString("logged-user-type") == "Cliente")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subasta" asp-action="Index">Ver publicaciones</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Publicacion" asp-action="Index">Ver publicaciones</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Subasta" asp-action="Index">Ver subastas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subasta" asp-action="Index">Cargar saldo</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Edit">Cargar saldo</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Cerrar sesión</a>

@@ -1,42 +1,30 @@
-﻿@model List<LogicaNegocio.Publicacion>
-
+﻿@model List<LogicaNegocio.Venta>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Listado de publicaciones</h1>
+<h1>Publicaciones</h1>
 @if (Model != null & Model.Count > 0)
 {
-    
-    <table>
+    <table class="table">
         <thead>
-        <th>Nombre</th>
-        <th>Estado</th>
-        <th>Precio</th>
-        <th>Acción</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Precio</th>
+            <th>Acción</th>
         </thead>
-
         <tbody>
-            @foreach (LogicaNegocio.Publicacion publicacion in Model)
-            {
-                <tr>
-                    <td>@publicacion.Nombre</td>
-                    <td>@publicacion.Estado</td>
-                    <td>@publicacion.Precio()</td>
-                
-                    @if (publicacion is LogicaNegocio.Subasta subasta)
-                    {
-                        <td><a href="/Subasta/Edit/@subasta.Id">Agregar oferta</a></td>
-                    }
-                    else if (publicacion is LogicaNegocio.Venta venta)
-                    {
-                        <td><a href="/Venta/Edit/@venta.Id" name="IdVenta">Comprar</a></td>
-                    }
-                </tr>
-            }
+        @foreach (LogicaNegocio.Venta venta in Model)
+        {
+            <tr>
+                <td>@venta.Nombre</td>
+                <td>@venta.Estado</td>
+                <td>@venta.Precio() USD</td>
+                <td><a href="/Venta/Edit?id=@venta.Id">Comprar</a></td>
+            </tr>
+        }
         </tbody>
     </table>
-   
 }
 else
 {
