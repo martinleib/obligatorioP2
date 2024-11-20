@@ -4,29 +4,37 @@
 }
 
 @model LogicaNegocio.Subasta
-<h1>Ofertar</h1>
-<form method="post">
-        <input type="text" value="@Model.Id" name="IdSubasta" readonly />
-    <br />
-    <label>Nombre</label>
-        <input type="text" value="@Model.Nombre" name="Nombre" readonly />
-    <br />
-    <label>Estado</label>
-            <input type="text" value="@Model.Estado" name="Estado" readonly />
-    <br />
-    <label>Precio</label>
-        <input type="number" value="@Model.Precio()" name="Precio" readonly />
-    <br />
-    <label>Fecha de publicacion</label>
-        <input type="text" value="@Model.FechaPublicacion" name="FechaDePublicacion" />
-    <br />
-    <label>Tipo</label>
-        <input type="text" value="Subasta" name="Tipo" />
-    <br />
-    <label>Agregar monto de oferta</label>
-        <input type="number" name="Monto" />
-    <br />
-    <input type="submit" value="Ofertar"/>
+<form action="#" method="post">
+    <header class="mb-3">
+        <h1 class="fs-4">Ofertar</h1>
+    </header>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--id">ID</label>
+        <input type="text" class="form-control" id="subasta--id" name="idsubasta" value="@Model.Id" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--nombre">Nombre</label>
+        <input type="text" class="form-control" id="subasta--nombre" name="nombre" value="@Model.Nombre" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--estado">Estado</label>
+        <input type="text" class="form-control" id="subasta--estado" name="estado" value="@Model.Estado" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--precio">Precio</label>
+        <input type="email" class="form-control" id="subasta--precio" name="precio" value="@Model.Precio()" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--fpub">Fecha de publicacion</label>
+        <input type="number" class="form-control" id="subasta--fpub" name="fpub" value="@Model.FechaPublicacion.Date" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--monto">Monto a ofertar</label>
+        <input type="number" class="form-control" id="subasta--monto" name="monto" />
+    </section>
+    <section class="mb-3">
+        <button type="submit" class="btn btn-dark">Ofertar</button>
+    </section>
 </form>
 
 @if (TempData["Error"] != null)

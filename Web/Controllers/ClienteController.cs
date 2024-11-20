@@ -94,12 +94,12 @@ public class ClienteController : Controller
     
             if (resultado)
             {
-                TempData["Mensaje"] = $"La carga de {monto} USD se realizó con éxito. \n Tu nuevo saldo es de {sistema.ObtenerCliente(id).Saldo} USD.";
+                TempData["Exito"] = $"La carga de {monto} USD se realizó con éxito. \n Tu nuevo saldo es de {sistema.ObtenerCliente(id).Saldo} USD.";
                 return RedirectToAction("Index");
             }
             else
             {
-                TempData["Mensaje"] = "Hubo un error a la hora de cargar saldo. Intente nuevamente.";
+                TempData["Error"] = "Hubo un error a la hora de cargar saldo. Intente nuevamente.";
                 return RedirectToAction("Index");
             }
         }

@@ -70,4 +70,15 @@ else
     <p>No se ha identificado el tipo de usuario.</p>
 }
 
-<p>@TempData["Mensaje"]</p>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+else if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Exito"]
+    </div>
+}

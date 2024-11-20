@@ -26,11 +26,11 @@
                     @if (Context.Session.GetString("logged-user-type") == "Administrador") {
                         @if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
                         {
-                            <td><a href="/Subasta/Edit/@subasta.Id">Cerrar subasta</a></td>
+                            <td><a href="/Subasta/Edit?id=@subasta.Id">Cerrar subasta</a></td>
                         }
                     } else if (Context.Session.GetString("logged-user-type") == "Cliente")
                     {
-                        <td><a href="/Subasta/Edit/@subasta.Id">Ofertar</a></td>
+                        <td><a href="/Subasta/Edit?id=@subasta.Id">Ofertar</a></td>
                     }
                     </tr>
             }
@@ -42,5 +42,15 @@ else
     <p>No hay subastas en el sistema</p>
 }
 
-
-
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+else if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Exito"]
+    </div>
+}
