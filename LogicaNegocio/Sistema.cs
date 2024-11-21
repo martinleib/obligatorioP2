@@ -495,15 +495,20 @@ namespace LogicaNegocio
         {
             try
             {
-                if (venta.Estado.Trim().ToUpper() != "ABIERTA")
+                if (venta.Estado.Trim().ToUpper() == "ABIERTA")
+                {
+                    Cliente comprador = ObtenerCliente(id);
+                    comprador.Saldo -= venta.Precio();
+                    venta.Estado = "CERRADA";
+                    venta.FechaFinalizacion = DateTime.Now;
+                    venta.Comprador = comprador;
+                    venta.Finalizador = comprador;
+                }
+                else
+                {
                     throw new Exception("La publicación no está activa");
-                
-                Cliente comprador = ObtenerCliente(id);
-                comprador.Saldo -= venta.Precio();
-                venta.Estado = "CERRADA";
-                venta.FechaFinalizacion = DateTime.Now;
-                venta.Comprador = comprador;
-                venta.Finalizador = comprador;
+                }
+
             } catch (Exception ex)
             {
                 throw new Exception(ex.Message);

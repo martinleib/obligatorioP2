@@ -14,19 +14,16 @@ public class ClienteController : Controller
         string loggedUserId = HttpContext.Session.GetString("logged-user-id");
         string loggedUserType = HttpContext.Session.GetString("logged-user-type");
 
-        List<Cliente> aux = new List<Cliente>();
         if (!string.IsNullOrEmpty(loggedUserId))
         {
             if (loggedUserType == "Administrador")
             {
-                List<Cliente> clientes = sistema.ListaClientes();
-                return View(clientes);
+                return View(sistema.ListaClientes());
             }
             else if (loggedUserType == "Cliente")
             {
                 Cliente cliente = sistema.ObtenerCliente(loggedUserId);
-                aux.Add(cliente);
-                return View(aux);
+                return View(cliente);
             }
         }
         
@@ -56,8 +53,9 @@ public class ClienteController : Controller
             if (string.IsNullOrEmpty(password) || password.Length < 8)
                 throw new ArgumentException("La contraseña debe tener al menos 8 caracteres.");
 
-            if (saldo <= 0)
+            if (saldo <= 0) 
                 throw new ArgumentException("El saldo debe ser mayor a 0.");
+
             
             sistema.AltaCliente(nombre, apellido, email, password, saldo);
             ViewBag.Mensaje = "Se ha registrado correctamente";

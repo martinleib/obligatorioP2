@@ -11,9 +11,9 @@ public class UsuarioController : Controller
     public IActionResult Index()
     {
         if (HttpContext.Session.GetString("logged-user-id") == null ||
-            HttpContext.Session.GetString("logged-user-type") != "Administrador")
+            HttpContext.Session.GetString("logged-user-type") != "Administrador") {
             return RedirectToAction("Login", "Home");
-        else
+        }else
             return View(sistema.ObtenerAdmin(HttpContext.Session.GetString("logged-user-id")));
     }
 }
