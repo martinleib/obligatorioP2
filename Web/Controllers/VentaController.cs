@@ -10,10 +10,9 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            Venta venta = sistema.ObtenerVenta(id);
-            sistema.CompraVenta(HttpContext.Session.GetString("logged-user-id"), venta);
-
-            return View(venta);
+                Venta venta = sistema.ObtenerVenta(id);
+                sistema.CompraVenta(HttpContext.Session.GetString("logged-user-id"), venta);
+                return View(venta);
         }
     }
 }
