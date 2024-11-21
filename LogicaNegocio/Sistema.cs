@@ -140,7 +140,7 @@ namespace LogicaNegocio
 
             AltaCliente("Javier", "Lopez", "JavierL1995@gmail.com", "JavierL789", 3200);
 
-            AltaCliente("Ana", "Fernandez", "AnaF1987@gmail.com", "AnaF101", 4000);
+            AltaCliente("Ana", "Fernandez", "AnaF1987@gmail.com", "AnaaF101", 4000);
 
             AltaCliente("Pedro", "Ramirez", "PedroR1998@gmail.com", "PedroR202", 2700);
 
