@@ -36,15 +36,15 @@ namespace LogicaNegocio
             return maxMonto;
         }
 
-        public Usuario ObtenerMayorPostor()
+        public Cliente ObtenerMayorPostor()
         {
-            Usuario mayorPostor = null;
+            Cliente mayorPostor = null;
             
             foreach (Oferta oferta in _ofertas)
             {
                 if (oferta.Monto == MaximoMonto())
                 {
-                    mayorPostor = oferta.Usuario;
+                    mayorPostor = oferta.Cliente;
                 }
             }
             
@@ -83,9 +83,9 @@ namespace LogicaNegocio
             return result;
         }
 
-        public void AltaOferta(int monto, Usuario usuario, DateTime fecha)
+        public void AltaOferta(int monto, Cliente cliente, DateTime fecha)
         {
-            Oferta oferta = new Oferta(monto, usuario, fecha);
+            Oferta oferta = new Oferta(monto, cliente, fecha);
             if (!_ofertas.Contains(oferta))
             {
                 _ofertas.Add(oferta);

@@ -521,7 +521,7 @@ namespace LogicaNegocio
                 
                 subasta.Estado = "CERRADA";
                 subasta.FechaFinalizacion = DateTime.Now;
-                subasta.Comprador = (Cliente)subasta.ObtenerMayorPostor();
+                subasta.Comprador = subasta.ObtenerMayorPostor();
                 subasta.Finalizador = admin;
                 result = true;
 

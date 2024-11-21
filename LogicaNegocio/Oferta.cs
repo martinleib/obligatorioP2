@@ -12,17 +12,17 @@ namespace LogicaNegocio
         private static int s_ultimoID = 1;
         private double _monto;
 
-        private Usuario _usuario;
+        private Cliente _cliente;
         private DateTime _fecha;
 
         // Es el método constructor de la clase oferta que se usará para crear instancias del tipo oferta.
-        public Oferta(double monto, Usuario usuario, DateTime fecha)
+        public Oferta(double monto, Cliente cliente, DateTime fecha)
         {
             // El ID se veria: OF02, OF03, etc...
             this._id = $"OF{s_ultimoID + 1}";
             s_ultimoID++;
             this._monto = monto;
-            this._usuario = usuario;
+            this._cliente = cliente;
             this._fecha = fecha;
         }
 
@@ -31,9 +31,9 @@ namespace LogicaNegocio
             get { return _monto; }
         }
 
-        public Usuario Usuario
+        public Cliente Cliente
         {
-            get { return _usuario; }
+            get { return _cliente; }
         }
     }
 }
