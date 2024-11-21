@@ -513,17 +513,20 @@ namespace LogicaNegocio
         public bool CerrarSubasta(Subasta subasta, Usuario admin)
         {
             bool result = false;
-            
+
             try
             {
-                if (subasta.Estado.Trim().ToUpper() != "ABIERTA")
+                if(subasta.Estado.Trim().ToUpper() == "ABIERTA")
+                {
+                    subasta.Estado = "CERRADA";
+                    subasta.FechaFinalizacion = DateTime.Now;
+                    subasta.Comprador = subasta.ObtenerMayorPostor();
+                    subasta.Finalizador = admin;
+                    result = true;
+                }else
+                {
                     throw new Exception("La subasta no está activa");
-                
-                subasta.Estado = "CERRADA";
-                subasta.FechaFinalizacion = DateTime.Now;
-                subasta.Comprador = subasta.ObtenerMayorPostor();
-                subasta.Finalizador = admin;
-                result = true;
+                }
 
             } catch (Exception ex)
             {
