@@ -34,7 +34,11 @@ public class ClienteController : Controller
     [HttpGet]
     public IActionResult Create()
     {
-        return View();
+        if (HttpContext.Session.GetString("logged-user-type") == "Cliente")
+        {
+            return View();
+        }
+        return RedirectToAction("Index", "Subasta");
     }
 
     [HttpPost]
