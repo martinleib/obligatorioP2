@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+using LogicaNegocio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
@@ -10,14 +10,16 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            if (sistema.ObtenerCliente(HttpContext.Session.GetString("logged-user-id")) != null ||
-            HttpContext.Session.GetString("logged-user-type") == "Cliente")
+            if (HttpContext.Session.GetString("logged-user-id") != "Cliente")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
             {
                 Venta venta = sistema.ObtenerVenta(id);
                 sistema.CompraVenta(HttpContext.Session.GetString("logged-user-id"), venta);
                 return View(venta);
             }
-            return RedirectToAction("Index", "Subasta");
         }
     }
 }

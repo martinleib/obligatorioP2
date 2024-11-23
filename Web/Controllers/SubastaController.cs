@@ -12,24 +12,28 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("logged-user-type") == "Administrador")
+            if (HttpContext.Session.GetString("logged-user-id") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
             {
                 return View(sistema.SubastasOrdenadas());
             }
-            return RedirectToAction("Index", "Publicacion");
-
         }
 
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            if (HttpContext.Session.GetString("logged-user-type") == "Cliente")
+            if (HttpContext.Session.GetString("logged-user-id") != "Cliente")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
             {
                 Subasta subasta = sistema.ObtenerSubasta(id);
                 return View(subasta);
             }
-            return RedirectToAction("Index", "Subasta");
-
         }
 
         [HttpPost]
@@ -67,15 +71,18 @@ namespace Web.Controllers
 
             return View();
         }
-        
+
         [HttpGet]
         public IActionResult Cerrar(string id)
         {
-            if (HttpContext.Session.GetString("logged-user-type") == "Administrador")
+            if (HttpContext.Session.GetString("logged-user-id") != "Administrador")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
             {
                 return View(sistema.ObtenerSubasta(id));
             }
-            return RedirectToAction("Index", "Publicacion");
         }
 
         [HttpPost]
