@@ -25,7 +25,7 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            if (HttpContext.Session.GetString("usuario-id") != "Cliente")
+            if (HttpContext.Session.GetString("usuario-tipo") != "Cliente")
             {
                 return RedirectToAction("Login", "Home");
             }
@@ -75,7 +75,7 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Cerrar(string id)
         {
-            if (HttpContext.Session.GetString("usuario-id") != "Administrador")
+            if (HttpContext.Session.GetString("usuario-tipo") != "Administrador")
             {
                 return RedirectToAction("Login", "Home");
             }

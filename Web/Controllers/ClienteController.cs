@@ -54,7 +54,6 @@ public class ClienteController : Controller
     }
 
     [HttpGet]
-    
     public IActionResult Edit()
     {
         string id = HttpContext.Session.GetString("usuario-id");

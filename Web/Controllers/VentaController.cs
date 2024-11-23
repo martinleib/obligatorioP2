@@ -10,7 +10,7 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            if (HttpContext.Session.GetString("usuario-id") != "Cliente")
+            if (HttpContext.Session.GetString("usuario-tipo") != "Cliente")
             {
                 return RedirectToAction("Login", "Home");
             }
