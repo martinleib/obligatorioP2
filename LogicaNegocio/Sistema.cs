@@ -16,10 +16,11 @@ namespace LogicaNegocio
         {
             get
             {
-                if(_instancia == null)
+                if (_instancia == null)
                 {
                     _instancia = new Sistema();
                 }
+
                 return _instancia;
             }
         }
@@ -28,6 +29,7 @@ namespace LogicaNegocio
         {
             get { return _usuarios; }
         }
+
         private Sistema()
         {
             PrecargaAdministrador();
@@ -37,15 +39,12 @@ namespace LogicaNegocio
             PrecargaSubasta();
             PrecargaOferta();
         }
-        
+
         public List<Publicacion> Publicaciones
         {
-            get
-            {
-                return _publicaciones;
-            }
+            get { return _publicaciones; }
         }
-        
+
         public void AltaAdministrador(string nombre, string apellido, string email, string password)
         {
             Usuario administrador = new Usuario(nombre, apellido, email, password);
@@ -55,39 +54,41 @@ namespace LogicaNegocio
                 _usuarios.Add(administrador);
             }
         }
-        
+
         public Usuario BuscarUsuario(string email, string password)
         {
             int i = 0;
             Usuario usuario = null;
-            
+
             while (i < _usuarios.Count && usuario == null)
             {
                 if (_usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() &&
-                    _usuarios[i].Password == password )
+                    _usuarios[i].Password == password)
                 {
                     usuario = _usuarios[i];
                 }
-                
+
                 i++;
             }
-            
+
             return usuario;
         }
-        
+
         public Cliente ObtenerCliente(string id)
         {
             int i = 0;
             Cliente usuarioCliente = null;
-            
+
             while (i < _usuarios.Count && usuarioCliente == null && !string.IsNullOrEmpty(id))
             {
                 if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     usuarioCliente = (Cliente)_usuarios[i];
                 }
+
                 i++;
             }
+
             return usuarioCliente;
         }
 
@@ -95,18 +96,20 @@ namespace LogicaNegocio
         {
             int i = 0;
             Usuario usuarioAdmin = null;
-            
+
             while (i < _usuarios.Count && usuarioAdmin == null && !string.IsNullOrEmpty(id))
             {
                 if (_usuarios[i] is not Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     usuarioAdmin = _usuarios[i];
                 }
+
                 i++;
             }
+
             return usuarioAdmin;
         }
-        
+
         // Precarga administrador
         // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
@@ -115,7 +118,7 @@ namespace LogicaNegocio
             AltaAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
             AltaAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
         }
-        
+
         // METODOS CLIENTE
         // Alta cliente
         // Es un metodo que crea una nueva instancia cliente. Verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
@@ -123,10 +126,13 @@ namespace LogicaNegocio
         {
             Cliente cliente = new Cliente(nombre, apellido, email, password, saldo);
             cliente.Validar();
-            if (!_usuarios.Contains(cliente))
+
+            if (_usuarios.Contains(cliente))
             {
-                _usuarios.Add(cliente);
+                throw new Exception("Ya existe un usuario registrado con ese correo");
             }
+            
+            _usuarios.Add(cliente);
         }
 
         // Precarga cliente
@@ -156,18 +162,19 @@ namespace LogicaNegocio
 
             AltaCliente("Andrés", "Pérez", "AndresP2005@gmail.com", "AndresP808", 2900);
         }
-        
+
         public bool ModificarSaldo(string id, double monto)
         {
             bool result = false;
-            
+
             Cliente clienteBuscado = ObtenerCliente(id);
-            
+
             if (clienteBuscado != null && monto > 0)
             {
                 clienteBuscado.Saldo += monto;
                 result = true;
             }
+
             return result;
         }
 
@@ -296,28 +303,26 @@ namespace LogicaNegocio
             Articulo articulo = null;
             int i = 0;
 
-            while(i<_articulos.Count && articulo == null)
+            while (i < _articulos.Count && articulo == null)
             {
                 if (_articulos[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
                 {
                     articulo = _articulos[i];
                 }
+
                 i++;
             }
+
             return articulo;
-
-
-        }
-        //Cambiar el equals para buscar por nombre por ejemplo.
-
-
+        } 
         // Agrega un artículo a la lista de artículos de una publicación y devolver dicha lista en caso de haber encontrado una publicación. En caso de que no exista la publicación devuelve null. 
 
 
         // METODOS PUBLICACION
         // Alta publicacion *venta*
         // Es un metodo que crea una nueva instancia venta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
-        public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, bool relampago)
+        public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador,
+            Usuario finalizador, bool relampago)
         {
             Venta venta = new Venta(nombre, estado, fechaPublicacion, comprador, finalizador, relampago);
             venta.Validar();
@@ -338,8 +343,10 @@ namespace LogicaNegocio
                 {
                     publicacion = _publicaciones[i];
                 }
+
                 i++;
             }
+
             return publicacion;
         }
 
@@ -361,41 +368,40 @@ namespace LogicaNegocio
         {
             AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), null, null, true);
             PrecargaArticulosEnPublicacion("PUB2", "ART11");
-
-
+            
             AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), null, null, false);
-            PrecargaArticulosEnPublicacion( "PUB3","ART10");
+            PrecargaArticulosEnPublicacion("PUB3", "ART10");
 
             AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), null, null, true);
-            PrecargaArticulosEnPublicacion("PUB4","ART9");
+            PrecargaArticulosEnPublicacion("PUB4", "ART9");
 
             AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), null, null, false);
-            PrecargaArticulosEnPublicacion( "PUB5","ART8");
+            PrecargaArticulosEnPublicacion("PUB5", "ART8");
 
             AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), null, null, true);
-            PrecargaArticulosEnPublicacion( "PUB6","ART7");
+            PrecargaArticulosEnPublicacion("PUB6", "ART7");
 
             AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), null, null, false);
-            PrecargaArticulosEnPublicacion( "PUB7","ART6");
+            PrecargaArticulosEnPublicacion("PUB7", "ART6");
 
             AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), null, null, true);
-            PrecargaArticulosEnPublicacion( "PUB8","ART5");
+            PrecargaArticulosEnPublicacion("PUB8", "ART5");
 
             AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), null, null, true);
-            PrecargaArticulosEnPublicacion( "PUB9","ART4");
+            PrecargaArticulosEnPublicacion("PUB9", "ART4");
 
             AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), null, null, false);
-            PrecargaArticulosEnPublicacion( "PUB10","ART3");
+            PrecargaArticulosEnPublicacion("PUB10", "ART3");
 
             AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, true);
-            PrecargaArticulosEnPublicacion( "PUB11","ART2");
-
-            }
+            PrecargaArticulosEnPublicacion("PUB11", "ART2");
+        }
 
 
         // Alta publicacion *subasta*
         // Es un metodo que crea una nueva instancia subasta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
-        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador)
+        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador,
+            Usuario finalizador)
         {
             Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, comprador, finalizador);
             subasta.Validar();
@@ -409,34 +415,33 @@ namespace LogicaNegocio
         // Usa el metodo “ AltaPublicacionSubasta” para crear manualmente instancias de tipo subasta.
         public void PrecargaSubasta()
         {
-            
-            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1),null, null);
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null);
             PrecargaArticulosEnPublicacion("PUB12", "ART7");
             PrecargaArticulosEnPublicacion("PUB12", "ART20");
 
-            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15),null,null);
+            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null);
             PrecargaArticulosEnPublicacion("PUB13", "ART4");
-            
-            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5),null,null);
-            PrecargaArticulosEnPublicacion("PUB14","ART3");
 
-            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1),null,null);
-            PrecargaArticulosEnPublicacion("PUB15","ART5");
+            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null);
+            PrecargaArticulosEnPublicacion("PUB14", "ART3");
 
-            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20),null,null);
-            PrecargaArticulosEnPublicacion("PUB16","ART12");
+            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null);
+            PrecargaArticulosEnPublicacion("PUB15", "ART5");
 
-            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10),null,null);
-            PrecargaArticulosEnPublicacion("PUB17","ART11");
+            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), null, null);
+            PrecargaArticulosEnPublicacion("PUB16", "ART12");
 
-            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20),null,null);
-            PrecargaArticulosEnPublicacion("PUB18","ART43");
+            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), null, null);
+            PrecargaArticulosEnPublicacion("PUB17", "ART11");
 
-            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30),null, null);
-            PrecargaArticulosEnPublicacion("PUB19","ART29");
+            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), null, null);
+            PrecargaArticulosEnPublicacion("PUB18", "ART43");
 
-            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15),null, null);
-            PrecargaArticulosEnPublicacion("PUB21","ART17");
+            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null);
+            PrecargaArticulosEnPublicacion("PUB19", "ART29");
+
+            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null);
+            PrecargaArticulosEnPublicacion("PUB21", "ART17");
         }
 
         public Subasta ObtenerSubasta(string id)
@@ -444,11 +449,12 @@ namespace LogicaNegocio
             Subasta subasta = null;
             Publicacion publicacion = ObtenerPublicacion(id);
 
-              if (publicacion is Subasta)
-              {
-                subasta = (Subasta) publicacion;
-              }
-              return subasta;
+            if (publicacion is Subasta)
+            {
+                subasta = (Subasta)publicacion;
+            }
+
+            return subasta;
         }
 
         public List<Subasta> SubastasOrdenadas()
@@ -486,8 +492,10 @@ namespace LogicaNegocio
                 {
                     venta = (Venta)_publicaciones[i];
                 }
+
                 i++;
             }
+
             return venta;
         }
 
@@ -508,39 +516,40 @@ namespace LogicaNegocio
                 {
                     throw new Exception("La publicación no está activa");
                 }
-
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        
+
         public bool CerrarSubasta(Subasta subasta, Usuario admin)
         {
             bool result = false;
 
             try
             {
-                if(subasta.Estado.Trim().ToUpper() == "ABIERTA")
+                if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
                 {
                     subasta.Estado = "CERRADA";
                     subasta.FechaFinalizacion = DateTime.Now;
                     subasta.Comprador = subasta.ObtenerMayorPostor();
                     subasta.Finalizador = admin;
                     result = true;
-                }else
+                }
+                else
                 {
                     throw new Exception("La subasta no está activa");
                 }
-
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
             return result;
         }
-        
+
         public List<Cliente> ListaClientes()
         {
             List<Cliente> aux = new List<Cliente>();
