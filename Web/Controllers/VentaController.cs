@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+using LogicaNegocio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
