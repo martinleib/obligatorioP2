@@ -565,7 +565,7 @@ namespace LogicaNegocio
             return aux;
         }
 
-        /*public List<Venta> ListaVentas()
+        public List<Venta> ListaVentas()
         {
             List<Venta> aux = new List<Venta>();
 
@@ -578,6 +578,6 @@ namespace LogicaNegocio
             }
 
             return aux;
-        }*/
+        }
     }
 }

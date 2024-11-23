@@ -12,7 +12,7 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("logged-user-id") == null)
+            if (HttpContext.Session.GetString("usuario-id") == null)
             {
                 return RedirectToAction("Login", "Home");
             }
@@ -25,7 +25,7 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            if (HttpContext.Session.GetString("logged-user-id") != "Cliente")
+            if (HttpContext.Session.GetString("usuario-id") != "Cliente")
             {
                 return RedirectToAction("Login", "Home");
             }
@@ -75,7 +75,7 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Cerrar(string id)
         {
-            if (HttpContext.Session.GetString("logged-user-id") != "Administrador")
+            if (HttpContext.Session.GetString("usuario-id") != "Administrador")
             {
                 return RedirectToAction("Login", "Home");
             }
