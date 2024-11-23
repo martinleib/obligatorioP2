@@ -56,16 +56,19 @@ namespace LogicaNegocio
         {
             get { return _password; }
         }
+        
         public override bool Equals(object obj)
         {
-            bool sonIguales = false;
-            if (obj != null && obj is Usuario)
+            // nota: los correos no son case-sensitive
+            // por eso el trimmeo y la conversión a mayúsculas
+            if (obj is Usuario usuario)
             {
-                Usuario usuario = (Usuario)obj;
-                sonIguales = _email == usuario._email;
+                return _email.Trim().ToUpper() == usuario._email.Trim().ToUpper();
             }
-            return sonIguales;
+            
+            return false;
         }
+
         
         public void Validar()
         {
