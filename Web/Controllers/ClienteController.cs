@@ -11,8 +11,8 @@ public class ClienteController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        string loggedUserId = HttpContext.Session.GetString("logged-user-id");
-        string loggedUserType = HttpContext.Session.GetString("logged-user-type");
+        string loggedUserId = HttpContext.Session.GetString("usuario-id");
+        string loggedUserType = HttpContext.Session.GetString("usuario-tipo");
 
         if (!string.IsNullOrEmpty(loggedUserId))
         {
@@ -57,7 +57,7 @@ public class ClienteController : Controller
     
     public IActionResult Edit()
     {
-        string id = HttpContext.Session.GetString("logged-user-id");
+        string id = HttpContext.Session.GetString("usuario-id");
         Cliente cliente = sistema.ObtenerCliente(id);
         return View(cliente);
     }
@@ -66,7 +66,7 @@ public class ClienteController : Controller
     public IActionResult Edit(double monto)
     {
         bool resultado = false;
-        string id = HttpContext.Session.GetString("logged-user-id");
+        string id = HttpContext.Session.GetString("usuario-id");
         
         try
         {

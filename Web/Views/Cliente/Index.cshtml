@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    string tipoDeUsuario = Context.Session.GetString("logged-user-type");
+    string tipoDeUsuario = Context.Session.GetString("usuario-tipo");
 }
 
 @if (tipoDeUsuario == "Cliente" && @ViewBag.Cliente != null)

@@ -11,7 +11,7 @@ namespace Web.Controllers
         public IActionResult Edit(string id)
         {
                 Venta venta = sistema.ObtenerVenta(id);
-                sistema.CompraVenta(HttpContext.Session.GetString("logged-user-id"), venta);
+                sistema.CompraVenta(HttpContext.Session.GetString("usuario-id"), venta);
                 return View(venta);
         }
     }
