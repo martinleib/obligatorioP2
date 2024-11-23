@@ -1,4 +1,3 @@
-using System.Net;
 using LogicaNegocio;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
@@ -8,12 +7,12 @@ namespace Web.Controllers;
 public class ClienteController : Controller
 {
     private Sistema sistema = Sistema.Instancia;
-
+    
     [HttpGet]
     public IActionResult Index()
     {
-        string loggedUserId = HttpContext.Session.GetString("logged-user-id");
-        string loggedUserType = HttpContext.Session.GetString("logged-user-type");
+        string loggedUserId = HttpContext.Session.GetString("usuario-id");
+        string loggedUserType = HttpContext.Session.GetString("usuario-tipo");
 
         if (!string.IsNullOrEmpty(loggedUserId))
         {
@@ -28,18 +27,14 @@ public class ClienteController : Controller
                 return View();
             }
         }
-
+        
         return RedirectToAction("Login", "Home");
     }
-
+    
     [HttpGet]
     public IActionResult Create()
     {
-        if (HttpContext.Session.GetString("logged-user-type") == "Cliente")
-        {
-            return View();
-        }
-        return RedirectToAction("Index", "Subasta");
+        return View();
     }
 
     [HttpPost]
@@ -59,37 +54,30 @@ public class ClienteController : Controller
     }
 
     [HttpGet]
+    
     public IActionResult Edit()
     {
-        if (HttpContext.Session.GetString("logged-user-type") != "Cliente")
-        {
-            return RedirectToAction("Index", "Home");
-        }
-        else
-        {
-            string id = HttpContext.Session.GetString("logged-user-id");
-            Cliente cliente = sistema.ObtenerCliente(id);
-            return View(cliente);
-        }
-    }   
-
+        string id = HttpContext.Session.GetString("usuario-id");
+        Cliente cliente = sistema.ObtenerCliente(id);
+        return View(cliente);
+    }
+    
     [HttpPost]
     public IActionResult Edit(double monto)
     {
         bool resultado = false;
-        string id = HttpContext.Session.GetString("logged-user-id");
-
+        string id = HttpContext.Session.GetString("usuario-id");
+        
         try
         {
             if (monto > 0 && !string.IsNullOrEmpty(id))
             {
                 resultado = sistema.ModificarSaldo(id, monto);
             }
-
+    
             if (resultado)
             {
-                TempData["Exito"] =
-                    $"La carga de {monto} USD se realizó con éxito. \n Tu nuevo saldo es de {sistema.ObtenerCliente(id).Saldo} USD.";
+                TempData["Exito"] = $"La carga de {monto} USD se realizó con éxito. \n Tu nuevo saldo es de {sistema.ObtenerCliente(id).Saldo} USD.";
                 return RedirectToAction("Index");
             }
             else

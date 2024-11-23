@@ -46,8 +46,8 @@ namespace Web.Controllers
                     {
                         string rol = aux.ObtenerTipo();
 
-                        HttpContext.Session.SetString("logged-user-id", aux.Id);
-                        HttpContext.Session.SetString("logged-user-type", rol);
+                        HttpContext.Session.SetString("usuario-id", aux.Id);
+                        HttpContext.Session.SetString("usuario-tipo", rol);
                         
                         switch (rol)
                         {

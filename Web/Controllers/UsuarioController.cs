@@ -10,12 +10,10 @@ public class UsuarioController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        if (HttpContext.Session.GetString("logged-user-id") == null ||
-            HttpContext.Session.GetString("logged-user-type") != "Administrador")
-        {
+        if (HttpContext.Session.GetString("usuario-id") == null ||
+            HttpContext.Session.GetString("usuario-tipo") != "Administrador") {
             return RedirectToAction("Login", "Home");
-        }
-        else
-            return View(sistema.ObtenerAdmin(HttpContext.Session.GetString("logged-user-id")));
+        }else
+            return View(sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id")));
     }
 }

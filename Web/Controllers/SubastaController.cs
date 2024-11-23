@@ -40,7 +40,7 @@ namespace Web.Controllers
         public IActionResult Edit(string idsubasta, int monto)
         {
             Subasta subasta = sistema.ObtenerSubasta(idsubasta);
-            string idcliente = HttpContext.Session.GetString("logged-user-id");
+            string idcliente = HttpContext.Session.GetString("usuario-id");
             bool resultado = false;
 
             try
