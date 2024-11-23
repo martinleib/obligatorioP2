@@ -81,9 +81,9 @@ namespace LogicaNegocio
             {
                 throw new Exception("El email no puede estar vacío");
             }
-            if (string.IsNullOrEmpty(_password))
+            if (string.IsNullOrEmpty(_password) || _password.Length < 8)
             {
-                throw new Exception("La contraseña no puede estar vacía");
+                throw new Exception("La contraseña debe tener al menos 8 caracteres");
             }
         }
 

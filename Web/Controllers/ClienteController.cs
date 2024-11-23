@@ -46,22 +46,6 @@ public class ClienteController : Controller
     {
         try
         {
-            if (string.IsNullOrEmpty(nombre))
-                throw new ArgumentException("El nombre no puede estar vacío.");
-
-            if (string.IsNullOrEmpty(apellido))
-                throw new ArgumentException("El apellido no puede estar vacío.");
-
-            if (string.IsNullOrEmpty(email))
-                throw new ArgumentException("El email no puede estar vacío.");
-
-            if (string.IsNullOrEmpty(password) || password.Length < 8)
-                throw new ArgumentException("La contraseña debe tener al menos 8 caracteres.");
-
-            if (saldo <= 0) 
-                throw new ArgumentException("El saldo debe ser mayor a 0.");
-
-            
             sistema.AltaCliente(nombre, apellido, email, password, saldo);
             ViewBag.Mensaje = "Se ha registrado correctamente";
         }
