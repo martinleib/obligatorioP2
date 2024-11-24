@@ -57,8 +57,11 @@ public class ClienteController : Controller
     public IActionResult Edit()
     {
         string id = HttpContext.Session.GetString("usuario-id");
+        if(HttpContext.Session.GetString("usuario-tipo") == "Cliente"){
         Cliente cliente = sistema.ObtenerCliente(id);
         return View(cliente);
+        }
+        return RedirectToAction("Index", "Subasta");
     }
     
     [HttpPost]
