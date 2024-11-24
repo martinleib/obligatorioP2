@@ -9,9 +9,9 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("usuario-tipo") != "Cliente")
+            if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Subasta");
             }
             else
             {
