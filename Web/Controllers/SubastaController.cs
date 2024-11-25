@@ -26,15 +26,17 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            if (HttpContext.Session.GetString("usuario-tipo") != "Cliente")
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            else
+            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
                 Subasta subasta = sistema.ObtenerSubasta(id);
                 return View(subasta);
             }
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
+                return RedirectToAction("Index", "Subasta");
+            }
+            
+            return RedirectToAction("Login", "Home");
         }
 
         [HttpPost]
