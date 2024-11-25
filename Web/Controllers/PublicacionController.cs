@@ -11,7 +11,7 @@ namespace Web.Controllers
         {
             if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             {
-                return RedirectToAction("Index", "Cliente");
+                return RedirectToAction("Index", "Usuario");
             }
             else if(HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
