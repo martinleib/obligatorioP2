@@ -21,11 +21,11 @@
                         <td>@publicacion.Nombre</td>
                         <td>@publicacion.Estado</td>
                         <td>@publicacion.Precio() USD</td>
-                    if (publicacion is LogicaNegocio.Venta)
+                    if (publicacion is LogicaNegocio.Venta && publicacion.Estado.Trim().ToUpper() == "ABIERTA")
                     {
                         <td><a href="/Venta/Edit?id=@publicacion.Id">Comprar</a></td>
                     }
-                    else
+                    else if(publicacion is LogicaNegocio.Subasta && publicacion.Estado.Trim().ToUpper() == "ABIERTA")
                     {
                         <td><a href="/Subasta/Edit?id=@publicacion.Id">Ofertar</a></td>
                     }
