@@ -14,7 +14,7 @@ namespace Web.Controllers
         {
             if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
-                return RedirectToAction("Index", "Publicacion");
+                return RedirectToAction("Index", "Cliente");
             }
             else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             {
@@ -33,7 +33,7 @@ namespace Web.Controllers
             }
             else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             {
-                return RedirectToAction("Index", "Subasta");
+                return RedirectToAction("Index", "Cliente");
             }
             
             return RedirectToAction("Login", "Home");
@@ -84,7 +84,7 @@ namespace Web.Controllers
             }
             else if(HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
-                return RedirectToAction("Index", "Publicacion");
+                return RedirectToAction("Index", "Cliente");
             } 
             
             return RedirectToAction("Login", "Home");
