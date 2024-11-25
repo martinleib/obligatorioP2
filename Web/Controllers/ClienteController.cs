@@ -61,7 +61,8 @@ public class ClienteController : Controller
             return View(cliente);
         }
         else if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
-            return RedirectToAction("Index", "Cliente");
+            return RedirectToAction("Index", "Usuario");
+        }
 
         return RedirectToAction("Login", "Home");
     }
