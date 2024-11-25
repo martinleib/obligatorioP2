@@ -7,7 +7,7 @@ namespace Web.Controllers;
 public class ClienteController : Controller
 {
     private Sistema sistema = Sistema.Instancia;
-    
+
     [HttpGet]
     public IActionResult Index()
     {
@@ -27,10 +27,10 @@ public class ClienteController : Controller
                 return View();
             }
         }
-        
+
         return RedirectToAction("Login", "Home");
     }
-    
+
     [HttpGet]
     public IActionResult Create()
     {
@@ -56,33 +56,35 @@ public class ClienteController : Controller
     [HttpGet]
     public IActionResult Edit()
     {
-        
-        if(HttpContext.Session.GetString("usuario-tipo") == "Cliente"){
-        string id = HttpContext.Session.GetString("usuario-id");
-        Cliente cliente = sistema.ObtenerCliente(id);
-        return View(cliente);
-        }else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
-        return RedirectToAction("Index", "Cliente");
+        if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+        {
+            string id = HttpContext.Session.GetString("usuario-id");
+            Cliente cliente = sistema.ObtenerCliente(id);
+            return View(cliente);
         }
+        else if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            return RedirectToAction("Index", "Cliente");
+
         return RedirectToAction("Login", "Home");
     }
-    
+
     [HttpPost]
     public IActionResult Edit(double monto)
     {
         bool resultado = false;
         string id = HttpContext.Session.GetString("usuario-id");
-        
+
         try
         {
             if (monto > 0 && !string.IsNullOrEmpty(id))
             {
                 resultado = sistema.ModificarSaldo(id, monto);
             }
-    
+
             if (resultado)
             {
-                TempData["Exito"] = $"La carga de {monto} USD se realizó con éxito. \n Tu nuevo saldo es de {sistema.ObtenerCliente(id).Saldo} USD.";
+                TempData["Exito"] =
+                    $"La carga de {monto} USD se realizó con éxito. \n Tu nuevo saldo es de {sistema.ObtenerCliente(id).Saldo} USD.";
                 return RedirectToAction("Index");
             }
             else
