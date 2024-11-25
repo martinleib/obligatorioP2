@@ -12,14 +12,15 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("usuario-id") == null)
+            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Index", "Publicacion");
             }
-            else
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             {
                 return View(sistema.SubastasOrdenadas());
             }
+            return RedirectToAction("Login", "Home");
         }
 
         [HttpGet]
