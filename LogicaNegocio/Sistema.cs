@@ -549,20 +549,5 @@ namespace LogicaNegocio
 
             return result;
         }
-
-        /*public List<Cliente> ListaClientes()
-        {
-            List<Cliente> aux = new List<Cliente>();
-
-            foreach (Usuario usuario in _usuarios)
-            {
-                if (usuario.ObtenerTipo() == "Cliente")
-                {
-                    aux.Add((Cliente)usuario);
-                }
-            }
-
-            return aux;
-        }*/
     }
 }
