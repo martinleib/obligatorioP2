@@ -23,7 +23,6 @@
                     <td>@subasta.Estado</td>
                     <td>@subasta.Precio()</td>
                     <td>@subasta.FechaPublicacion</td>
-                    @if (Context.Session.GetString("usuario-tipo") == "Administrador") {
                         @if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
                         {
                             <td><a href="/Subasta/Cerrar?id=@subasta.Id">Cerrar subasta</a></td>
@@ -32,12 +31,6 @@
                         {
                             <td><p>Subasta cerrada el @subasta.FechaFinalizacion.ToShortDateString()</p></td>
                         }
-                    } else if (Context.Session.GetString("usuario-tipo") == "Cliente")
-                    {
-                        if (@subasta.Estado.Trim().ToUpper() == "ABIERTA") {
-                        <td><a href="/Subasta/Edit?id=@subasta.Id">Ofertar</a></td>
-                        }
-                    }
                     </tr>
             }
        </tbody>
