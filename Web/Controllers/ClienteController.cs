@@ -56,12 +56,15 @@ public class ClienteController : Controller
     [HttpGet]
     public IActionResult Edit()
     {
-        string id = HttpContext.Session.GetString("usuario-id");
+        
         if(HttpContext.Session.GetString("usuario-tipo") == "Cliente"){
+        string id = HttpContext.Session.GetString("usuario-id");
         Cliente cliente = sistema.ObtenerCliente(id);
         return View(cliente);
+        }else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+        return RedirectToAction("Index", "Cliente");
         }
-        return RedirectToAction("Index", "Subasta");
+        return RedirectToAction("Login", "Home");
     }
     
     [HttpPost]
