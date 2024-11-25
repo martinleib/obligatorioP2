@@ -78,14 +78,16 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Cerrar(string id)
         {
-            if (HttpContext.Session.GetString("usuario-tipo") != "Administrador")
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            else
+            if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             {
                 return View(sistema.ObtenerSubasta(id));
             }
+            else
+            {
+                return RedirectToAction("Index", "Publicacion");
+            } 
+            
+            return RedirectToAction("Login", "Home");
         }
 
         [HttpPost]
