@@ -40,13 +40,13 @@ namespace Web.Controllers
             {
                 if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
                 {
-                    Usuario aux = sistema.BuscarUsuario(email, password);
+                    Usuario usuario = sistema.BuscarUsuario(email, password);
                     
-                    if (aux != null)
+                    if (usuario != null)
                     {
-                        string rol = aux.ObtenerTipo();
+                        string rol = usuario.ObtenerTipo();
 
-                        HttpContext.Session.SetString("usuario-id", aux.Id);
+                        HttpContext.Session.SetString("usuario-id", usuario.Id);
                         HttpContext.Session.SetString("usuario-tipo", rol);
                         
                         switch (rol)
@@ -56,7 +56,7 @@ namespace Web.Controllers
                             case "Administrador":
                                 return RedirectToAction("Index", "Usuario");
                             default:
-                                return RedirectToAction("Index", "Home");
+                                return RedirectToAction("Login", "Home");
                         }
                     }
                     else
