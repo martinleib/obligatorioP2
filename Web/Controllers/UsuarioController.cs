@@ -11,7 +11,7 @@ public class UsuarioController : Controller
     public IActionResult Index()
     {
         if (HttpContext.Session.GetString("usuario-tipo") == "Cliente") {
-            return RedirectToAction("Index", "Publicacion");
+            return RedirectToAction("Index", "Cliente");
         }else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             return View(sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id")));
         }
