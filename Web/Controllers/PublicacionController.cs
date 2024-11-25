@@ -15,7 +15,7 @@ namespace Web.Controllers
             }
             else
             {
-                return View(sistema.ListaVentas());
+                return View(sistema.Publicaciones);
             }
         }
     }
