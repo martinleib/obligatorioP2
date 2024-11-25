@@ -564,20 +564,5 @@ namespace LogicaNegocio
 
             return aux;
         }
-
-        /*public List<Venta> ListaVentas()
-        {
-            List<Venta> aux = new List<Venta>();
-
-            foreach (Publicacion publicacion in _publicaciones)
-            {
-                if (publicacion is Venta)
-                {
-                    aux.Add((Venta)publicacion);
-                }
-            }
-
-            return aux;
-        }*/
     }
 }
