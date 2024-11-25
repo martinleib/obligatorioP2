@@ -18,13 +18,11 @@ public class ClienteController : Controller
         {
             if (loggedUserType == "Administrador")
             {
-                ViewBag.ListaCliente = sistema.ListaClientes();
-                return View();
+                return RedirectToAction("Index", "Usuario");
             }
             else if (loggedUserType == "Cliente")
             {
-                ViewBag.Cliente = sistema.ObtenerCliente(loggedUserId);
-                return View();
+                return View(sistema.ObtenerCliente(loggedUserId));
             }
         }
 
