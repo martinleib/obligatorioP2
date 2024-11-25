@@ -25,7 +25,6 @@ public class ClienteController : Controller
                 return View(sistema.ObtenerCliente(loggedUserId));
             }
         }
-
         return RedirectToAction("Login", "Home");
     }
 
@@ -60,10 +59,9 @@ public class ClienteController : Controller
             Cliente cliente = sistema.ObtenerCliente(id);
             return View(cliente);
         }
-        else if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+        else if (HttpContext.Session.GetString("usuario-tipo") == "Administrador") {
             return RedirectToAction("Index", "Usuario");
         }
-
         return RedirectToAction("Login", "Home");
     }
 

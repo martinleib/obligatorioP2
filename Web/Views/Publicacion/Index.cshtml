@@ -16,12 +16,11 @@
         <tbody>
         @foreach (LogicaNegocio.Publicacion publicacion in Model)
         {
-                
                     <tr>
                         <td>@publicacion.Nombre</td>
                         <td>@publicacion.Estado</td>
                         <td>@publicacion.Precio() USD</td>
-                    if (publicacion is LogicaNegocio.Venta && publicacion.Estado.Trim().ToUpper() == "ABIERTA")
+                    @if (publicacion is LogicaNegocio.Venta && publicacion.Estado.Trim().ToUpper() == "ABIERTA")
                     {
                         <td><a href="/Venta/Edit?id=@publicacion.Id">Comprar</a></td>
                     }
