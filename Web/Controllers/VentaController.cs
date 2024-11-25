@@ -10,16 +10,18 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            if (HttpContext.Session.GetString("usuario-tipo") != "Cliente")
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            else
+            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
                 Venta venta = sistema.ObtenerVenta(id);
                 sistema.CompraVenta(HttpContext.Session.GetString("usuario-id"), venta);
                 return View(venta);
+                
             }
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
+                return RedirectToAction("Index", "Subasta");
+            }
+            return RedirectToAction("Login", "Home");
         }
     }
 }
