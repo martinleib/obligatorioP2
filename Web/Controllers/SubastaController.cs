@@ -58,12 +58,12 @@ namespace Web.Controllers
                 if (resultado)
                 {
                     TempData["Exito"] = "Oferta realizada con éxito!";
-                    return RedirectToAction("Index", "Subasta");
+                    return RedirectToAction("Index", "Publicacion");
                 }
                 else
                 {
                     TempData["Error"] = "No fue posible agregar la oferta";
-                    return RedirectToAction("Index", "Subasta");
+                    return RedirectToAction("Index", "Publicacion");
                 }
             }
 
