@@ -11,12 +11,13 @@ namespace Web.Controllers
         {
             if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             {
-                return RedirectToAction("Index", "Subasta");
+                return RedirectToAction("Index", "Cliente");
             }
-            else
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
                 return View(sistema.Publicaciones);
             }
+            return RedirectToAction("Login", "Home");
         }
     }
 }
