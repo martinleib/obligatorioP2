@@ -54,7 +54,6 @@ namespace Web.Controllers
                             case "Cliente":
                                 return RedirectToAction("Index", "Cliente");
                             case "Administrador":
-                                //return RedirectToAction("Index", "Cliente");
                                 return RedirectToAction("Index", "Usuario");
                             default:
                                 return RedirectToAction("Login", "Home");
