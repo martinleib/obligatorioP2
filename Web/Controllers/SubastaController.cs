@@ -82,7 +82,7 @@ namespace Web.Controllers
             {
                 return View(sistema.ObtenerSubasta(id));
             }
-            else
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
                 return RedirectToAction("Index", "Publicacion");
             } 
