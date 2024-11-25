@@ -550,7 +550,7 @@ namespace LogicaNegocio
             return result;
         }
 
-        public List<Cliente> ListaClientes()
+        /*public List<Cliente> ListaClientes()
         {
             List<Cliente> aux = new List<Cliente>();
 
@@ -563,6 +563,6 @@ namespace LogicaNegocio
             }
 
             return aux;
-        }
+        }*/
     }
 }
