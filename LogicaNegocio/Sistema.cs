@@ -315,8 +315,6 @@ namespace LogicaNegocio
 
             return articulo;
         } 
-        // Agrega un artículo a la lista de artículos de una publicación y devolver dicha lista en caso de haber encontrado una publicación. En caso de que no exista la publicación devuelve null. 
-
 
         // METODOS PUBLICACION
         // Alta publicacion *venta*
@@ -361,7 +359,6 @@ namespace LogicaNegocio
             }
         }
 
-
         // Precarga venta
         // Usa el metodo “AltaPublicacionVenta” para crear manualmente instancias de tipo venta.
         public void PrecargaVenta()
@@ -397,7 +394,6 @@ namespace LogicaNegocio
             PrecargaArticulosEnPublicacion("PUB11", "ART2");
         }
 
-
         // Alta publicacion *subasta*
         // Es un metodo que crea una nueva instancia subasta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
         public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador,
@@ -410,6 +406,7 @@ namespace LogicaNegocio
                 _publicaciones.Add(subasta);
             }
         }
+
 
         // Precarga subasta
         // Usa el metodo “ AltaPublicacionSubasta” para crear manualmente instancias de tipo subasta.

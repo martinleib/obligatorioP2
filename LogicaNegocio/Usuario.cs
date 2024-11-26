@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace LogicaNegocio
 {
 
+
     public class Usuario:IValidate
     {
         protected string _nombre;
@@ -27,6 +28,12 @@ namespace LogicaNegocio
             s_ultimoID++;
         }
 
+        public Usuario()
+        {
+            this._id = $"USU{s_ultimoID + 1}";
+            s_ultimoID++;
+        }
+
         public string Nombre
         {
             get { return _nombre; }
@@ -39,7 +46,6 @@ namespace LogicaNegocio
             set { _apellido = value; }
         }
 
-        // Propiedad que devuelve el ID de una instancia usuario.
         public string Id
         {
             get { return _id; }
@@ -57,7 +63,7 @@ namespace LogicaNegocio
             get { return _password; }
         }
         
-        public override bool Equals(object obj)
+        public bool Equals(object obj)
         {
             // nota: los correos no son case-sensitive
             // por eso el trimmeo y la conversión a mayúsculas

@@ -88,11 +88,6 @@ namespace LogicaNegocio
             set { _fechaFinalizacion = value; }
         }
         
-        public void CierrePubliicacion()
-        {
-            _estado = "CERRADA";
-        }
-        
         public string Nombre
         {
             get { return _nombre; }
@@ -109,18 +104,6 @@ namespace LogicaNegocio
                 sonIguales = _nombre == publicacion._nombre;
             }
             return sonIguales;
-        }
-        
-        // Precondición: el articulo pasado por parámetro no puede ser null.
-        // Es un metodo que devuelve false en caso de que el articulo pasado como parametro esté en la lista de articulos, en caso de que no esté devuelve true.
-        public bool NoEstaEnLaListaElArticulo(Articulo articulo)
-        {
-            bool noEstaEnLaLista = false;
-            if (!_articulos.Contains(articulo))
-            {
-              noEstaEnLaLista = true;
-            }
-            return noEstaEnLaLista;
         }
 
         public void AgregarArticulo(Articulo articulo) {
