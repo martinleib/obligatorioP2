@@ -83,10 +83,24 @@ namespace LogicaNegocio
             return result;
         }
 
+        public bool ExisteOferta(Oferta oferta)
+        {
+            bool result = false;
+            int i = 0;
+            while (i< _ofertas.Count && result == false)
+            {
+                if (_ofertas[i] == oferta)
+                {
+                    result = true;
+                }
+                i++;
+            }
+            return result;
+        }
         public void AltaOferta(int monto, Cliente cliente, DateTime fecha)
         {
             Oferta oferta = new Oferta(monto, cliente, fecha);
-            if (!_ofertas.Contains(oferta))
+            if (ExisteOferta(oferta) == false)
             {
                 _ofertas.Add(oferta);
             }

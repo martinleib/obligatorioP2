@@ -1,4 +1,5 @@
 ﻿using LogicaNegocio;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -91,10 +92,10 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cerrar(string idsubasta, string idadmin)
+        public IActionResult Cerrar(string idsubasta, Usuario usuario)
         {
             Subasta subasta = sistema.ObtenerSubasta(idsubasta);
-            Usuario admin = sistema.ObtenerAdmin(idadmin);
+            Usuario admin = sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id"));
             bool result = sistema.CerrarSubasta(subasta, admin);
 
             if (!result)

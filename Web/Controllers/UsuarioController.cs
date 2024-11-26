@@ -10,11 +10,15 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente") {
+            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+            {
                 return RedirectToAction("Index", "Cliente");
-            } else //if (HttpContext.Session.GetString("usuario-tipo") == "Administrador") {
+            }
+            else if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
                 return View(sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id")));
-            //return RedirectToAction("Login", "Home");
+            }
+            return RedirectToAction("Login", "Home");
         }
     }
 }
