@@ -70,10 +70,9 @@ namespace Web.Controllers
 
             catch (Exception ex)
             {
-                TempData["Error"] = "No fue posible agregar la oferta";
+                TempData["Mensaje"] = ex.Message;
+                return RedirectToAction("Index", "Publicacion");
             }
-
-            return View();
         }
 
         [HttpGet]
@@ -94,19 +93,28 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult Cerrar(string idsubasta, Usuario usuario)
         {
-            Subasta subasta = sistema.ObtenerSubasta(idsubasta);
-            Usuario admin = sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id"));
-            bool result = sistema.CerrarSubasta(subasta, admin);
+            bool result = false;
+            try
+            {
 
-            if (!result)
+                Subasta subasta = sistema.ObtenerSubasta(idsubasta);
+                Usuario admin = sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id"));
+                result = subasta.CerrarSubasta(admin);
+
+                if (!result)
+                {
+                    TempData["Error"] = "No fue posible cerrar la subasta";
+                    return RedirectToAction("Index", "Subasta");
+                }
+                else
+                {
+                    TempData["Exito"] = "Oferta cerrada con éxito!";
+                    return RedirectToAction("Index", "Subasta");
+                }
+            }catch (Exception ex)
             {
-                TempData["Error"] = "No fue posible cerrar la subasta";
-                return RedirectToAction("Index", "Subasta");
-            }
-            else
-            {
-                TempData["Exito"] = "Oferta cerrada con éxito!";
-                return RedirectToAction("Index", "Subasta");
+                TempData["Mensaje"] = ex.Message;
+                return RedirectToAction("Index");
             }
         }
     }

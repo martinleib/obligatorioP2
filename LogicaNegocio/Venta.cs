@@ -36,5 +36,29 @@ namespace LogicaNegocio
 
             return precioFinal;
         }
+
+        public void CompraVenta(Cliente comprador)
+        {
+            try
+            {
+                if (_estado.Trim().ToUpper() == "ABIERTA")
+                {
+                    _comprador = comprador;
+                    _comprador.Saldo -= Precio();
+                    _estado = "CERRADA";
+                    _fechaFinalizacion = DateTime.Now;
+                    _comprador = comprador;
+                    _finalizador = comprador;
+                }
+                else
+                {
+                    throw new Exception("La publicación no está activa");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

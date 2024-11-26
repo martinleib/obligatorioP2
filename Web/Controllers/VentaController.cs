@@ -12,10 +12,22 @@ namespace Web.Controllers
         {
             if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
             {
-                Venta venta = sistema.ObtenerVenta(id);
-                sistema.CompraVenta(HttpContext.Session.GetString("usuario-id"), venta);
-                return View(venta);
-                
+                try
+                {
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        Venta venta = sistema.ObtenerVenta(id);
+                        Cliente comprador = sistema.ObtenerCliente(HttpContext.Session.GetString("usuario-id"));
+                        venta.CompraVenta(comprador);
+                        return View(venta);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["Mensaje"] = ex.Message;
+                    return RedirectToAction("Index", "Publicacion");
+                }
+
             }
             else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
             {

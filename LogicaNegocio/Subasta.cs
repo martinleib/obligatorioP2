@@ -106,6 +106,33 @@ namespace LogicaNegocio
             }
         }
 
+        public bool CerrarSubasta(Usuario admin)
+        {
+            bool result = false;
+
+            try
+            {
+                if (_estado.Trim().ToUpper() == "ABIERTA")
+                {
+                    _estado = "CERRADA";
+                    _fechaFinalizacion = DateTime.Now;
+                    _comprador = ObtenerMayorPostor();
+                    _finalizador = admin;
+                    result = true;
+                }
+                else
+                {
+                    throw new Exception("La subasta no está activa");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
         public int CompareTo(Subasta other)
         {
             return _fechaPublicacion.CompareTo(other._fechaPublicacion);

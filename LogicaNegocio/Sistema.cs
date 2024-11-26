@@ -499,55 +499,5 @@ namespace LogicaNegocio
             return venta;
         }
 
-        public void CompraVenta(string id, Venta venta)
-        {
-            try
-            {
-                if (venta.Estado.Trim().ToUpper() == "ABIERTA")
-                {
-                    Cliente comprador = ObtenerCliente(id);
-                    comprador.Saldo -= venta.Precio();
-                    venta.Estado = "CERRADA";
-                    venta.FechaFinalizacion = DateTime.Now;
-                    venta.Comprador = comprador;
-                    venta.Finalizador = comprador;
-                }
-                else
-                {
-                    throw new Exception("La publicación no está activa");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public bool CerrarSubasta(Subasta subasta, Usuario admin)
-        {
-            bool result = false;
-
-            try
-            {
-                if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
-                {
-                    subasta.Estado = "CERRADA";
-                    subasta.FechaFinalizacion = DateTime.Now;
-                    subasta.Comprador = subasta.ObtenerMayorPostor();
-                    subasta.Finalizador = admin;
-                    result = true;
-                }
-                else
-                {
-                    throw new Exception("La subasta no está activa");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return result;
-        }
     }
 }

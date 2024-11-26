@@ -39,8 +39,11 @@ public class ClienteController : Controller
     {
         try
         {
-            sistema.AltaCliente(nombre, apellido, email, password, saldo);
-            ViewBag.Mensaje = "Se ha registrado correctamente";
+            if (!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido) && !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password) && saldo > 0)
+            {
+                sistema.AltaCliente(nombre, apellido, email, password, saldo);
+                ViewBag.Mensaje = "Se ha registrado correctamente";
+            }
         }
         catch (Exception ex)
         {
@@ -55,9 +58,18 @@ public class ClienteController : Controller
     {
         if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
         {
-            string id = HttpContext.Session.GetString("usuario-id");
-            Cliente cliente = sistema.ObtenerCliente(id);
-            return View(cliente);
+            try
+            {
+                string id = HttpContext.Session.GetString("usuario-id");
+                Cliente cliente = sistema.ObtenerCliente(id);
+                return View(cliente);
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = ex.Message;
+                return RedirectToAction("Index", "Cliente");
+            }
+
         }
         else if (HttpContext.Session.GetString("usuario-tipo") == "Administrador") {
             return RedirectToAction("Index", "Usuario");
