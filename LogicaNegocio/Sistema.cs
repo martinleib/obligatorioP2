@@ -114,7 +114,6 @@ namespace LogicaNegocio
         // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
         public void PrecargaAdministrador()
         {
-            AltaAdministrador("prueba", "prueba", "admin", "password");
             AltaAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
             AltaAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
         }
@@ -139,9 +138,6 @@ namespace LogicaNegocio
         // Usa el metodo “AltaCliente” para crear manualmente instancias de tipo cliente.
         public void PrecargaCliente()
         {
-            //Comienzan desde la id : USU3 ? quien sabe
-            AltaCliente("prueba", "prueba", "user", "password", 3000);
-
             AltaCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 1500);
 
             AltaCliente("Javier", "Lopez", "JavierL1995@gmail.com", "JavierL789", 3200);
@@ -365,33 +361,43 @@ namespace LogicaNegocio
         {
             AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), null, null, true);
             PrecargaArticulosEnPublicacion("PUB2", "ART11");
-            
+            PrecargaArticulosEnPublicacion("PUB2", "ART2");
+
             AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), null, null, false);
             PrecargaArticulosEnPublicacion("PUB3", "ART10");
+            PrecargaArticulosEnPublicacion("PUB3", "ART13");
 
             AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), null, null, true);
             PrecargaArticulosEnPublicacion("PUB4", "ART9");
+            PrecargaArticulosEnPublicacion("PUB4", "ART4");
 
             AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), null, null, false);
             PrecargaArticulosEnPublicacion("PUB5", "ART8");
+            PrecargaArticulosEnPublicacion("PUB5", "ART5");
 
             AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), null, null, true);
             PrecargaArticulosEnPublicacion("PUB6", "ART7");
+            PrecargaArticulosEnPublicacion("PUB6", "ART6");
 
             AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), null, null, false);
             PrecargaArticulosEnPublicacion("PUB7", "ART6");
+            PrecargaArticulosEnPublicacion("PUB7", "ART7");
 
             AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), null, null, true);
             PrecargaArticulosEnPublicacion("PUB8", "ART5");
+            PrecargaArticulosEnPublicacion("PUB8", "ART8");
 
             AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), null, null, true);
             PrecargaArticulosEnPublicacion("PUB9", "ART4");
+            PrecargaArticulosEnPublicacion("PUB9", "ART9");
 
             AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), null, null, false);
             PrecargaArticulosEnPublicacion("PUB10", "ART3");
+            PrecargaArticulosEnPublicacion("PUB10", "ART10");
 
             AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, true);
             PrecargaArticulosEnPublicacion("PUB11", "ART2");
+            PrecargaArticulosEnPublicacion("PUB11", "ART11");
         }
 
         // Alta publicacion *subasta*
@@ -418,27 +424,35 @@ namespace LogicaNegocio
 
             AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null);
             PrecargaArticulosEnPublicacion("PUB13", "ART4");
+            PrecargaArticulosEnPublicacion("PUB13", "ART40");
 
             AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null);
             PrecargaArticulosEnPublicacion("PUB14", "ART3");
+            PrecargaArticulosEnPublicacion("PUB14", "ART35");
 
             AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null);
             PrecargaArticulosEnPublicacion("PUB15", "ART5");
+            PrecargaArticulosEnPublicacion("PUB15", "ART15");
 
             AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), null, null);
             PrecargaArticulosEnPublicacion("PUB16", "ART12");
+            PrecargaArticulosEnPublicacion("PUB16", "ART21");
 
             AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), null, null);
             PrecargaArticulosEnPublicacion("PUB17", "ART11");
+            PrecargaArticulosEnPublicacion("PUB17", "ART19");
 
             AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), null, null);
             PrecargaArticulosEnPublicacion("PUB18", "ART43");
+            PrecargaArticulosEnPublicacion("PUB18", "ART34");
 
             AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null);
             PrecargaArticulosEnPublicacion("PUB19", "ART29");
+            PrecargaArticulosEnPublicacion("PUB19", "ART39");
 
             AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null);
-            PrecargaArticulosEnPublicacion("PUB21", "ART17");
+            PrecargaArticulosEnPublicacion("PUB20", "ART17");
+            PrecargaArticulosEnPublicacion("PUB20", "ART50");
         }
 
         public Subasta ObtenerSubasta(string id)
@@ -474,8 +488,17 @@ namespace LogicaNegocio
         // Usa el metodo “AltaOferta” para crear manualmente instancias de tipo oferta.
         public void PrecargaOferta()
         {
+            ObtenerSubasta("PUB12").AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB12").AltaOferta(550, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
             ObtenerSubasta("PUB13").AltaOferta(700, ObtenerCliente("USU4"), new DateTime(2023, 10, 5));
-            ObtenerSubasta("PUB14").AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB14").AltaOferta(500, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB15").AltaOferta(600, ObtenerCliente("USU6"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB16").AltaOferta(750, ObtenerCliente("USU7"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB17").AltaOferta(800, ObtenerCliente("USU8"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB18").AltaOferta(1000, ObtenerCliente("USU9"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB19").AltaOferta(900, ObtenerCliente("USU10"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB20").AltaOferta(100, ObtenerCliente("USU11"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB20").AltaOferta(200, ObtenerCliente("USU10"), new DateTime(2023, 11, 2));
         }
 
         public Venta ObtenerVenta(string IdVenta)

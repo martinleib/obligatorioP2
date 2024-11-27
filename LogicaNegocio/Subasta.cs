@@ -76,7 +76,6 @@ namespace LogicaNegocio
                 { 
                     Oferta oferta = new Oferta(monto,cliente,DateTime.Now);
                     _ofertas.Add(oferta);
-                    cliente.Saldo -= monto;
                     result = true;
                 }
             }
@@ -112,11 +111,12 @@ namespace LogicaNegocio
 
             try
             {
-                if (_estado.Trim().ToUpper() == "ABIERTA")
+                if (_estado.Trim().ToUpper() == "ABIERTA" && ObtenerMayorPostor().Saldo >= Precio())
                 {
                     _estado = "CERRADA";
                     _fechaFinalizacion = DateTime.Now;
                     _comprador = ObtenerMayorPostor();
+                    _comprador.Saldo -= Precio();
                     _finalizador = admin;
                     result = true;
                 }

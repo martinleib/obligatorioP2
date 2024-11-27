@@ -11,8 +11,9 @@
         <thead>
         <th>Nombre</th>
         <th>Estado</th>
-        <th>Oferta más alta</th>
+        <th>Precio</th>
         <th>Fecha de publicacion</th>
+        <th>Tipo</th>
         <th>Acción</th>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                     <td>@subasta.Estado</td>
                     <td>@subasta.Precio()</td>
                     <td>@subasta.FechaPublicacion</td>
+                    <td>Subasta</td>
                         @if (subasta.Estado.Trim().ToUpper() == "ABIERTA")
                         {
                             <td><a href="/Subasta/Cerrar?id=@subasta.Id">Cerrar subasta</a></td>
