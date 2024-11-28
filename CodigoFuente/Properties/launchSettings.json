@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CodigoFuente": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

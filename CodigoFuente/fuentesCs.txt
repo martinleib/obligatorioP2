@@ -1,0 +1,1610 @@
+﻿***********************************
+Archivo: Articulo.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Articulo.cs
+***********************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogicaNegocio
+{
+    public class Articulo:IValidate
+    {
+        private string _id;
+        private static int s_ultimoID = 1;
+        private double _precio;
+
+        private string _nombre;
+        private string _categoria;
+
+        // Es el método constructor de la clase articulo que se usará para crear instancias del tipo articulo.
+        public Articulo(double precio, string nombre, string categoria)
+        {
+            this._id = $"ART{s_ultimoID + 1}";
+            s_ultimoID++;
+            this._precio = precio;
+            this._nombre = nombre;
+            this._categoria = categoria;
+        }
+        
+        // Propiedad que devuelve el ID de una instancia articulo.
+        public string Id
+        {
+            get { return _id; }
+        }
+
+        // Propiedad que devuelve la categoría de una instancia articulo.
+        public string Categoria
+        {
+            get { return _categoria; }
+        }
+
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
+
+        public double Precio
+        {
+            get { return _precio; }
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool sonIguales = false;
+            if (obj != null && obj is Articulo)
+            {
+                Articulo articulo = (Articulo)obj;
+                sonIguales = _nombre == articulo.Nombre;
+            }
+            return sonIguales;
+        }
+
+        // Metodo que modifica el comportamiento del método ToString de la clase artículo, permitiendo imprimir los atributos nombre, precio, categoría e ID.
+        public override string ToString()
+        {
+            return $"Nombre: {_nombre}. Precio: {_precio}. Categoria: {_categoria}. ID: {_id}";
+        }
+
+        public void Validar()
+        {   
+            if (_precio <= 0)
+            {
+                throw new Exception("El precio debe ser mayor a cero");
+            }
+            if (string.IsNullOrEmpty(_nombre))
+            {
+                throw new Exception("El nombre no puede estar vacío");
+            }
+            if (string.IsNullOrEmpty(_categoria))
+            {
+                throw new Exception("La categoría no puede estar vacía");
+            }
+        }
+    }
+}
+
+***********************************
+Archivo: Cliente.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Cliente.cs
+***********************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogicaNegocio
+{
+    public class Cliente:Usuario
+    {
+        // Cliente hereda de usuario
+        
+        // Saldo disponible
+        private double _saldo;
+
+        public Cliente(string nombre, string apellido, string email, string password, double saldo) : base(nombre, apellido, email, password)
+        {
+            // Es el método constructor de la clase cliente que se usará para crear instancias del tipo cliente.
+            // Al igual que en la clase Administrador se usa el constructor de la clase de la cual se está heredando (usuario) para construir la clase heredada
+            // En este caso, además, se construye la instancia de Cliente con un atríbuto extra (saldo).
+            this._saldo = saldo;
+        }
+
+        public double Saldo
+        {
+            get { return _saldo; }
+            set { _saldo = value; }
+        }
+
+        // Metodo que modifica el comportamiento del método ToString de la clase usuario, permitiendo imprimir los atributos nombre, apellido, email, ID y saldo.
+        public override string ToString()
+        {
+            return $"Nombre completo: {_nombre} {_apellido}, informacion de contacto: {_email}, ID: {_id}, Saldo: {_saldo}";
+        }
+        
+        public override string ObtenerTipo()
+        {
+            return "Cliente";
+        }
+    }
+}
+
+***********************************
+Archivo: Oferta.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Oferta.cs
+***********************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogicaNegocio
+{
+    public class Oferta
+    {
+        private string _id;
+        private static int s_ultimoID = 1;
+        private double _monto;
+
+        private Cliente _cliente;
+        private DateTime _fecha;
+
+        // Es el método constructor de la clase oferta que se usará para crear instancias del tipo oferta.
+        public Oferta(double monto, Cliente cliente, DateTime fecha)
+        {
+            // El ID se veria: OF02, OF03, etc...
+            this._id = $"OF{s_ultimoID + 1}";
+            s_ultimoID++;
+            this._monto = monto;
+            this._cliente = cliente;
+            this._fecha = fecha;
+        }
+
+        public double Monto
+        {
+            get { return _monto; }
+        }
+
+        public Cliente Cliente
+        {
+            get { return _cliente; }
+        }
+    }
+}
+
+***********************************
+Archivo: Publicacion.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Publicacion.cs
+***********************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+
+namespace LogicaNegocio
+{
+
+    public abstract class Publicacion:IValidate
+    {
+        private string _id;
+        private static int s_ultimoID = 1;
+
+        private string _nombre;
+
+        // Estado puede ser: ABIERTA, CANCELADA, CERRADA
+        protected string _estado;
+
+        // Fecha de publicacion y finalizacion de la publicacion
+        protected DateTime _fechaPublicacion;
+        protected DateTime _fechaFinalizacion;
+
+        // Lista de articulos dentro de la publicacion
+        private List<Articulo> _articulos = new List<Articulo>();
+
+        // Cliente que realizo la compra
+        protected Cliente _comprador = null;
+
+        // En el caso de una subasta el finalizador es un usuario de tipo Administrador
+        // mientras que en el caso de una compra el finalizador es un usuario de tipo Cliente
+        protected Usuario _finalizador = null;
+
+        // Es el método constructor de la clase publicacion que se usará para crear instancias del tipo publicacion.
+        public Publicacion(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador)
+        {
+            this._id = $"PUB{s_ultimoID + 1}";
+            s_ultimoID++;
+            this._nombre = nombre;
+            this._estado = estado;
+            this._fechaPublicacion = fechaPublicacion;
+            this._comprador = comprador;
+            this._finalizador = finalizador;
+            this._articulos = new List<Articulo>();
+        }
+
+        public string Estado
+        {
+            get { return _estado; }
+            set { _estado = value; }
+        }
+        
+        public Cliente Comprador
+        {
+            get { return _comprador; }
+            set { _comprador = value; }
+        }
+
+        public Usuario Finalizador
+        {
+            get { return _finalizador; }
+            set { _finalizador = value; }
+        }
+        
+        // Propiedad que devuelve la lista de articulos de una instancia de tipo publicacion.
+        public List<Articulo> Articulo
+        {
+            get
+            {
+                return _articulos;
+            }
+        }
+        // Propiedad que devuelve el ID de una instancia de tipo publicacion.
+        public string Id
+        {
+            get { return _id; }
+        }
+        // Propiedad que devuelve la fecha de publicacion de una instancia de tipo publicacion.
+        public DateTime FechaPublicacion
+        {
+            get { return _fechaPublicacion; }
+        }
+
+        public DateTime FechaFinalizacion
+        {
+            get { return _fechaFinalizacion;}
+            set { _fechaFinalizacion = value; }
+        }
+        
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
+
+        public abstract double Precio();
+
+        public override bool Equals(object obj)
+        {
+            bool sonIguales = false;
+            if (obj != null && obj is Publicacion)
+            {
+                Publicacion publicacion = (Publicacion)obj;
+                sonIguales = _nombre == publicacion._nombre;
+            }
+            return sonIguales;
+        }
+
+        public void AgregarArticulo(Articulo articulo) {
+
+            if (articulo != null && !_articulos.Contains(articulo)){
+                _articulos.Add(articulo);
+            }
+        }
+        
+        // Metodo que modifica el comportamiento del método ToString de la clase publicación, permitiendo imprimir los atributos nombre, estado, fecha de publicación e ID.
+        public override string ToString()
+        {
+            return $"Nombre: {_nombre}. Estado: {_estado}. Fecha de publicacion: {_fechaPublicacion}. ID: {_id}";
+        }
+
+        public void Validar()
+        {
+            if (string.IsNullOrEmpty(_nombre)) {
+                throw new Exception("El nombre no puede estar vacio.");
+            }
+            else if (string.IsNullOrEmpty(_estado)) {
+                throw new Exception("El estado no puede estar vacio.");
+            }
+       }
+    }
+}
+
+***********************************
+Archivo: Sistema.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Sistema.cs
+***********************************
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
+
+namespace LogicaNegocio
+{
+    public class Sistema
+    {
+        private List<Usuario> _usuarios = new List<Usuario>();
+        private List<Publicacion> _publicaciones = new List<Publicacion>();
+        private List<Articulo> _articulos = new List<Articulo>();
+
+        private static Sistema _instancia;
+
+        public static Sistema Instancia
+        {
+            get
+            {
+                if (_instancia == null)
+                {
+                    _instancia = new Sistema();
+                }
+
+                return _instancia;
+            }
+        }
+
+        public List<Usuario> Usuarios
+        {
+            get { return _usuarios; }
+        }
+
+        private Sistema()
+        {
+            PrecargaAdministrador();
+            PrecargaCliente();
+            PrecargaArticulo();
+            PrecargaVenta();
+            PrecargaSubasta();
+            PrecargaOferta();
+        }
+
+        public List<Publicacion> Publicaciones
+        {
+            get { return _publicaciones; }
+        }
+
+        public void AltaAdministrador(string nombre, string apellido, string email, string password)
+        {
+            Usuario administrador = new Usuario(nombre, apellido, email, password);
+            administrador.Validar();
+            if (!_usuarios.Contains(administrador))
+            {
+                _usuarios.Add(administrador);
+            }
+        }
+
+        public Usuario BuscarUsuario(string email, string password)
+        {
+            int i = 0;
+            Usuario usuario = null;
+
+            while (i < _usuarios.Count && usuario == null)
+            {
+                if (_usuarios[i].Email.Trim().ToUpper() == email.Trim().ToUpper() &&
+                    _usuarios[i].Password == password)
+                {
+                    usuario = _usuarios[i];
+                }
+
+                i++;
+            }
+
+            return usuario;
+        }
+
+        public Cliente ObtenerCliente(string id)
+        {
+            int i = 0;
+            Cliente usuarioCliente = null;
+
+            while (i < _usuarios.Count && usuarioCliente == null && !string.IsNullOrEmpty(id))
+            {
+                if (_usuarios[i] is Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                {
+                    usuarioCliente = (Cliente)_usuarios[i];
+                }
+
+                i++;
+            }
+
+            return usuarioCliente;
+        }
+
+        public Usuario ObtenerAdmin(string id)
+        {
+            int i = 0;
+            Usuario usuarioAdmin = null;
+
+            while (i < _usuarios.Count && usuarioAdmin == null && !string.IsNullOrEmpty(id))
+            {
+                if (_usuarios[i] is not Cliente && _usuarios[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                {
+                    usuarioAdmin = _usuarios[i];
+                }
+
+                i++;
+            }
+
+            return usuarioAdmin;
+        }
+
+        // Precarga administrador
+        // Usa el metodo “AltaAdministrador” para crear manualmente instancias de tipo administrador.
+        public void PrecargaAdministrador()
+        {
+            AltaAdministrador("Carlos", "Martinez", "CarlosM2001@gmail.com", "CarlosM123");
+            AltaAdministrador("Sofía", "Gomez", "SofiaG2020@gmail.com", "SofiaG123");
+        }
+
+        // METODOS CLIENTE
+        // Alta cliente
+        // Es un metodo que crea una nueva instancia cliente. Verifica que no esté en la lista de usuarios de la clase sistema y luego lo agrega a dicha lista.
+        public void AltaCliente(string nombre, string apellido, string email, string password, double saldo)
+        {
+            Cliente cliente = new Cliente(nombre, apellido, email, password, saldo);
+            cliente.Validar();
+
+            if (_usuarios.Contains(cliente))
+            {
+                throw new Exception("Ya existe un usuario registrado con esos datos");
+            }
+            
+            _usuarios.Add(cliente);
+        }
+
+        // Precarga cliente
+        // Usa el metodo “AltaCliente” para crear manualmente instancias de tipo cliente.
+        public void PrecargaCliente()
+        {
+            AltaCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 500);
+
+            AltaCliente("Javier", "Lopez", "JavierL1995@gmail.com", "JavierL789", 3200);
+
+            AltaCliente("Ana", "Fernandez", "AnaF1987@gmail.com", "AnaaF101", 4000);
+
+            AltaCliente("Pedro", "Ramirez", "PedroR1998@gmail.com", "PedroR202", 2700);
+
+            AltaCliente("María", "Hernandez", "MariaH1993@gmail.com", "MariaH303", 1800);
+
+            AltaCliente("Luis", "Morales", "LuisM2003@gmail.com", "LuisM404", 3600);
+
+            AltaCliente("Elena", "Diaz", "ElenaD2001@gmail.com", "ElenaD505", 2200);
+
+            AltaCliente("Fernando", "Cruz", "FernandoC1999@gmail.com", "FernandoC606", 3100);
+
+            AltaCliente("Lucía", "Vasquez", "LuciaV1989@gmail.com", "LuciaV707", 2300);
+
+            AltaCliente("Andrés", "Pérez", "AndresP2005@gmail.com", "AndresP808", 2900);
+        }
+
+        public bool ModificarSaldo(string id, double monto)
+        {
+            bool result = false;
+
+            Cliente clienteBuscado = ObtenerCliente(id);
+
+            if (clienteBuscado != null && monto > 0)
+            {
+                clienteBuscado.Saldo += monto;
+                result = true;
+            }
+
+            return result;
+        }
+
+        // METODOS ARTICULO
+        // Alta articulo
+        // Es un metodo que crea una nueva instancia articulo, verifica que no esté en la lista de articulos de la clase sistema y luego lo agrega a dicha lista.
+        public void AltaArticulo(double precio, string nombre, string categoria)
+        {
+            Articulo articulo = new Articulo(precio, nombre, categoria);
+            articulo.Validar();
+            if (!_articulos.Contains(articulo) || true)
+            {
+                _articulos.Add(articulo);
+            }
+        }
+
+        // Precarga articulo
+        // Usa el metodo “AltaArticulo” para crear manualmente instancias de tipo articulo.
+        public void PrecargaArticulo()
+        {
+            AltaArticulo(100, "Silla de oficina", "Muebles");
+
+            AltaArticulo(250, "Mesa de café", "Muebles");
+
+            AltaArticulo(50, "Lámpara de mesa", "Iluminación");
+
+            AltaArticulo(75, "Escritorio", "Muebles");
+
+            AltaArticulo(200, "Cama individual", "Muebles");
+
+            AltaArticulo(150, "Estantería", "Muebles");
+
+            AltaArticulo(300, "Televisor", "Electrónica");
+
+            AltaArticulo(400, "Sofá", "Muebles");
+
+            AltaArticulo(60, "Reloj de pared", "Decoración");
+
+            AltaArticulo(80, "Cuadro decorativo", "Decoración");
+
+            AltaArticulo(20, "Maceta", "Jardinería");
+
+            AltaArticulo(45, "Planta artificial", "Jardinería");
+
+            AltaArticulo(30, "Candelabro", "Iluminación");
+
+            AltaArticulo(90, "Almohada", "Textiles");
+
+            AltaArticulo(150, "Manta", "Textiles");
+
+            AltaArticulo(500, "Cocina a gas", "Electrodomésticos");
+
+            AltaArticulo(350, "Refrigerador", "Electrodomésticos");
+
+            AltaArticulo(80, "Tostadora", "Electrodomésticos");
+
+            AltaArticulo(120, "Batidora", "Electrodomésticos");
+
+            AltaArticulo(100, "Horno eléctrico", "Electrodomésticos");
+
+            AltaArticulo(25, "Cuchillo de cocina", "Utensilios");
+
+            AltaArticulo(35, "Tabla de cortar", "Utensilios");
+
+            AltaArticulo(15, "Vaso", "Utensilios");
+
+            AltaArticulo(40, "Plato hondo", "Utensilios");
+
+            AltaArticulo(60, "Juego de cubiertos", "Utensilios");
+
+            AltaArticulo(110, "Cafetera", "Electrodomésticos");
+
+            AltaArticulo(130, "Microondas", "Electrodomésticos");
+
+            AltaArticulo(300, "Console de videojuegos", "Electrónica");
+
+            AltaArticulo(600, "Laptop", "Electrónica");
+
+            AltaArticulo(20, "Auriculares", "Electrónica");
+
+            AltaArticulo(75, "Cámara instantánea", "Electrónica");
+
+            AltaArticulo(250, "Proyector", "Electrónica");
+
+            AltaArticulo(150, "Bicicleta", "Deportes");
+
+            AltaArticulo(200, "Patinete", "Deportes");
+
+            AltaArticulo(50, "Pelota de fútbol", "Deportes");
+
+            AltaArticulo(80, "Raqueta de tenis", "Deportes");
+
+            AltaArticulo(90, "Zapatillas deportivas", "Ropa");
+
+            AltaArticulo(120, "Chaqueta", "Ropa");
+
+            AltaArticulo(100, "Pantalones", "Ropa");
+
+            AltaArticulo(200, "Camisa", "Ropa");
+
+            AltaArticulo(250, "Vestido", "Ropa");
+
+            AltaArticulo(180, "Bolso de mano", "Accesorios");
+
+            AltaArticulo(300, "Mochila", "Accesorios");
+
+            AltaArticulo(90, "Gafas de sol", "Accesorios");
+
+            AltaArticulo(75, "Cinturón", "Accesorios");
+
+            AltaArticulo(100, "Sombrero", "Accesorios");
+
+            AltaArticulo(200, "Joyería", "Accesorios");
+
+            AltaArticulo(250, "Espejo decorativo", "Decoración");
+
+            AltaArticulo(130, "Cortinas", "Textiles");
+
+            AltaArticulo(160, "Mueble de TV", "Muebles");
+        }
+
+        // Obtener articulo
+        // Es un metodo que busca en la lista de articulos de la clase sistema un articulo con el id pasado por parámetros y si lo encuentra devuelve un articulo, en caso de que no lo encuentra devuelve null.
+        public Articulo BuscarArticulo(string id)
+        {
+            Articulo articulo = null;
+            int i = 0;
+
+            while (i < _articulos.Count && articulo == null)
+            {
+                if (_articulos[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                {
+                    articulo = _articulos[i];
+                }
+
+                i++;
+            }
+
+            return articulo;
+        } 
+
+        // METODOS PUBLICACION
+        // Alta publicacion *venta*
+        // Es un metodo que crea una nueva instancia venta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
+        public void AltaPublicacionVenta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador,
+            Usuario finalizador, bool relampago)
+        {
+            Venta venta = new Venta(nombre, estado, fechaPublicacion, comprador, finalizador, relampago);
+            venta.Validar();
+            if (!_publicaciones.Contains(venta))
+            {
+                _publicaciones.Add(venta);
+            }
+        }
+
+        public Publicacion ObtenerPublicacion(string id)
+        {
+            int i = 0;
+            Publicacion publicacion = null;
+
+            while (i < _publicaciones.Count && !string.IsNullOrEmpty(id) && publicacion == null)
+            {
+                if (_publicaciones[i].Id.Trim().ToUpper() == id.Trim().ToUpper())
+                {
+                    publicacion = _publicaciones[i];
+                }
+
+                i++;
+            }
+
+            return publicacion;
+        }
+
+        public void PrecargaArticulosEnPublicacion(string idPublicacion, string idArticulo)
+        {
+            Articulo articulo = BuscarArticulo(idArticulo);
+            Publicacion publicacion = ObtenerPublicacion(idPublicacion);
+
+            if (publicacion != null && articulo != null)
+            {
+                publicacion.AgregarArticulo(articulo);
+            }
+        }
+
+        // Precarga venta
+        // Usa el metodo “AltaPublicacionVenta” para crear manualmente instancias de tipo venta.
+        public void PrecargaVenta()
+        {
+            AltaPublicacionVenta("Mesa de comedor", "ABIERTA", new DateTime(2023, 6, 15), null, null, true);
+            PrecargaArticulosEnPublicacion("PUB2", "ART11");
+            PrecargaArticulosEnPublicacion("PUB2", "ART2");
+
+            AltaPublicacionVenta("Sofa cama", "ABIERTA", new DateTime(2023, 7, 1), null, null, false);
+            PrecargaArticulosEnPublicacion("PUB3", "ART10");
+            PrecargaArticulosEnPublicacion("PUB3", "ART13");
+
+            AltaPublicacionVenta("Cama matrimonial", "ABIERTA", new DateTime(2023, 8, 10), null, null, true);
+            PrecargaArticulosEnPublicacion("PUB4", "ART9");
+            PrecargaArticulosEnPublicacion("PUB4", "ART4");
+
+            AltaPublicacionVenta("Televisor", "ABIERTA", new DateTime(2023, 5, 25), null, null, false);
+            PrecargaArticulosEnPublicacion("PUB5", "ART8");
+            PrecargaArticulosEnPublicacion("PUB5", "ART5");
+
+            AltaPublicacionVenta("Estantería", "ABIERTA", new DateTime(2023, 9, 12), null, null, true);
+            PrecargaArticulosEnPublicacion("PUB6", "ART7");
+            PrecargaArticulosEnPublicacion("PUB6", "ART6");
+
+            AltaPublicacionVenta("Cocina completa", "ABIERTA", new DateTime(2023, 10, 5), null, null, false);
+            PrecargaArticulosEnPublicacion("PUB7", "ART6");
+            PrecargaArticulosEnPublicacion("PUB7", "ART7");
+
+            AltaPublicacionVenta("Frigorífico", "ABIERTA", new DateTime(2023, 6, 20), null, null, true);
+            PrecargaArticulosEnPublicacion("PUB8", "ART5");
+            PrecargaArticulosEnPublicacion("PUB8", "ART8");
+
+            AltaPublicacionVenta("Silla de oficina", "ABIERTA", new DateTime(2023, 11, 1), null, null, true);
+            PrecargaArticulosEnPublicacion("PUB9", "ART4");
+            PrecargaArticulosEnPublicacion("PUB9", "ART9");
+
+            AltaPublicacionVenta("Computadora portátil", "ABIERTA", new DateTime(2023, 7, 15), null, null, false);
+            PrecargaArticulosEnPublicacion("PUB10", "ART3");
+            PrecargaArticulosEnPublicacion("PUB10", "ART10");
+
+            AltaPublicacionVenta("Mesa de noche", "ABIERTA", new DateTime(2023, 8, 25), null, null, true);
+            PrecargaArticulosEnPublicacion("PUB11", "ART2");
+            PrecargaArticulosEnPublicacion("PUB11", "ART11");
+        }
+
+        // Alta publicacion *subasta*
+        // Es un metodo que crea una nueva instancia subasta, verifica que no esté en la lista de publicaciones de la clase sistema y luego lo agrega a dicha lista.
+        public void AltaPublicacionSubasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador,
+            Usuario finalizador)
+        {
+            Subasta subasta = new Subasta(nombre, estado, fechaPublicacion, comprador, finalizador);
+            subasta.Validar();
+            if (!_publicaciones.Contains(subasta))
+            {
+                _publicaciones.Add(subasta);
+            }
+        }
+
+
+        // Precarga subasta
+        // Usa el metodo “ AltaPublicacionSubasta” para crear manualmente instancias de tipo subasta.
+        public void PrecargaSubasta()
+        {
+            AltaPublicacionSubasta("Pintura original", "ABIERTA", new DateTime(2023, 9, 1), null, null);
+            PrecargaArticulosEnPublicacion("PUB12", "ART7");
+            PrecargaArticulosEnPublicacion("PUB12", "ART20");
+
+            AltaPublicacionSubasta("Colección de monedas", "ABIERTA", new DateTime(2023, 8, 15), null, null);
+            PrecargaArticulosEnPublicacion("PUB13", "ART4");
+            PrecargaArticulosEnPublicacion("PUB13", "ART40");
+
+            AltaPublicacionSubasta("Reloj antiguo", "ABIERTA", new DateTime(2023, 10, 5), null, null);
+            PrecargaArticulosEnPublicacion("PUB14", "ART3");
+            PrecargaArticulosEnPublicacion("PUB14", "ART35");
+
+            AltaPublicacionSubasta("Bicicleta de montaña", "ABIERTA", new DateTime(2023, 11, 1), null, null);
+            PrecargaArticulosEnPublicacion("PUB15", "ART5");
+            PrecargaArticulosEnPublicacion("PUB15", "ART15");
+
+            AltaPublicacionSubasta("Joyería de plata", "ABIERTA", new DateTime(2023, 7, 20), null, null);
+            PrecargaArticulosEnPublicacion("PUB16", "ART12");
+            PrecargaArticulosEnPublicacion("PUB16", "ART21");
+
+            AltaPublicacionSubasta("Cámara fotográfica", "ABIERTA", new DateTime(2023, 12, 10), null, null);
+            PrecargaArticulosEnPublicacion("PUB17", "ART11");
+            PrecargaArticulosEnPublicacion("PUB17", "ART19");
+
+            AltaPublicacionSubasta("Juego de té", "ABIERTA", new DateTime(2023, 10, 20), null, null);
+            PrecargaArticulosEnPublicacion("PUB18", "ART43");
+            PrecargaArticulosEnPublicacion("PUB18", "ART34");
+
+            AltaPublicacionSubasta("Sofá vintage", "ABIERTA", new DateTime(2023, 9, 30), null, null);
+            PrecargaArticulosEnPublicacion("PUB19", "ART29");
+            PrecargaArticulosEnPublicacion("PUB19", "ART39");
+
+            AltaPublicacionSubasta("Escultura moderna", "ABIERTA", new DateTime(2023, 11, 15), null, null);
+            PrecargaArticulosEnPublicacion("PUB20", "ART17");
+            PrecargaArticulosEnPublicacion("PUB20", "ART50");
+        }
+
+        public Subasta ObtenerSubasta(string id)
+        {
+            Subasta subasta = null;
+            Publicacion publicacion = ObtenerPublicacion(id);
+
+            if (publicacion is Subasta)
+            {
+                subasta = (Subasta)publicacion;
+            }
+
+            return subasta;
+        }
+
+        public List<Subasta> SubastasOrdenadas()
+        {
+            List<Subasta> subastaOrdenada = new List<Subasta>();
+            foreach (Publicacion publicacion in _publicaciones)
+            {
+                if (publicacion != null && publicacion is Subasta)
+                {
+                    subastaOrdenada.Add((Subasta)publicacion);
+                }
+            }
+
+            subastaOrdenada.Sort();
+
+            return subastaOrdenada;
+        }
+
+        // Precarga Oferta
+        // Usa el metodo “AltaOferta” para crear manualmente instancias de tipo oferta.
+        public void PrecargaOferta()
+        {
+            ObtenerSubasta("PUB12").AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB12").AltaOferta(550, ObtenerCliente("USU7"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB13").AltaOferta(700, ObtenerCliente("USU4"), new DateTime(2023, 10, 5));
+            ObtenerSubasta("PUB14").AltaOferta(500, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB15").AltaOferta(600, ObtenerCliente("USU6"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB16").AltaOferta(750, ObtenerCliente("USU7"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB17").AltaOferta(800, ObtenerCliente("USU8"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB18").AltaOferta(1000, ObtenerCliente("USU9"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB19").AltaOferta(900, ObtenerCliente("USU10"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB20").AltaOferta(100, ObtenerCliente("USU11"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB20").AltaOferta(200, ObtenerCliente("USU10"), new DateTime(2023, 11, 2));
+        }
+
+        public Venta ObtenerVenta(string IdVenta)
+        {
+            int i = 0;
+            Venta venta = null;
+
+            while (i < _publicaciones.Count && !string.IsNullOrEmpty(IdVenta) && venta == null)
+            {
+                if (_publicaciones[i].Id.Trim().ToUpper() == IdVenta.Trim().ToUpper() && _publicaciones[i] is Venta)
+                {
+                    venta = (Venta)_publicaciones[i];
+                }
+
+                i++;
+            }
+
+            return venta;
+        }
+
+    }
+}
+***********************************
+Archivo: Subasta.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Subasta.cs
+***********************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogicaNegocio
+{
+    // Subasta hereda de Publicacion
+    public class Subasta : Publicacion,IComparable<Subasta>
+    {
+        private List<Oferta> _ofertas;
+
+        // Propiedad que devuelve la lista de ofertas de una instancia del tipo subasta.
+        public List<Oferta> Ofertas
+        {
+            get { return _ofertas; }
+        }
+
+        // Es el método constructor de la clase subasta que se usará para crear instancias del tipo subasta.
+        public Subasta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador) : base(nombre, estado, fechaPublicacion, comprador, finalizador)
+        {
+            this._ofertas = new List<Oferta>();
+        }
+
+        public double MaximoMonto()
+        {
+            double maxMonto = 0;
+            for (int i = 0; i < _ofertas.Count; i++)
+            {
+                if (_ofertas[i].Monto > maxMonto)
+                {
+                    maxMonto = _ofertas[i].Monto;
+                }
+            }
+            return maxMonto;
+        }
+        
+        public override double Precio()
+        {
+            double precio = 0;
+            for (int i = 0; i < _ofertas.Count; i++)
+            {
+                if (_ofertas[i].Monto > precio)
+                {
+                    precio = _ofertas[i].Monto;
+                }
+            }
+            return precio;
+        }
+
+        public bool Ofertar(Cliente cliente, double monto)
+        {
+            bool result = false;
+            if (monto > 0 && cliente != null) {
+
+                string estado = _estado.Trim().ToUpper();
+                double maxMonto = MaximoMonto();
+
+                if (estado == "ABIERTA" && monto > maxMonto && cliente.Saldo>= monto)
+                { 
+                    Oferta oferta = new Oferta(monto,cliente,DateTime.Now);
+                    _ofertas.Add(oferta);
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        public bool ExisteOferta(Oferta oferta)
+        {
+            bool result = false;
+            int i = 0;
+            while (i< _ofertas.Count && result == false)
+            {
+                if (_ofertas[i] == oferta)
+                {
+                    result = true;
+                }
+                i++;
+            }
+            return result;
+        }
+        public void AltaOferta(int monto, Cliente cliente, DateTime fecha)
+        {
+            Oferta oferta = new Oferta(monto, cliente, fecha);
+            if (ExisteOferta(oferta) == false)
+            {
+                _ofertas.Add(oferta);
+            }
+        }
+
+        public bool CerrarSubasta(Usuario admin)
+        {
+            bool result = false;
+            try
+            {
+                int i = _ofertas.Count - 1;
+
+                while (i >= 0 && result == false)
+                {
+                    if (_ofertas[i].Cliente.Saldo >= _ofertas[i].Monto)
+                    {
+                        _estado = "CERRADA";
+                        _fechaFinalizacion = DateTime.Now;
+                        _comprador = _ofertas[i].Cliente;
+                        _comprador.Saldo -= _ofertas[i].Monto;
+                        _finalizador = admin;
+                        result = true;
+                    }
+                    i--;
+                }
+
+                if (!result)
+                {
+                    throw new Exception("No se encontró un comprador con saldo suficiente para cerrar la subasta");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        public int CompareTo(Subasta other)
+        {
+            return _fechaPublicacion.CompareTo(other._fechaPublicacion);
+        }
+    }
+}
+***********************************
+Archivo: Usuario.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Usuario.cs
+***********************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogicaNegocio
+{
+
+
+    public class Usuario:IValidate
+    {
+        protected string _nombre;
+        protected string _apellido;
+        protected string _email;
+        private string _password;
+        protected string _id;
+        private static int s_ultimoID = 1;
+
+        // Es el método constructor de la clase usuario que se usará para crear instancias del tipo usuario.
+        public Usuario(string nombre, string apellido, string email, string password)
+        {
+            this._nombre = nombre;
+            this._apellido = apellido;
+            this._email = email;
+            this._password = password;
+            this._id = $"USU{s_ultimoID + 1}";
+            s_ultimoID++;
+        }
+
+        public Usuario()
+        {
+            this._id = $"USU{s_ultimoID + 1}";
+            s_ultimoID++;
+        }
+
+        public string Nombre
+        {
+            get { return _nombre; }
+            set { _nombre = value; }
+        }
+
+        public string Apellido
+        {
+            get { return _apellido; }
+            set { _apellido = value; }
+        }
+
+        public string Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; }
+        }
+
+        public string Password
+        {
+            get { return _password; }
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool sonIguales = false;
+            if (obj != null && obj is Usuario)
+            {
+                Usuario usuario = (Usuario)obj;
+                sonIguales = _email == usuario._email;
+            }
+            return sonIguales;
+        }
+
+
+        public void Validar()
+        {
+            if (string.IsNullOrEmpty(_nombre))
+            {
+                throw new Exception("El nombre no puede estar vacío");
+            }
+            if (string.IsNullOrEmpty(_apellido))
+            {
+                throw new Exception("El apellido no puede estar vacío");
+            }
+            if (string.IsNullOrEmpty(_email))
+            {
+                throw new Exception("El email no puede estar vacío");
+            }
+            if (string.IsNullOrEmpty(_password) || _password.Length < 8)
+            {
+                throw new Exception("La contraseña debe tener al menos 8 caracteres");
+            }
+        }
+
+        public virtual string ObtenerTipo()
+        {
+            return "Administrador";
+        }
+    }
+}
+
+***********************************
+Archivo: Venta.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Venta.cs
+***********************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogicaNegocio
+{
+
+ 
+    public class Venta:Publicacion, IValidate
+    {
+        // En una venta el usuario comprador y el que la finaliza es la misma persona.
+        // Una subasta es adjudicada a una persona, pero solo un administrador la puede cerrar.
+        private bool _relampago;
+
+        // Es el método constructor de la clase venta que se usará para crear instancias del tipo venta.
+        public Venta(string nombre, string estado, DateTime fechaPublicacion, Cliente comprador, Usuario finalizador, bool relampago):base(nombre, estado, fechaPublicacion, comprador, finalizador)
+        {
+            this._relampago = relampago;
+        }
+
+        public override double Precio()
+        {
+            double precioFinal = 0;
+            for (int i = 0; i < Articulo.Count; i++)
+            {
+                precioFinal += Articulo[i].Precio;
+            }
+
+            if (_relampago == true)
+            {
+                double descuento = (precioFinal * 20) / 100;
+                precioFinal -= descuento;
+            }
+
+            return precioFinal;
+        }
+
+        public void CompraVenta(Cliente comprador)
+        {
+            try
+            {
+                if (_estado.Trim().ToUpper() == "ABIERTA")
+                {
+                    _comprador = comprador;
+                    _comprador.Saldo -= Precio();
+                    _estado = "CERRADA";
+                    _fechaFinalizacion = DateTime.Now;
+                    _comprador = comprador;
+                    _finalizador = comprador;
+                }
+                else
+                {
+                    throw new Exception("La publicación no está activa");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+    }
+}
+
+***********************************
+Archivo: IValidate.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\LogicaNegocio\Interfaces\IValidate.cs
+***********************************
+namespace LogicaNegocio;
+
+public interface IValidate
+{
+    void Validar();
+}
+***********************************
+Archivo: ClienteController.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Controllers\ClienteController.cs
+***********************************
+using LogicaNegocio;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+
+namespace Web.Controllers;
+
+public class ClienteController : Controller
+{
+    private Sistema sistema = Sistema.Instancia;
+
+    [HttpGet]
+    public IActionResult Index()
+    {
+        string loggedUserId = HttpContext.Session.GetString("usuario-id");
+        string loggedUserType = HttpContext.Session.GetString("usuario-tipo");
+
+        if (!string.IsNullOrEmpty(loggedUserId))
+        {
+            if (loggedUserType == "Administrador")
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+            else if (loggedUserType == "Cliente")
+            {
+                return View(sistema.ObtenerCliente(loggedUserId));
+            }
+        }
+        return RedirectToAction("Login", "Home");
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(string nombre, string apellido, string email, string password, double saldo)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido) && !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password) && saldo > 0)
+            {
+                sistema.AltaCliente(nombre, apellido, email, password, saldo);
+                ViewBag.Exito = "Se ha registrado correctamente";
+            }
+        }
+        catch (Exception ex)
+        {
+            ViewBag.Mensaje = ex.Message;
+        }
+
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Edit()
+    {
+        if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+        {
+            try
+            {
+                string id = HttpContext.Session.GetString("usuario-id");
+                Cliente cliente = sistema.ObtenerCliente(id);
+                return View(cliente);
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = ex.Message;
+                return RedirectToAction("Index", "Cliente");
+            }
+
+        }
+        else if (HttpContext.Session.GetString("usuario-tipo") == "Administrador") {
+            return RedirectToAction("Index", "Usuario");
+        }
+        return RedirectToAction("Login", "Home");
+    }
+
+    [HttpPost]
+    public IActionResult Edit(double monto)
+    {
+        bool resultado = false;
+        string id = HttpContext.Session.GetString("usuario-id");
+
+        try
+        {
+            if (monto > 0 && !string.IsNullOrEmpty(id))
+            {
+                resultado = sistema.ModificarSaldo(id, monto);
+            }
+
+            if (resultado)
+            {
+                TempData["Exito"] =
+                    $"La carga de {monto} USD se realizó con éxito. \n Tu nuevo saldo es de {sistema.ObtenerCliente(id).Saldo} USD.";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Error"] = "Hubo un error a la hora de cargar saldo. Intente nuevamente.";
+                return RedirectToAction("Index");
+            }
+        }
+        catch (Exception ex)
+        {
+            TempData["Mensaje"] = ex.Message;
+            return RedirectToAction("Index");
+        }
+    }
+}
+
+***********************************
+Archivo: HomeController.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Controllers\HomeController.cs
+***********************************
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using LogicaNegocio;
+using Web.Models;
+
+namespace Web.Controllers
+{
+    public class HomeController : Controller
+    {
+        private Sistema sistema = Sistema.Instancia;
+        
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+        
+        public IActionResult Index()
+        {
+            return RedirectPermanent("/Cliente/Index");
+        }
+        
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+       
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(string email, string password)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+                {
+                    Usuario usuario = sistema.BuscarUsuario(email, password);
+                    
+                    if (usuario != null)
+                    {
+                        string rol = usuario.ObtenerTipo();
+
+                        HttpContext.Session.SetString("usuario-id", usuario.Id);
+                        HttpContext.Session.SetString("usuario-tipo", rol);
+                        
+                        switch (rol)
+                        {
+                            case "Cliente":
+                                return RedirectToAction("Index", "Cliente");
+                            case "Administrador":
+                                return RedirectToAction("Index", "Usuario");
+                            default:
+                                return RedirectToAction("Login", "Home");
+                        }
+                    }
+                    else
+                        ViewBag.Error = "Las credenciales no son correctas, inténtelo nuevamente";
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
+    }
+}
+
+***********************************
+Archivo: PublicacionController.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Controllers\PublicacionController.cs
+***********************************
+using LogicaNegocio;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Web.Controllers
+{
+    public class PublicacionController : Controller
+    {
+        private Sistema sistema = Sistema.Instancia;
+
+        public IActionResult Index()
+        {
+            if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+            {
+                return View(sistema.Publicaciones);
+            }
+            return RedirectToAction("Login", "Home");
+        }
+    }
+}
+
+***********************************
+Archivo: SubastaController.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Controllers\SubastaController.cs
+***********************************
+using LogicaNegocio;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Web.Controllers
+{
+    public class SubastaController : Controller
+    {
+        private Sistema sistema = Sistema.Instancia;
+
+
+        public IActionResult Index()
+        {
+            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+            {
+                return RedirectToAction("Index", "Cliente");
+            }
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
+                return View(sistema.SubastasOrdenadas());
+            }
+            return RedirectToAction("Login", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+            {
+                Subasta subasta = sistema.ObtenerSubasta(id);
+                return View(subasta);
+            }
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+            
+            return RedirectToAction("Login", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Edit(string idsubasta, int monto)
+        {
+            Subasta subasta = sistema.ObtenerSubasta(idsubasta);
+            string idcliente = HttpContext.Session.GetString("usuario-id");
+            bool resultado = false;
+
+            try
+            {
+                Cliente cliente = sistema.ObtenerCliente(idcliente);
+
+                if (subasta != null && monto > 0 && cliente != null)
+                {
+                    resultado = subasta.Ofertar(cliente, monto);
+                }
+
+                if (resultado)
+                {
+                    TempData["Exito"] = "Oferta realizada con éxito!";
+                    return RedirectToAction("Index", "Publicacion");
+                }
+                else
+                {
+                    TempData["Error"] = "No fue posible agregar la oferta";
+                    return RedirectToAction("Index", "Publicacion");
+                }
+            }
+
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = ex.Message;
+                return RedirectToAction("Index", "Publicacion");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Cerrar(string id)
+        {
+            if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
+                return View(sistema.ObtenerSubasta(id));
+            }
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+            {
+                return RedirectToAction("Index", "Cliente");
+            } 
+            
+            return RedirectToAction("Login", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Cerrar(string idsubasta, Usuario usuario)
+        {
+            bool result = false;
+            try
+            {
+                if (!string.IsNullOrEmpty(idsubasta))
+                {
+                    Subasta subasta = sistema.ObtenerSubasta(idsubasta);
+                    Usuario admin = sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id"));
+
+                    if (admin != null && subasta != null)
+                    {
+                        result = subasta.CerrarSubasta(admin);
+                    }
+                }
+
+                if (!result)
+                {
+                    TempData["Error"] = "No fue posible cerrar la subasta";
+                    return RedirectToAction("Index", "Subasta");
+                }
+                else
+                {
+                    TempData["Exito"] = "Oferta cerrada con éxito!";
+                    return RedirectToAction("Index", "Subasta");
+                }
+            }catch (Exception ex)
+            {
+                TempData["Mensaje"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+    }
+}
+
+***********************************
+Archivo: UsuarioController.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Controllers\UsuarioController.cs
+***********************************
+using LogicaNegocio;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Web.Controllers
+{
+    public class UsuarioController : Controller
+    {
+        private Sistema sistema = Sistema.Instancia;
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+            {
+                return RedirectToAction("Index", "Cliente");
+            }
+            else if (HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
+                return View(sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id")));
+            }
+            return RedirectToAction("Login", "Home");
+        }
+    }
+}
+***********************************
+Archivo: VentaController.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Controllers\VentaController.cs
+***********************************
+using LogicaNegocio;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Web.Controllers
+{
+    public class VentaController : Controller
+    {
+        private Sistema sistema = Sistema.Instancia;
+
+        [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            if (HttpContext.Session.GetString("usuario-tipo") == "Cliente")
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        Venta venta = sistema.ObtenerVenta(id);
+                        Cliente comprador = sistema.ObtenerCliente(HttpContext.Session.GetString("usuario-id"));
+                        venta.CompraVenta(comprador);
+                        return View(venta);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["Mensaje"] = ex.Message;
+                    return RedirectToAction("Index", "Publicacion");
+                }
+
+            }
+            else if(HttpContext.Session.GetString("usuario-tipo") == "Administrador")
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+            return RedirectToAction("Login", "Home");
+        }
+    }
+}
+
+***********************************
+Archivo: ErrorViewModel.cs
+Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Models\ErrorViewModel.cs
+***********************************
+namespace Web.Models
+{
+    public class ErrorViewModel
+    {
+        public string? RequestId { get; set; }
+
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    }
+}

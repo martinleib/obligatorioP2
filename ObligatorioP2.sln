@@ -5,7 +5,9 @@ VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicaNegocio", "LogicaNegocio\LogicaNegocio.csproj", "{916ED76A-BE59-4E23-843A-3DC412A0E532}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{69BD0015-626F-4924-8AFC-75876FC92041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{69BD0015-626F-4924-8AFC-75876FC92041}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodigoFuente", "CodigoFuente\CodigoFuente.csproj", "{78FCD90E-2617-4F1B-AAFF-C4913B8231AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{69BD0015-626F-4924-8AFC-75876FC92041}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69BD0015-626F-4924-8AFC-75876FC92041}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69BD0015-626F-4924-8AFC-75876FC92041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78FCD90E-2617-4F1B-AAFF-C4913B8231AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78FCD90E-2617-4F1B-AAFF-C4913B8231AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78FCD90E-2617-4F1B-AAFF-C4913B8231AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78FCD90E-2617-4F1B-AAFF-C4913B8231AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
