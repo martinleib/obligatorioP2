@@ -16,7 +16,7 @@
                 @if (Context.Session.GetString("usuario-tipo") == null) {
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 } else if (Context.Session.GetString("usuario-tipo") == "Administrador") {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ver clientes</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Mi perfil</a>
                 } else if (Context.Session.GetString("usuario-tipo") == "Cliente") {
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Mi perfil</a>
                 }

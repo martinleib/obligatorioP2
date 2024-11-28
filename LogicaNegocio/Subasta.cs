@@ -35,21 +35,6 @@ namespace LogicaNegocio
             }
             return maxMonto;
         }
-
-        public Cliente ObtenerMayorPostor()
-        {
-            Cliente mayorPostor = null;
-            
-            foreach (Oferta oferta in _ofertas)
-            {
-                if (oferta.Monto == MaximoMonto())
-                {
-                    mayorPostor = oferta.Cliente;
-                }
-            }
-            
-            return mayorPostor;
-        }
         
         public override double Precio()
         {
@@ -108,21 +93,27 @@ namespace LogicaNegocio
         public bool CerrarSubasta(Usuario admin)
         {
             bool result = false;
-
             try
             {
-                if (_estado.Trim().ToUpper() == "ABIERTA" && ObtenerMayorPostor().Saldo >= Precio())
+                int i = _ofertas.Count - 1;
+
+                while (i >= 0 && result == false)
                 {
-                    _estado = "CERRADA";
-                    _fechaFinalizacion = DateTime.Now;
-                    _comprador = ObtenerMayorPostor();
-                    _comprador.Saldo -= Precio();
-                    _finalizador = admin;
-                    result = true;
+                    if (_ofertas[i].Cliente.Saldo >= _ofertas[i].Monto)
+                    {
+                        _estado = "CERRADA";
+                        _fechaFinalizacion = DateTime.Now;
+                        _comprador = _ofertas[i].Cliente;
+                        _comprador.Saldo -= _ofertas[i].Monto;
+                        _finalizador = admin;
+                        result = true;
+                    }
+                    i--;
                 }
-                else
+
+                if (!result)
                 {
-                    throw new Exception("La subasta no está activa");
+                    throw new Exception("No se encontró un comprador con saldo suficiente para cerrar la subasta");
                 }
             }
             catch (Exception ex)

@@ -42,7 +42,7 @@ public class ClienteController : Controller
             if (!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido) && !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password) && saldo > 0)
             {
                 sistema.AltaCliente(nombre, apellido, email, password, saldo);
-                ViewBag.Mensaje = "Se ha registrado correctamente";
+                ViewBag.Exito = "Se ha registrado correctamente";
             }
         }
         catch (Exception ex)

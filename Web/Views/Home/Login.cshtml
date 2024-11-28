@@ -16,10 +16,16 @@
         <input type="password" class="form-control" id="login--password" name="password" required />
     </section>
     <section class="mb-3">
-        <p class="d-inline me-1">No tenés una cuenta?</p><a href="/Cliente/Create/">Registrate haciendo click acá</a>
+        <p class="d-inline me-1">No tenés una cuenta?</p><a href="/Cliente/Create/">Registrate haciendo click aqui</a>
     </section>
     <section class="mb-3">
         <button type="submit" class="btn btn-dark">Iniciar sesión</button>
     </section>
 </form>
+
+@if(@ViewBag.Error != null){
+    <div class="alert alert-danger">
+    @ViewBag.Error
+</div>
+}
 

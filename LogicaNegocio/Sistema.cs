@@ -128,7 +128,7 @@ namespace LogicaNegocio
 
             if (_usuarios.Contains(cliente))
             {
-                throw new Exception("Ya existe un usuario registrado con ese correo");
+                throw new Exception("Ya existe un usuario registrado con esos datos");
             }
             
             _usuarios.Add(cliente);
@@ -138,7 +138,7 @@ namespace LogicaNegocio
         // Usa el metodo “AltaCliente” para crear manualmente instancias de tipo cliente.
         public void PrecargaCliente()
         {
-            AltaCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 1500);
+            AltaCliente("Sofía", "Gomez", "SofiaG2002@gmail.com", "SofiaG456", 500);
 
             AltaCliente("Javier", "Lopez", "JavierL1995@gmail.com", "JavierL789", 3200);
 
@@ -489,7 +489,7 @@ namespace LogicaNegocio
         public void PrecargaOferta()
         {
             ObtenerSubasta("PUB12").AltaOferta(450, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
-            ObtenerSubasta("PUB12").AltaOferta(550, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
+            ObtenerSubasta("PUB12").AltaOferta(550, ObtenerCliente("USU7"), new DateTime(2023, 11, 2));
             ObtenerSubasta("PUB13").AltaOferta(700, ObtenerCliente("USU4"), new DateTime(2023, 10, 5));
             ObtenerSubasta("PUB14").AltaOferta(500, ObtenerCliente("USU5"), new DateTime(2023, 11, 2));
             ObtenerSubasta("PUB15").AltaOferta(600, ObtenerCliente("USU6"), new DateTime(2023, 11, 2));

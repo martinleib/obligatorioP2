@@ -96,9 +96,16 @@ namespace Web.Controllers
             bool result = false;
             try
             {
-                Subasta subasta = sistema.ObtenerSubasta(idsubasta);
-                Usuario admin = sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id"));
-                result = subasta.CerrarSubasta(admin);
+                if (!string.IsNullOrEmpty(idsubasta))
+                {
+                    Subasta subasta = sistema.ObtenerSubasta(idsubasta);
+                    Usuario admin = sistema.ObtenerAdmin(HttpContext.Session.GetString("usuario-id"));
+
+                    if (admin != null && subasta != null)
+                    {
+                        result = subasta.CerrarSubasta(admin);
+                    }
+                }
 
                 if (!result)
                 {
