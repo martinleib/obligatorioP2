@@ -23,6 +23,7 @@ namespace LogicaNegocio
             this._ofertas = new List<Oferta>();
         }
 
+        // Devuelve el máximo que se haya ofertado hasta el momento en una Subasta
         public double MaximoMonto()
         {
             double maxMonto = 0;
@@ -36,6 +37,7 @@ namespace LogicaNegocio
             return maxMonto;
         }
         
+        // Devuelve el precio de la subasta
         public override double Precio()
         {
             double precio = 0;
@@ -49,6 +51,7 @@ namespace LogicaNegocio
             return precio;
         }
 
+        // Crea una oferta y la agrega a la lista de ofertas de la subasta
         public bool Ofertar(Cliente cliente, double monto)
         {
             bool result = false;
@@ -67,6 +70,7 @@ namespace LogicaNegocio
             return result;
         }
 
+        // Checkea que una oferta no exista
         public bool ExisteOferta(Oferta oferta)
         {
             bool result = false;
@@ -81,6 +85,8 @@ namespace LogicaNegocio
             }
             return result;
         }
+        
+        // Agrega una oferta a la lista de ofertas de la subasta
         public void AltaOferta(int monto, Cliente cliente, DateTime fecha)
         {
             Oferta oferta = new Oferta(monto, cliente, fecha);
@@ -90,6 +96,7 @@ namespace LogicaNegocio
             }
         }
 
+        // Cerrar subasta
         public bool CerrarSubasta(Usuario admin)
         {
             bool result = false;
@@ -101,11 +108,11 @@ namespace LogicaNegocio
                 {
                     if (_ofertas[i].Cliente.Saldo >= _ofertas[i].Monto)
                     {
-                        _estado = "CERRADA";
-                        _fechaFinalizacion = DateTime.Now;
-                        _comprador = _ofertas[i].Cliente;
-                        _comprador.Saldo -= _ofertas[i].Monto;
-                        _finalizador = admin;
+                        this._estado = "CERRADA";
+                        this._fechaFinalizacion = DateTime.Now;
+                        this._comprador = _ofertas[i].Cliente;
+                        this._comprador.Saldo -= _ofertas[i].Monto;
+                        this._finalizador = admin;
                         result = true;
                     }
                     i--;

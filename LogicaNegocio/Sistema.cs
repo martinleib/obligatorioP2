@@ -10,8 +10,8 @@ namespace LogicaNegocio
         private List<Publicacion> _publicaciones = new List<Publicacion>();
         private List<Articulo> _articulos = new List<Articulo>();
 
+        // Patrón Singleton
         private static Sistema _instancia;
-
         public static Sistema Instancia
         {
             get
@@ -25,11 +25,8 @@ namespace LogicaNegocio
             }
         }
 
-        public List<Usuario> Usuarios
-        {
-            get { return _usuarios; }
-        }
-
+        // Cada vez que se llama a una instancia de sistema
+        // desde un controlador se ejecutan los siguientes métodos
         private Sistema()
         {
             PrecargaAdministrador();
@@ -39,12 +36,19 @@ namespace LogicaNegocio
             PrecargaSubasta();
             PrecargaOferta();
         }
+        
+        public List<Usuario> Usuarios
+        {
+            get { return _usuarios; }
+        }
 
         public List<Publicacion> Publicaciones
         {
             get { return _publicaciones; }
         }
 
+        // Crea un usuario Administrador
+        // Método usado por la precarga de administradores
         public void AltaAdministrador(string nombre, string apellido, string email, string password)
         {
             Usuario administrador = new Usuario(nombre, apellido, email, password);
@@ -55,6 +59,8 @@ namespace LogicaNegocio
             }
         }
 
+        // Busca un usuario en base a su email y contraseña
+        // Método usado por el login
         public Usuario BuscarUsuario(string email, string password)
         {
             int i = 0;
@@ -74,6 +80,7 @@ namespace LogicaNegocio
             return usuario;
         }
 
+        // Busca un cliente en base a su ID
         public Cliente ObtenerCliente(string id)
         {
             int i = 0;
@@ -92,6 +99,7 @@ namespace LogicaNegocio
             return usuarioCliente;
         }
 
+        // Busca un admin en base a su ID
         public Usuario ObtenerAdmin(string id)
         {
             int i = 0;
@@ -326,6 +334,8 @@ namespace LogicaNegocio
             }
         }
 
+        // Busca una publicación por su ID
+        // y la retorna
         public Publicacion ObtenerPublicacion(string id)
         {
             int i = 0;
@@ -344,6 +354,7 @@ namespace LogicaNegocio
             return publicacion;
         }
 
+        // Precarga los articulos en una publicacion
         public void PrecargaArticulosEnPublicacion(string idPublicacion, string idArticulo)
         {
             Articulo articulo = BuscarArticulo(idArticulo);
@@ -455,6 +466,7 @@ namespace LogicaNegocio
             PrecargaArticulosEnPublicacion("PUB20", "ART50");
         }
 
+        // Obtiene una subasta por su ID
         public Subasta ObtenerSubasta(string id)
         {
             Subasta subasta = null;
@@ -468,6 +480,7 @@ namespace LogicaNegocio
             return subasta;
         }
 
+        // Devuelve una lista con todas las subastas que haya en el sistema ordenadas
         public List<Subasta> SubastasOrdenadas()
         {
             List<Subasta> subastaOrdenada = new List<Subasta>();
@@ -501,14 +514,16 @@ namespace LogicaNegocio
             ObtenerSubasta("PUB20").AltaOferta(200, ObtenerCliente("USU10"), new DateTime(2023, 11, 2));
         }
 
-        public Venta ObtenerVenta(string IdVenta)
+        // Busca una publiacación de tipo venta en base a
+        // su ID y la retorna
+        public Venta ObtenerVenta(string idVenta)
         {
             int i = 0;
             Venta venta = null;
 
-            while (i < _publicaciones.Count && !string.IsNullOrEmpty(IdVenta) && venta == null)
+            while (i < _publicaciones.Count && !string.IsNullOrEmpty(idVenta) && venta == null)
             {
-                if (_publicaciones[i].Id.Trim().ToUpper() == IdVenta.Trim().ToUpper() && _publicaciones[i] is Venta)
+                if (_publicaciones[i].Id.Trim().ToUpper() == idVenta.Trim().ToUpper() && _publicaciones[i] is Venta)
                 {
                     venta = (Venta)_publicaciones[i];
                 }

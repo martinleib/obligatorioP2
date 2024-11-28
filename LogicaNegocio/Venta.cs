@@ -20,6 +20,7 @@ namespace LogicaNegocio
             this._relampago = relampago;
         }
 
+        // Método para obtener precio de la publicación
         public override double Precio()
         {
             double precioFinal = 0;
@@ -37,6 +38,7 @@ namespace LogicaNegocio
             return precioFinal;
         }
 
+        // Comprar una publicación de tipo venta
         public void CompraVenta(Cliente comprador)
         {
             try

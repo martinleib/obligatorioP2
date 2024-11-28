@@ -28,6 +28,7 @@ namespace LogicaNegocio
             s_ultimoID++;
         }
 
+        // Constructor vacio para crear objeto por parametros en MVC
         public Usuario()
         {
             this._id = $"USU{s_ultimoID + 1}";

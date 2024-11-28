@@ -93,6 +93,7 @@ namespace LogicaNegocio
             get { return _nombre; }
         }
 
+        // Método polimorfico que retorna precio de una publicación
         public abstract double Precio();
 
         public override bool Equals(object obj)
