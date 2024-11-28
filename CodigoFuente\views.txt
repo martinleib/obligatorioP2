@@ -1,6 +1,6 @@
 ﻿***********************************
 Archivo: _ViewImports.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\_ViewImports.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/_ViewImports.cshtml
 ***********************************
 @using Web
 @using Web.Models
@@ -8,169 +8,15 @@ Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views
 
 ***********************************
 Archivo: _ViewStart.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\_ViewStart.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/_ViewStart.cshtml
 ***********************************
 @{
     Layout = "_Layout";
 }
 
 ***********************************
-Archivo: Create.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Cliente\Create.cshtml
-***********************************
-@{
-    ViewData["Title"] = "Create";
-}
-
-<form action="#" method="post">
-    <header class="mb-3">
-        <h1 class="fs-4">Registro</h1>
-    </header>
-    <section class="mb-3">
-        <label class="form-label" for="register--nombre">Nombre</label>
-        <input type="text" class="form-control" id="register--nombre" name="nombre" />
-    </section>
-    <section class="mb-3">
-        <label class="form-label" for="register--apellido">Apellido</label>
-        <input type="text" class="form-control" id="register--apellido" name="apellido" />
-    </section>
-    <section class="mb-3">
-        <label class="form-label" for="register--email">Email</label>
-        <input type="email" class="form-control" id="register--email" name="email" />
-    </section>
-    <section class="mb-3">
-        <label class="form-label" for="register--password">Contraseña</label>
-        <input type="password" class="form-control" id="register--password" name="password" />
-    </section>
-    <section class="mb-3">
-        <label class="form-label" for="register--saldo">Saldo</label>
-        <input type="number" class="form-control" id="register--saldo" name="saldo" />
-    </section>
-    <section class="mb-3">
-        <p class="d-inline me-1">Ya tenés una cuenta?</p><a href="/Home/Login/">Iniciá sesión haciendo click aqui</a>
-    </section>
-    <section class="mb-3">
-        <button type="submit" class="btn btn-dark">Registrarte</button>
-    </section>
-</form>
-@if(@ViewBag.Mensaje != null){
-    <div class="alert alert-danger">
-        @ViewBag.Mensaje
-    </div>
-}
-else if (ViewBag.Exito != null)
-{
-    <div class="alert alert-success">
-        @ViewBag.Exito
-    </div>
-}
-
-
-
-***********************************
-Archivo: Edit.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Cliente\Edit.cshtml
-***********************************
-@model LogicaNegocio.Cliente
-@{
-    ViewData["Title"] = "Cargar saldo";
-}
-
-<form action="#" method="post">
-    <header class="mb-3">
-        <h1 class="fs-4">Cargar saldo en su billetera electrónica</h1>
-    </header>
-    <section class="mb-3">
-        <label class="form-label" for="register--nombre">Nombre</label>
-        <input type="text" class="form-control" id="register--nombre" name="nombre" value="@Model.Nombre" readonly />
-    </section>
-    <section class="mb-3">
-        <label class="form-label" for="register--apellido">Apellido</label>
-        <input type="text" class="form-control" id="register--apellido" name="apellido" value="@Model.Apellido" readonly />
-    </section>
-    <section class="mb-3">
-        <label class="form-label" for="register--email">Email</label>
-        <input type="email" class="form-control" id="register--email" name="email" value="@Model.Email" readonly />
-    </section>
-    <section class="mb-3">
-        <label class="form-label" for="register--saldo">Saldo actual</label>
-        <input type="number" class="form-control" id="register--saldo" name="saldo" value="@Model.Saldo" readonly />
-    </section>
-    <section class="mb-3">
-        <label class="form-label" for="register--monto">Monto a cargar</label>
-        <input type="number" class="form-control" id="register--monto" name="monto" />
-    </section>
-    <section class="mb-3">
-        <button type="submit" class="btn btn-dark">Cargar saldo</button>
-    </section>
-</form>
-
-
-***********************************
-Archivo: Index.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Cliente\Index.cshtml
-***********************************
-@model LogicaNegocio.Cliente
-@{
-    ViewData["Title"] = "Index";
-}
-
-@if (Model != null)
-{
-    <div class="d-flex justify-content-center align-items-center">
-        <img src="~/placeholder.webp" class="me-3 d-inline" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" />
-        <h1 class="d-inline">Mi perfil</h1>
-    </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Saldo</th>
-            <th>Acción</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@Model.Nombre</td>
-                <td>@Model.Apellido</td>
-                <td>@Model.Email</td>
-                <td>@Model.Saldo</td>
-                <td>
-                    <a asp-controller="Cliente" asp-action="Edit">Cargar saldo</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-}
-else
-{
-   <p>No existe ese cliente en el sistema</p>
-}
-
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
-else if (TempData["Exito"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Exito"]
-    </div>
-}
-
-***********************************
-Archivo: Index.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Home\Index.cshtml
-***********************************
-
-***********************************
 Archivo: Login.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Home\Login.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Home/Login.cshtml
 ***********************************
 
 @{
@@ -206,7 +52,12 @@ Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views
 
 ***********************************
 Archivo: Index.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Publicacion\Index.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Home/Index.cshtml
+***********************************
+
+***********************************
+Archivo: Index.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Publicacion/Index.cshtml
 ***********************************
 @model List<LogicaNegocio.Publicacion>
 @{
@@ -268,38 +119,8 @@ else if (TempData["Mensaje"] != null)
 }
 
 ***********************************
-Archivo: Error.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Shared\Error.cshtml
-***********************************
-@model ErrorViewModel
-@{
-    ViewData["Title"] = "Error";
-}
-
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
-
-***********************************
 Archivo: _Layout.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Shared\_Layout.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Shared/_Layout.cshtml
 ***********************************
 @using LogicaNegocio
 <!DOCTYPE html>
@@ -377,49 +198,177 @@ Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views
 </html>
 
 ***********************************
+Archivo: Error.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Shared/Error.cshtml
+***********************************
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Development Mode</h3>
+<p>
+    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+</p>
+<p>
+    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
+    It can result in displaying sensitive information from exceptions to end users.
+    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
+    and restarting the app.
+</p>
+
+***********************************
 Archivo: _ValidationScriptsPartial.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Shared\_ValidationScriptsPartial.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Shared/_ValidationScriptsPartial.cshtml
 ***********************************
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 ***********************************
-Archivo: Cerrar.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Subasta\Cerrar.cshtml
+Archivo: Edit.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Cliente/Edit.cshtml
 ***********************************
+@model LogicaNegocio.Cliente
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Cargar saldo";
 }
 
-@model LogicaNegocio.Subasta
 <form action="#" method="post">
     <header class="mb-3">
-        <h1 class="fs-4">Se va a cerrar la siguiente subasta:</h1>
+        <h1 class="fs-4">Cargar saldo en su billetera electrónica</h1>
     </header>
     <section class="mb-3">
-        <label class="form-label" for="admin--id">Administrador</label>
-        <input type="text" class="form-control" id="admin--id" name="idadmin" value="@Context.Session.GetString("usuario-id")" readonly />
+        <label class="form-label" for="register--nombre">Nombre</label>
+        <input type="text" class="form-control" id="register--nombre" name="nombre" value="@Model.Nombre" readonly />
     </section>
     <section class="mb-3">
-        <label class="form-label" for="subasta--id">ID Subasta</label>
-        <input type="text" class="form-control" id="subasta--id" name="idsubasta" value="@Model.Id" readonly />
+        <label class="form-label" for="register--apellido">Apellido</label>
+        <input type="text" class="form-control" id="register--apellido" name="apellido" value="@Model.Apellido" readonly />
     </section>
     <section class="mb-3">
-        <label class="form-label" for="subasta--nombre">Nombre</label>
-        <input type="text" class="form-control" id="subasta--nombre" name="nombre" value="@Model.Nombre" readonly />
+        <label class="form-label" for="register--email">Email</label>
+        <input type="email" class="form-control" id="register--email" name="email" value="@Model.Email" readonly />
     </section>
     <section class="mb-3">
-        <label class="form-label" for="subasta--estado">Estado</label>
-        <input type="text" class="form-control" id="subasta--estado" name="estado" value="@Model.Estado" readonly />
+        <label class="form-label" for="register--saldo">Saldo actual</label>
+        <input type="number" class="form-control" id="register--saldo" name="saldo" value="@Model.Saldo" readonly />
     </section>
     <section class="mb-3">
-        <label class="form-label" for="subasta--precio">Precio</label>
-        <input type="email" class="form-control" id="subasta--precio" name="precio" value="@Model.Precio()" readonly />
+        <label class="form-label" for="register--monto">Monto a cargar</label>
+        <input type="number" class="form-control" id="register--monto" name="monto" />
     </section>
     <section class="mb-3">
-        <button type="submit" class="btn btn-danger">Confirmar</button>
+        <button type="submit" class="btn btn-dark">Cargar saldo</button>
     </section>
 </form>
+
+
+***********************************
+Archivo: Create.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Cliente/Create.cshtml
+***********************************
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form action="#" method="post">
+    <header class="mb-3">
+        <h1 class="fs-4">Registro</h1>
+    </header>
+    <section class="mb-3">
+        <label class="form-label" for="register--nombre">Nombre</label>
+        <input type="text" class="form-control" id="register--nombre" name="nombre" />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="register--apellido">Apellido</label>
+        <input type="text" class="form-control" id="register--apellido" name="apellido" />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="register--email">Email</label>
+        <input type="email" class="form-control" id="register--email" name="email" />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="register--password">Contraseña</label>
+        <input type="password" class="form-control" id="register--password" name="password" />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="register--saldo">Saldo</label>
+        <input type="number" class="form-control" id="register--saldo" name="saldo" />
+    </section>
+    <section class="mb-3">
+        <p class="d-inline me-1">Ya tenés una cuenta?</p><a href="/Home/Login/">Iniciá sesión haciendo click aqui</a>
+    </section>
+    <section class="mb-3">
+        <button type="submit" class="btn btn-dark">Registrarte</button>
+    </section>
+</form>
+@if(@ViewBag.Mensaje != null){
+    <div class="alert alert-danger">
+        @ViewBag.Mensaje
+    </div>
+}
+else if (ViewBag.Exito != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.Exito
+    </div>
+}
+
+
+
+***********************************
+Archivo: Index.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Cliente/Index.cshtml
+***********************************
+@model LogicaNegocio.Cliente
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (Model != null)
+{
+    <div class="d-flex justify-content-center align-items-center">
+        <img src="~/placeholder.webp" class="me-3 d-inline" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" />
+        <h1 class="d-inline">Mi perfil</h1>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Saldo</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Nombre</td>
+                <td>@Model.Apellido</td>
+                <td>@Model.Email</td>
+                <td>@Model.Saldo</td>
+                <td>
+                    <a asp-controller="Cliente" asp-action="Edit">Cargar saldo</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+else
+{
+   <p>No existe ese cliente en el sistema</p>
+}
+
 
 @if (TempData["Error"] != null)
 {
@@ -433,9 +382,31 @@ else if (TempData["Exito"] != null)
         @TempData["Exito"]
     </div>
 }
+
+***********************************
+Archivo: Index.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Usuario/Index.cshtml
+***********************************
+@model LogicaNegocio.Usuario
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section>
+    <h1 class="fs-4">Iniciaste sesión como:</h1>
+    <section class="d-flex align-items-center">
+        <img src="~/placeholder.webp" class="me-3" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" />
+        <div>
+            <p class="mb-0"><strong>Nombre completo:</strong> @Model.Nombre @Model.Apellido</p>
+            <p class="mb-0"><strong>Email:</strong> @Model.Email</p>
+            <p class="mb-2"><strong>ID:</strong> @Model.Id</p>
+            <small>Utilizá las navegaciones en el header para navegar por el sitio</small>
+        </div>
+    </section>
+</section>
 ***********************************
 Archivo: Edit.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Subasta\Edit.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Subasta/Edit.cshtml
 ***********************************
 
 @{
@@ -496,8 +467,58 @@ else if (TempData["Mensaje"] != null)
 }
 
 ***********************************
+Archivo: Cerrar.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Subasta/Cerrar.cshtml
+***********************************
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@model LogicaNegocio.Subasta
+<form action="#" method="post">
+    <header class="mb-3">
+        <h1 class="fs-4">Se va a cerrar la siguiente subasta:</h1>
+    </header>
+    <section class="mb-3">
+        <label class="form-label" for="admin--id">Administrador</label>
+        <input type="text" class="form-control" id="admin--id" name="idadmin" value="@Context.Session.GetString("usuario-id")" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--id">ID Subasta</label>
+        <input type="text" class="form-control" id="subasta--id" name="idsubasta" value="@Model.Id" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--nombre">Nombre</label>
+        <input type="text" class="form-control" id="subasta--nombre" name="nombre" value="@Model.Nombre" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--estado">Estado</label>
+        <input type="text" class="form-control" id="subasta--estado" name="estado" value="@Model.Estado" readonly />
+    </section>
+    <section class="mb-3">
+        <label class="form-label" for="subasta--precio">Precio</label>
+        <input type="email" class="form-control" id="subasta--precio" name="precio" value="@Model.Precio()" readonly />
+    </section>
+    <section class="mb-3">
+        <button type="submit" class="btn btn-danger">Confirmar</button>
+    </section>
+</form>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+else if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Exito"]
+    </div>
+}
+***********************************
 Archivo: Index.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Subasta\Index.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Subasta/Index.cshtml
 ***********************************
 @model List<LogicaNegocio.Subasta>
 
@@ -564,29 +585,8 @@ else if (TempData["Mensaje"] != null)
 }
 
 ***********************************
-Archivo: Index.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Usuario\Index.cshtml
-***********************************
-@model LogicaNegocio.Usuario
-@{
-    ViewData["Title"] = "Index";
-}
-
-<section>
-    <h1 class="fs-4">Iniciaste sesión como:</h1>
-    <section class="d-flex align-items-center">
-        <img src="~/placeholder.webp" class="me-3" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" />
-        <div>
-            <p class="mb-0"><strong>Nombre completo:</strong> @Model.Nombre @Model.Apellido</p>
-            <p class="mb-0"><strong>Email:</strong> @Model.Email</p>
-            <p class="mb-2"><strong>ID:</strong> @Model.Id</p>
-            <small>Utilizá las navegaciones en el header para navegar por el sitio</small>
-        </div>
-    </section>
-</section>
-***********************************
 Archivo: Edit.cshtml
-Carpeta: C:\Users\Juli\Downloads\Obligatorio revision\Obligatorio 2 P2\Web\Views\Venta\Edit.cshtml
+Carpeta: /Users/martinleib/Library/Mobile Documents/com~apple~CloudDocs/2024 ORT/Programación 2/obligatorioP2/Web/Views/Venta/Edit.cshtml
 ***********************************
 @{
     ViewData["Title"] = "Edit";
